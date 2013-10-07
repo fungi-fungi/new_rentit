@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:page="urn:jsptagdir:/WEB-INF/tags/form" xmlns:table="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
+    <jsp:output omit-xml-declaration="yes"/>
+    <page:list id="pl_com_rentit_PurchaseOrder" items="${purchaseorders}" z="h6ZuUGB0qLS8OqM81NCKKjkdI/8=">
+        <table:table data="${purchaseorders}" id="l_com_rentit_PurchaseOrder" path="/purchaseorders" z="6iOacFFjbPrZu2/tke+S4KP1N/g=">
+            <table:column id="c_com_rentit_PurchaseOrder_status" property="status" z="1KCUcXweGyjKv+ApVwzPyKTwk4k="/>
+            <table:column id="c_com_rentit_PurchaseOrder_customer" property="customer" z="O0VdiGVoXeJztOaaZxn/W+ua0vU="/>
+            <table:column id="c_com_rentit_PurchaseOrder_plant" property="plant" z="VWlaW3vB+JNrTNFUo+I9VffGPXA="/>
+            <table:column id="c_com_rentit_PurchaseOrder_puchaseID" property="puchaseID" z="ZDG722RtG5H+pAv5zB16AIgsajY="/>
+            <table:column date="true" dateTimePattern="${purchaseOrder_duedate_date_format}" id="c_com_rentit_PurchaseOrder_dueDate" property="dueDate" z="Zp1QTm46T9+14jLWrdVkZTCvieQ="/>
+            <table:column date="true" dateTimePattern="${purchaseOrder_startdate_date_format}" id="c_com_rentit_PurchaseOrder_startDate" property="startDate" z="Z0N2Pb62Agjc6b5GUUN6+UzJdko="/>
+        </table:table>
+    </page:list>
+</div>
