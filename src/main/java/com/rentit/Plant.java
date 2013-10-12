@@ -1,4 +1,5 @@
 package com.rentit;
+
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
@@ -11,17 +12,17 @@ import javax.xml.bind.annotation.XmlRootElement;
 @RooJpaActiveRecord
 @XmlRootElement(name = "plant")
 public class Plant {
-	
+
 	/**
      */
-    private String name;
+	private String name;
 
-    /**
+	/**
      */
-    private String description;
+	private String description;
 
-    /**
+	/**
      */
-    @NotNull
-    private Float price;
+	@NotNull
+	private Float price;
 }

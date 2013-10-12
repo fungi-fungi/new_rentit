@@ -46,3 +46,7 @@ field reference --fieldName customer --type ~.PurchaseOrder --cardinality ONE_TO
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-07 11:16:13
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-07 12:19:26
 // Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-12 20:00:54
+repository jpa --interface ~.repository.PlantRepository --entity ~.Plant
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-12 22:57:29
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log opened at 2013-10-12 23:06:44
+// Spring Roo 1.2.4.RELEASE [rev 75337cf] log closed at 2013-10-12 23:08:31

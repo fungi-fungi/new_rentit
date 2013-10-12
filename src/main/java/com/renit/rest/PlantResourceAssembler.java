@@ -20,10 +20,9 @@ public class PlantResourceAssembler {
 		PlantResourceList resourcesList = new PlantResourceList();
 
 		Iterator<Plant> i = list.iterator();
-		while(i.hasNext()){
+		while (i.hasNext()) {
 			resourcesList.addPlant(covertPlantToResourse(i.next()));
 		}
 		return resourcesList;
 	}
-
 }

@@ -7,7 +7,9 @@ import com.rentit.Customer;
 import com.rentit.Invoice;
 import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
+import com.rentit.repository.PlantRepository;
 import com.rentit.web.ApplicationConversionServiceFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
@@ -15,6 +17,9 @@ import org.springframework.format.FormatterRegistry;
 privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService {
     
     declare @type: ApplicationConversionServiceFactoryBean: @Configurable;
+    
+    @Autowired
+    PlantRepository ApplicationConversionServiceFactoryBean.plantRepository;
     
     public Converter<Customer, String> ApplicationConversionServiceFactoryBean.getCustomerToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.Customer, java.lang.String>() {
@@ -75,7 +80,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Long, Plant> ApplicationConversionServiceFactoryBean.getIdToPlantConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.rentit.Plant>() {
             public com.rentit.Plant convert(java.lang.Long id) {
-                return Plant.findPlant(id);
+                return plantRepository.findOne(id);
             }
         };
     }

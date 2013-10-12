@@ -4,15 +4,16 @@
 package com.rentit.web;
 
 import com.rentit.Customer;
-import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
 import com.rentit.Statuses;
+import com.rentit.repository.PlantRepository;
 import com.rentit.web.PurchaseOrderController;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.joda.time.format.DateTimeFormat;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,9 @@ import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 
 privileged aspect PurchaseOrderController_Roo_Controller {
+    
+    @Autowired
+    PlantRepository PurchaseOrderController.plantRepository;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String PurchaseOrderController.create(@Valid PurchaseOrder purchaseOrder, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -102,7 +106,7 @@ privileged aspect PurchaseOrderController_Roo_Controller {
         uiModel.addAttribute("purchaseOrder", purchaseOrder);
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("customers", Customer.findAllCustomers());
-        uiModel.addAttribute("plants", Plant.findAllPlants());
+        uiModel.addAttribute("plants", plantRepository.findAll());
         uiModel.addAttribute("statuseses", Arrays.asList(Statuses.values()));
     }
     
