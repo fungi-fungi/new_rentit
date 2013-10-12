@@ -8,4 +8,8 @@ public class PlantResource {
 	Float price;
 
 	String name;
+
+	String description;
+	
+	
 }
