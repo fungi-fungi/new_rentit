@@ -17,13 +17,17 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.renit.rest.PlantResource;
 import com.renit.rest.PlantResourceAssembler;
 import com.renit.rest.PlantResourceList;
+import com.renit.rest.PurchaseOrderResource;
 import com.rentit.Plant;
+import com.rentit.PurchaseOrder;
+import com.rentit.Statuses;
 
 @Controller
 @RequestMapping("/rest")
 public class API {
 
 	@Autowired com.rentit.repository.PlantRepository plantRepository;
+	@Autowired com.rentit.repository.PurchaseOrderRepository poRepository;
 	@RequestMapping(method=RequestMethod.GET, value="/plants")
 	public ResponseEntity<PlantResourceList> gerPlantsResourcesList() {
 		List<Plant> plants = Plant.findAllPlants();
@@ -43,6 +47,86 @@ public class API {
 
 		return new ResponseEntity<PlantResource>(assembler.covertPlantToResourse(plant), new HttpHeaders(), HttpStatus.OK);
 	}
+	
+	// JUST FOR TEST REASONS
+	@RequestMapping(method=RequestMethod.GET, value="/po/{id}")
+	public ResponseEntity<PurchaseOrderResource> gerPurchaseOrderResource(@PathVariable Long id) {
+		
+		PurchaseOrder po = poRepository.findOne(id);
+		
+		PurchaseOrderResource poResource = new PurchaseOrderResource();
+		poResource.setPuchaseID(po.getPuchaseID());
+		poResource.setCustomer(po.getCustomer());
+		poResource.setPlant(po.getPlant());
+		poResource.setStatus(po.getStatus());
+		poResource.setStartDate(po.getStartDate());
+		poResource.setEndDate(po.getEndDate());
+		poResource.setDueDate(po.getDueDate());		
+
+		return new ResponseEntity<PurchaseOrderResource>(poResource, new HttpHeaders(), HttpStatus.OK);
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/po")
+	public ResponseEntity<Void> createPurchaseOrderResource(@RequestBody PurchaseOrderResource poResource) {
+		
+		PurchaseOrder po = new PurchaseOrder();
+		po.setPuchaseID(poResource.getPuchaseID());
+		po.setCustomer(poResource.getCustomer());
+		po.setPlant(poResource.getPlant());
+		// New request should be panding
+		po.setStatus(Statuses.PANDING);
+		po.setStartDate(poResource.getStartDate());
+		po.setEndDate(poResource.getEndDate());
+		po.setDueDate(poResource.getDueDate());
+		po.persist();
+
+		HttpHeaders headers = new HttpHeaders();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
+
+		headers.setLocation(location);
+		
+		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.CREATED);
+		return response;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/po/{id}")
+	public ResponseEntity<Void> modifyPurchaseOrderResource(@PathVariable Long id, @RequestBody PurchaseOrderResource poResource) {
+		
+		PurchaseOrder po = poRepository.findOne(id);
+		po.setPuchaseID(poResource.getPuchaseID());
+		po.setCustomer(poResource.getCustomer());
+		po.setPlant(poResource.getPlant());
+		// New request should be panding
+		po.setStatus(poResource.getStatus());
+		po.setStartDate(poResource.getStartDate());
+		po.setEndDate(poResource.getEndDate());
+		po.setDueDate(poResource.getDueDate());
+		po.persist();
+
+		HttpHeaders headers = new HttpHeaders();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
+
+		headers.setLocation(location);
+		
+		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.CREATED);
+		return response;
+	}
+	
+	@RequestMapping(method=RequestMethod.POST, value="/po/{id}/cancel")
+	public ResponseEntity<Void> cencelPurchaseOrderResource(@PathVariable Long id) {
+		PurchaseOrder po = poRepository.findOne(id);
+		po.setStatus(Statuses.CANCELED);
+		po.persist();
+		HttpHeaders headers = new HttpHeaders();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
+
+		headers.setLocation(location);
+		
+		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.CREATED);
+		return response;
+	}
+	
+	
 	
 
 	@RequestMapping(method=RequestMethod.POST, value="/plant")

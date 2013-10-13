@@ -8,6 +8,7 @@ import com.rentit.Invoice;
 import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
 import com.rentit.repository.PlantRepository;
+import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.web.ApplicationConversionServiceFactoryBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
@@ -20,6 +21,9 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     
     @Autowired
     PlantRepository ApplicationConversionServiceFactoryBean.plantRepository;
+    
+    @Autowired
+    PurchaseOrderRepository ApplicationConversionServiceFactoryBean.purchaseOrderRepository;
     
     public Converter<Customer, String> ApplicationConversionServiceFactoryBean.getCustomerToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.Customer, java.lang.String>() {
@@ -104,7 +108,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Long, PurchaseOrder> ApplicationConversionServiceFactoryBean.getIdToPurchaseOrderConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.rentit.PurchaseOrder>() {
             public com.rentit.PurchaseOrder convert(java.lang.Long id) {
-                return PurchaseOrder.findPurchaseOrder(id);
+                return purchaseOrderRepository.findOne(id);
             }
         };
     }
