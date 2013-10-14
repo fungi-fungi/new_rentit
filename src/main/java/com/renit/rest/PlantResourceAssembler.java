@@ -10,6 +10,7 @@ public class PlantResourceAssembler {
 	public PlantResource covertPlantToResourse(Plant plant) {
 
 		PlantResource plantResource = new PlantResource();
+		plantResource.id = plant.getId();
 		plantResource.name = plant.getName();
 		plantResource.price = plant.getPrice();
 		plantResource.description = plant.getDescription();

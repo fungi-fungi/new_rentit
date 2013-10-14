@@ -7,6 +7,14 @@ import com.renit.rest.PlantResource;
 
 privileged aspect PlantResource_Roo_JavaBean {
     
+    public Long PlantResource.getId() {
+        return this.id;
+    }
+    
+    public void PlantResource.setId(Long id) {
+        this.id = id;
+    }
+    
     public Float PlantResource.getPrice() {
         return this.price;
     }
