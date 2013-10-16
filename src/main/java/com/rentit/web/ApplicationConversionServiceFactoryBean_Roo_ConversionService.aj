@@ -76,7 +76,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Plant, String> ApplicationConversionServiceFactoryBean.getPlantToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.Plant, java.lang.String>() {
             public String convert(Plant plant) {
-                return new StringBuilder().append(plant.getName()).append(' ').append(plant.getDescription()).append(' ').append(plant.getPrice()).toString();
+                return new StringBuilder().append(plant.getPlantId()).append(' ').append(plant.getName()).append(' ').append(plant.getDescription()).append(' ').append(plant.getPrice()).toString();
             }
         };
     }

@@ -7,6 +7,14 @@ import com.rentit.Plant;
 
 privileged aspect Plant_Roo_JavaBean {
     
+    public long Plant.getPlantId() {
+        return this.plantId;
+    }
+    
+    public void Plant.setPlantId(long plantId) {
+        this.plantId = plantId;
+    }
+    
     public String Plant.getName() {
         return this.name;
     }

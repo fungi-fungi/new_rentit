@@ -13,8 +13,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "plant")
 public class Plant {
 
+	private long plantId;
 	/**
      */
+	
 	private String name;
 
 	/**

@@ -8,7 +8,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 @XmlRootElement(name = "plant")
 public class PlantResource {
 	
-	Long id;
+	Long plantId;
 
 	Float price;
 

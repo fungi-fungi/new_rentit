@@ -6,5 +6,6 @@
         <field:input field="description" id="c_com_rentit_Plant_description" z="AVpBZ/O1lv10Cyf8wxILs5BQnuM="/>
         <field:input field="price" id="c_com_rentit_Plant_price" required="true" validationMessageCode="field_invalid_number" z="dRp3CMWoo2pwjNAJTvUkjheEui4="/>
         <field:input field="name" id="c_com_rentit_Plant_name" z="4EW87oLkP3YzvuIEmmeinmFFFvA="/>
+        <field:input field="plantId" id="c_com_rentit_Plant_plantId" z="r7stu1lgC0JRJjUcobDN29EN1vw="/>
     </form:update>
 </div>
