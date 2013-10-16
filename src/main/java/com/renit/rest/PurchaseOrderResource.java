@@ -31,12 +31,12 @@ public class PurchaseOrderResource {
 	/**
      */
 	@OneToOne
-	private Customer customer;
+	private long customerId;
 
 	/**
      */
 	@OneToOne
-	private Plant plant;
+	private long plantId;
 
 	/**
      */

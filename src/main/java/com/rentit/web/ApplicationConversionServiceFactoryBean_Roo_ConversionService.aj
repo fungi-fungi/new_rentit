@@ -7,6 +7,7 @@ import com.rentit.Customer;
 import com.rentit.Invoice;
 import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
+import com.rentit.repository.CustomerRepository;
 import com.rentit.repository.PlantRepository;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.web.ApplicationConversionServiceFactoryBean;
@@ -20,6 +21,9 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     declare @type: ApplicationConversionServiceFactoryBean: @Configurable;
     
     @Autowired
+    CustomerRepository ApplicationConversionServiceFactoryBean.customerRepository;
+    
+    @Autowired
     PlantRepository ApplicationConversionServiceFactoryBean.plantRepository;
     
     @Autowired
@@ -28,7 +32,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Customer, String> ApplicationConversionServiceFactoryBean.getCustomerToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.Customer, java.lang.String>() {
             public String convert(Customer customer) {
-                return new StringBuilder().append(customer.getName()).toString();
+                return new StringBuilder().append(customer.getCustomerId()).append(' ').append(customer.getName()).toString();
             }
         };
     }
@@ -36,7 +40,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Long, Customer> ApplicationConversionServiceFactoryBean.getIdToCustomerConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.rentit.Customer>() {
             public com.rentit.Customer convert(java.lang.Long id) {
-                return Customer.findCustomer(id);
+                return customerRepository.findOne(id);
             }
         };
     }

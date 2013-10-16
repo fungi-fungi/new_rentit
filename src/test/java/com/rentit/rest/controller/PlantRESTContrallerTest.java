@@ -1,4 +1,4 @@
-package com.rentit;
+package com.rentit.rest.controller;
 
 
 import static org.junit.Assert.assertTrue;
@@ -24,6 +24,8 @@ import com.sun.jersey.api.client.WebResource;
 @Transactional
 public class PlantRESTContrallerTest {
 
+	private String RESOURCE_URI = "http://localhost:8080/RentIt/rest/plant";
+	
     @Autowired
 	com.rentit.repository.PlantRepository plantRepository;
     
@@ -52,7 +54,7 @@ public class PlantRESTContrallerTest {
 		resource.setPlantId(plantId);
 
 		Client client = Client.create();
-		WebResource webResource = client.resource("http://localhost:8080/RentIt/rest/plant");
+		WebResource webResource = client.resource(RESOURCE_URI);
 		ClientResponse response = webResource.type(MediaType.APPLICATION_XML) 
 				 .accept(MediaType.APPLICATION_XML).post(ClientResponse.class, resource); 
 
@@ -64,17 +66,17 @@ public class PlantRESTContrallerTest {
 	public void after(){
 		
 		Client client = Client.create();
-		WebResource webResource = client.resource("http://localhost:8080/RentIt/rest/plant/" + getRequestedPlant().getPlantId());
+		WebResource webResource = client.resource(RESOURCE_URI + getRequestedPlant().getPlantId());
 		ClientResponse response = webResource.type(MediaType.APPLICATION_XML) 
 				 .accept(MediaType.APPLICATION_XML).delete(ClientResponse.class); 
 		assertTrue(response.getStatus() == Status.CREATED.getStatusCode());
 	}
     
     @Test
-    public void gerPlantResource() {
+    public void getPlantResource() {
     	
     	Client client = Client.create();
-    	WebResource webResource = client.resource("http://localhost:8080/RentIt/rest/plant/" + getRequestedPlant().getPlantId());
+    	WebResource webResource = client.resource(RESOURCE_URI + getRequestedPlant().getPlantId());
     	ClientResponse response = webResource.get(ClientResponse.class);
 		
 		PlantResource responedPlant = response.getEntity(PlantResource.class); 

@@ -18,7 +18,7 @@ import com.rentit.assembler.PlantResourceAssembler;
 public class PlantListRESTController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "")
-	public ResponseEntity<PlantResourceList> gerPlantsResourcesList() {
+	public ResponseEntity<PlantResourceList> getPlantsResourcesList() {
 		List<Plant> plants = Plant.findAllPlants();
 
 		PlantResourceAssembler assembler = new PlantResourceAssembler();

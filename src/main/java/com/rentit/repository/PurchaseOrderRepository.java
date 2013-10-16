@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RooJpaRepository(domainType = PurchaseOrder.class)
 public interface PurchaseOrderRepository {
 	
-	/*@Query("SELECT PurchaseOrder FROM PurchaseOrder WHERE PurchaseOrder.puchaseID = :id")
+	@Query("SELECT p FROM PurchaseOrder AS p WHERE p.puchaseID = :id")
 	@Transactional(readOnly = true)
-	PurchaseOrder findPOById(@Param("id") Long id);*/
+	PurchaseOrder findPOById(@Param("id") Long id);
 }

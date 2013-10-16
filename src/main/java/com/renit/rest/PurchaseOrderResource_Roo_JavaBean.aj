@@ -4,8 +4,6 @@
 package com.renit.rest;
 
 import com.renit.rest.PurchaseOrderResource;
-import com.rentit.Customer;
-import com.rentit.Plant;
 import com.rentit.Statuses;
 import java.util.Date;
 
@@ -27,20 +25,20 @@ privileged aspect PurchaseOrderResource_Roo_JavaBean {
         this.status = status;
     }
     
-    public Customer PurchaseOrderResource.getCustomer() {
-        return this.customer;
+    public long PurchaseOrderResource.getCustomerId() {
+        return this.customerId;
     }
     
-    public void PurchaseOrderResource.setCustomer(Customer customer) {
-        this.customer = customer;
+    public void PurchaseOrderResource.setCustomerId(long customerId) {
+        this.customerId = customerId;
     }
     
-    public Plant PurchaseOrderResource.getPlant() {
-        return this.plant;
+    public long PurchaseOrderResource.getPlantId() {
+        return this.plantId;
     }
     
-    public void PurchaseOrderResource.setPlant(Plant plant) {
-        this.plant = plant;
+    public void PurchaseOrderResource.setPlantId(long plantId) {
+        this.plantId = plantId;
     }
     
     public Date PurchaseOrderResource.getDueDate() {
