@@ -5,6 +5,7 @@
     <page:list id="pl_com_rentit_Customer" items="${customers}" z="AeZyxnUEjtHEnHMrfpr1ILx75Hw=">
         <table:table data="${customers}" id="l_com_rentit_Customer" path="/customers" z="SS4Dk0H9OFginvSwGXCUvr29szI=">
             <table:column id="c_com_rentit_Customer_name" property="name" z="LS4EEUQPpxbGUd0RmAuvrpyZj1I="/>
+            <table:column id="c_com_rentit_Customer_customerId" property="customerId" z="OsqLxgNqYCL8qIuMsmnmWywu9u0="/>
         </table:table>
     </page:list>
 </div>

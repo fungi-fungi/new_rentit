@@ -6,5 +6,6 @@
         <field:display field="description" id="s_com_rentit_Plant_description" object="${plant}" z="r+9Vkbtr8No44gb3mVb+0SKiiyw="/>
         <field:display field="price" id="s_com_rentit_Plant_price" object="${plant}" z="jJ5QZ0HdYdf6X5+EHaOVv2KnnKk="/>
         <field:display field="name" id="s_com_rentit_Plant_name" object="${plant}" z="qhhHZ/hmTAuIShokl8sW44FXdv4="/>
+        <field:display field="plantId" id="s_com_rentit_Plant_plantId" object="${plant}" z="xx5z8jM7wdioDv07s3m0KXmJdvg="/>
     </page:show>
 </div>

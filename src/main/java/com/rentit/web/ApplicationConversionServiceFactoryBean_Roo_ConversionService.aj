@@ -7,7 +7,11 @@ import com.rentit.Customer;
 import com.rentit.Invoice;
 import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
+import com.rentit.repository.CustomerRepository;
+import com.rentit.repository.PlantRepository;
+import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.web.ApplicationConversionServiceFactoryBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
@@ -16,10 +20,19 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     
     declare @type: ApplicationConversionServiceFactoryBean: @Configurable;
     
+    @Autowired
+    CustomerRepository ApplicationConversionServiceFactoryBean.customerRepository;
+    
+    @Autowired
+    PlantRepository ApplicationConversionServiceFactoryBean.plantRepository;
+    
+    @Autowired
+    PurchaseOrderRepository ApplicationConversionServiceFactoryBean.purchaseOrderRepository;
+    
     public Converter<Customer, String> ApplicationConversionServiceFactoryBean.getCustomerToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.Customer, java.lang.String>() {
             public String convert(Customer customer) {
-                return new StringBuilder().append(customer.getName()).toString();
+                return new StringBuilder().append(customer.getCustomerId()).append(' ').append(customer.getName()).toString();
             }
         };
     }
@@ -27,7 +40,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Long, Customer> ApplicationConversionServiceFactoryBean.getIdToCustomerConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.rentit.Customer>() {
             public com.rentit.Customer convert(java.lang.Long id) {
-                return Customer.findCustomer(id);
+                return customerRepository.findOne(id);
             }
         };
     }
@@ -67,7 +80,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Plant, String> ApplicationConversionServiceFactoryBean.getPlantToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.Plant, java.lang.String>() {
             public String convert(Plant plant) {
-                return new StringBuilder().append(plant.getName()).append(' ').append(plant.getDescription()).append(' ').append(plant.getPrice()).toString();
+                return new StringBuilder().append(plant.getPlantId()).append(' ').append(plant.getName()).append(' ').append(plant.getDescription()).append(' ').append(plant.getPrice()).toString();
             }
         };
     }
@@ -75,7 +88,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Long, Plant> ApplicationConversionServiceFactoryBean.getIdToPlantConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.rentit.Plant>() {
             public com.rentit.Plant convert(java.lang.Long id) {
-                return Plant.findPlant(id);
+                return plantRepository.findOne(id);
             }
         };
     }
@@ -99,7 +112,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Long, PurchaseOrder> ApplicationConversionServiceFactoryBean.getIdToPurchaseOrderConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.rentit.PurchaseOrder>() {
             public com.rentit.PurchaseOrder convert(java.lang.Long id) {
-                return PurchaseOrder.findPurchaseOrder(id);
+                return purchaseOrderRepository.findOne(id);
             }
         };
     }
