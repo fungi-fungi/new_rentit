@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.renit.rest.PurchaseOrderResource;
+import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
 import com.rentit.Statuses;
 import com.rentit.assembler.PurchaseOrderAssembler;
@@ -41,6 +42,19 @@ public class PurchaseOrderRESTController {
 		
 		return new ResponseEntity<PurchaseOrderResource>(
 				assembler.toResource(po), new HttpHeaders(), HttpStatus.OK);
+	}
+	
+	@RequestMapping(method = RequestMethod.DELETE, value = "{id}")
+	public ResponseEntity<Void> deletePurchaseOrder(@PathVariable Long id) {
+
+		PurchaseOrder po = poRepository.findPOById(id);		
+		poRepository.delete(po);
+
+		HttpHeaders headers = new HttpHeaders();
+		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
+		headers.setLocation(location);
+		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.CREATED);
+		return response;
 	}
 	
 	
