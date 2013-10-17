@@ -22,7 +22,7 @@ import com.sun.jersey.api.client.WebResource;
 @Transactional
 public class PlantListRESTControllerTest {
    
-    private String RESOURCE_URI = "http://localhost:8080/RentIt/rest/plants";
+    private String RESOURCE_URI = "http://rentit-2.herokuapp.com/rest/plants";
     
     @Test
     public void getPlantsResourcesList() {

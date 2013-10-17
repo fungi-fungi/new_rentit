@@ -21,9 +21,9 @@ import com.sun.jersey.api.client.WebResource;
 
 public class PurchaseOrderRESTControllerTest {
 
-	private String PLANT_RESOURCE_URI = "http://localhost:8080/RentIt/rest/plant/";
-	private String CUSTOMER_RESOURCE_URI = "http://localhost:8080/RentIt/rest/customer/";
-	private String PURCHASE_ORDER_RESOURCE_URI = "http://localhost:8080/RentIt/rest/po/";
+	private String PLANT_RESOURCE_URI = "http://rentit-2.herokuapp.com/rest/plant/";
+	private String CUSTOMER_RESOURCE_URI = "http://rentit-2.herokuapp.com/rest/customer/";
+	private String PURCHASE_ORDER_RESOURCE_URI = "http://rentit-2.herokuapp.com/rest/po/";
 	private String CANCEL_PURCHASE_ORDER = "/accept";
 	
 	

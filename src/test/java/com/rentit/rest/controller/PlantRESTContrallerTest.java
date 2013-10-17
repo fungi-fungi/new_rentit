@@ -24,7 +24,7 @@ import com.sun.jersey.api.client.WebResource;
 @Transactional
 public class PlantRESTContrallerTest {
 
-	private String RESOURCE_URI = "http://localhost:8080/RentIt/rest/plant/";
+	private String RESOURCE_URI = "http://rentit-2.herokuapp.com/rest/plant/";
 	
     @Autowired
 	com.rentit.repository.PlantRepository plantRepository;
