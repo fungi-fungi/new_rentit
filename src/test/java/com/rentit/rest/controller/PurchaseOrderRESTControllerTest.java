@@ -1,5 +1,5 @@
 package com.rentit.rest.controller;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -14,8 +14,6 @@ import org.junit.Test;
 import com.renit.rest.CustomerResource;
 import com.renit.rest.PlantResource;
 import com.renit.rest.PurchaseOrderResource;
-import com.rentit.Customer;
-import com.rentit.PurchaseOrder;
 import com.rentit.Statuses;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;

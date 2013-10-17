@@ -1,7 +1,7 @@
 package com.rentit.rest.controller;
 
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response.Status;
@@ -24,7 +24,7 @@ import com.sun.jersey.api.client.WebResource;
 @Transactional
 public class PlantRESTContrallerTest {
 
-	private String RESOURCE_URI = "http://localhost:8080/RentIt/rest/plant";
+	private String RESOURCE_URI = "http://localhost:8080/RentIt/rest/plant/";
 	
     @Autowired
 	com.rentit.repository.PlantRepository plantRepository;
@@ -47,19 +47,19 @@ public class PlantRESTContrallerTest {
     	float price = 1400f;
     	long plantId = 345346;
 
-		PlantResource resource = new PlantResource();
-		resource.setName(plantName);
-		resource.setDescription(description);
-		resource.setPrice(price);
-		resource.setPlantId(plantId);
+		PlantResource plantResource = new PlantResource();
+		plantResource.setName(plantName);
+		plantResource.setDescription(description);
+		plantResource.setPrice(price);
+		plantResource.setPlantId(plantId);
 
 		Client client = Client.create();
 		WebResource webResource = client.resource(RESOURCE_URI);
 		ClientResponse response = webResource.type(MediaType.APPLICATION_XML) 
-				 .accept(MediaType.APPLICATION_XML).post(ClientResponse.class, resource); 
+				 .accept(MediaType.APPLICATION_XML).post(ClientResponse.class, plantResource); 
 
-		setRequestedPlant(resource);
-		assertTrue(response.getStatus() == Status.CREATED.getStatusCode());
+		setRequestedPlant(plantResource);
+		assertEquals(response.getStatus(), Status.CREATED.getStatusCode());
     }
 	
 	@After
@@ -69,7 +69,7 @@ public class PlantRESTContrallerTest {
 		WebResource webResource = client.resource(RESOURCE_URI + getRequestedPlant().getPlantId());
 		ClientResponse response = webResource.type(MediaType.APPLICATION_XML) 
 				 .accept(MediaType.APPLICATION_XML).delete(ClientResponse.class); 
-		assertTrue(response.getStatus() == Status.CREATED.getStatusCode());
+		assertEquals(response.getStatus(), Status.CREATED.getStatusCode());
 	}
     
     @Test
@@ -81,10 +81,10 @@ public class PlantRESTContrallerTest {
 		
 		PlantResource responedPlant = response.getEntity(PlantResource.class); 
 		
-		assertTrue(responedPlant.getName().equals(getRequestedPlant().getName()));
-		assertTrue(responedPlant.getPrice().equals(getRequestedPlant().getPrice()));
-		assertTrue(responedPlant.getDescription().equals(getRequestedPlant().getDescription()));
-		assertTrue(responedPlant.getPlantId().equals(getRequestedPlant().getPlantId()));
+		assertEquals(responedPlant.getName(), getRequestedPlant().getName());
+		assertEquals(responedPlant.getPrice(), getRequestedPlant().getPrice());
+		assertEquals(responedPlant.getDescription(), getRequestedPlant().getDescription());
+		assertEquals(responedPlant.getPlantId(), getRequestedPlant().getPlantId());
 
     }
     

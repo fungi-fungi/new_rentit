@@ -1,5 +1,9 @@
 package com.rentit.rest.controller;
+import static org.junit.Assert.assertEquals;
+
 import java.util.List;
+
+import javax.ws.rs.core.Response.Status;
 
 import org.junit.Test;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,10 +31,6 @@ public class PlantListRESTControllerTest {
     	WebResource webResource = client.resource(RESOURCE_URI);
     	ClientResponse response = webResource.get(ClientResponse.class);
 		
-		PlantResourceList responedList = response.getEntity(PlantResourceList.class);  
-		
-		List<PlantResource> listOfPlantResources = responedList.getListOfPlants();
-		
-		
+    	assertEquals(response.getStatus(), Status.OK.getStatusCode());	
     }
 }
