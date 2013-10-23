@@ -13,9 +13,13 @@ public class PurchaseOrderAssembler {
 		poResource.setStartDate(po.getStartDate());
 		poResource.setEndDate(po.getEndDate());
 		poResource.setDueDate(po.getDueDate());
-		poResource.setPlantId(po.getPlant().getPlantId());
+		if(po.getPlant() != null) {
+			poResource.setPlantId(po.getPlant().getPlantId());
+		}
 		poResource.setPuchaseID(po.getPuchaseID());
-		poResource.setCustomerId(po.getCustomer().getCustomerId());
+		if(po.getCustomer() != null) {
+			poResource.setCustomerId(po.getCustomer().getCustomerId());
+		}
 
 		return poResource;
 	}
