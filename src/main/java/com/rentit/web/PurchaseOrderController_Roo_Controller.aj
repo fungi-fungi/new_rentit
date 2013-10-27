@@ -3,9 +3,9 @@
 
 package com.rentit.web;
 
-import com.rentit.Customer;
 import com.rentit.PurchaseOrder;
 import com.rentit.Statuses;
+import com.rentit.repository.CustomerRepository;
 import com.rentit.repository.PlantRepository;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.web.PurchaseOrderController;
@@ -29,6 +29,9 @@ privileged aspect PurchaseOrderController_Roo_Controller {
     
     @Autowired
     PurchaseOrderRepository PurchaseOrderController.purchaseOrderRepository;
+    
+    @Autowired
+    CustomerRepository PurchaseOrderController.customerRepository;
     
     @Autowired
     PlantRepository PurchaseOrderController.plantRepository;
@@ -109,7 +112,7 @@ privileged aspect PurchaseOrderController_Roo_Controller {
     void PurchaseOrderController.populateEditForm(Model uiModel, PurchaseOrder purchaseOrder) {
         uiModel.addAttribute("purchaseOrder", purchaseOrder);
         addDateTimeFormatPatterns(uiModel);
-        uiModel.addAttribute("customers", Customer.findAllCustomers());
+        uiModel.addAttribute("customers", customerRepository.findAll());
         uiModel.addAttribute("plants", plantRepository.findAll());
         uiModel.addAttribute("statuseses", Arrays.asList(Statuses.values()));
     }

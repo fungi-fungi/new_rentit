@@ -77,7 +77,20 @@
         <servlet-name>RentIt</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
+ 	
+ 	<servlet> 
+		<servlet-name>jaxws-servlet</servlet-name> 
+		 <servlet-class> 
+		com.sun.xml.ws.transport.http.servlet.WSSpringServlet 
+		</servlet-class> 
+	</servlet> 
+	
+	<servlet-mapping> 
+		 <servlet-name>jaxws-servlet</servlet-name> 
+		 <url-pattern>/PlantSOAPService</url-pattern> 
+	</servlet-mapping> 
+		 
+ 	   
     <session-config>
         <session-timeout>10</session-timeout>
     </session-config>
