@@ -4,16 +4,16 @@
 package com.rentit.soap;
 
 import com.rentit.soap.PlantResource;
-import com.rentit.soap.PlantResourceCollection;
+import com.rentit.soap.PlantResourceList;
 import java.util.List;
 
-privileged aspect PlantResourceCollection_Roo_JavaBean {
+privileged aspect PlantResourceList_Roo_JavaBean {
     
-    public List<PlantResource> PlantResourceCollection.getPlantResources() {
+    public List<PlantResource> PlantResourceList.getPlantResources() {
         return this.plantResources;
     }
     
-    public void PlantResourceCollection.setPlantResources(List<PlantResource> plantResources) {
+    public void PlantResourceList.setPlantResources(List<PlantResource> plantResources) {
         this.plantResources = plantResources;
     }
     

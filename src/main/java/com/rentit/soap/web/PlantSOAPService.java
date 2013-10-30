@@ -8,19 +8,19 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import com.rentit.Plant;
 import com.rentit.soap.PlantResourceAssembler;
-import com.rentit.soap.PlantResourceCollection;
+import com.rentit.soap.PlantResourceList;
 
 @RooJavaBean
 @WebService
 public class PlantSOAPService {
 	@WebMethod
-	public PlantResourceCollection getAllPlants(){
+	public PlantResourceList getAllPlants(){
 		System.out.println("getAllPlants()");
-		PlantResourceCollection resourceList = new PlantResourceCollection();
+		PlantResourceList resourceList = new PlantResourceList();
 		List<Plant> plants = Plant.findAllPlants();
 		System.out.println("found " + plants.size() + " plants.");
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
-		PlantResourceCollection resList = assembler.toResource(plants);
+		PlantResourceList resList = assembler.toResource(plants);
 		System.out.println("Returning " + resList.getPlantResources().size() + " resources.");
 		return resourceList;
 	}

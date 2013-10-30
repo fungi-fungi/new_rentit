@@ -8,17 +8,19 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToMany;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @RooJavaBean
 @RooToString
 //@RooJpaActiveRecord
 @XmlRootElement
-public class PlantResourceCollection {
+public class PlantResourceList {
 
     /**
      */
     //@ManyToMany(cascade = CascadeType.ALL)
+	@XmlElement
     private List<PlantResource> plantResources = new ArrayList<PlantResource>();
 
 	public void addPlant(PlantResource resource) {
