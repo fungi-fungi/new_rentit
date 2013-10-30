@@ -3,13 +3,13 @@
 
 package com.rentit.soap;
 
-import com.rentit.soap.PlantResourceList;
+import com.rentit.soap.PlantResourceCollection;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-privileged aspect PlantResourceList_Roo_ToString {
+privileged aspect PlantResourceCollection_Roo_ToString {
     
-    public String PlantResourceList.toString() {
+    public String PlantResourceCollection.toString() {
         return ReflectionToStringBuilder.toString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
     

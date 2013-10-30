@@ -14,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @RooToString
 //@RooJpaActiveRecord
 @XmlRootElement
-public class PlantResourceList {
+public class PlantResourceCollection {
 
     /**
      */

@@ -7,7 +7,7 @@ import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 import com.rentit.soap.PlantResource;
-import com.rentit.soap.PlantResourceList;
+import com.rentit.soap.PlantResourceCollection;
 import com.rentit.Plant;
 
 @RooJavaBean
@@ -24,8 +24,8 @@ public class PlantResourceAssembler {
 		return plantResource;
 	}
 
-	public PlantResourceList toResource(List<Plant> list) {
-		PlantResourceList resourcesList = new PlantResourceList();
+	public PlantResourceCollection toResource(List<Plant> list) {
+		PlantResourceCollection resourcesList = new PlantResourceCollection();
 
 		Iterator<Plant> i = list.iterator();
 		while (i.hasNext()) {
