@@ -19,10 +19,10 @@ public class PlantResourceList {
     /**
      */
     //@ManyToMany(cascade = CascadeType.ALL)
-    private List<PlantResource> PlantResourceList = new ArrayList<PlantResource>();
+    private List<PlantResource> plantResources = new ArrayList<PlantResource>();
 
 	public void addPlant(PlantResource resource) {
-		this.PlantResourceList.add(resource);
+		this.plantResources.add(resource);
 		
 	}
 
