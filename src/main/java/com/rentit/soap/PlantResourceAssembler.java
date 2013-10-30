@@ -12,7 +12,7 @@ import com.rentit.Plant;
 
 @RooJavaBean
 @RooToString
-@RooJpaActiveRecord
+//@RooJpaActiveRecord
 public class PlantResourceAssembler {
 	public PlantResource toResource(Plant plant) {
 
