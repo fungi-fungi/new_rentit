@@ -7,12 +7,20 @@ import com.rentit.soap.PlantResource;
 
 privileged aspect PlantResource_Roo_JavaBean {
     
-    public long PlantResource.getId() {
-        return this.id;
+    public Long PlantResource.getPlantId() {
+        return this.plantId;
     }
     
-    public void PlantResource.setId(long id) {
-        this.id = id;
+    public void PlantResource.setPlantId(Long plantId) {
+        this.plantId = plantId;
+    }
+    
+    public Float PlantResource.getPrice() {
+        return this.price;
+    }
+    
+    public void PlantResource.setPrice(Float price) {
+        this.price = price;
     }
     
     public String PlantResource.getName() {
@@ -29,14 +37,6 @@ privileged aspect PlantResource_Roo_JavaBean {
     
     public void PlantResource.setDescription(String description) {
         this.description = description;
-    }
-    
-    public float PlantResource.getPrice() {
-        return this.price;
-    }
-    
-    public void PlantResource.setPrice(float price) {
-        this.price = price;
     }
     
 }

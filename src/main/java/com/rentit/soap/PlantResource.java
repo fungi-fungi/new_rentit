@@ -6,24 +6,14 @@ import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
 import org.springframework.roo.addon.tostring.RooToString;
 
 @RooJavaBean
-@RooToString
-//@RooJpaActiveRecord
-@XmlRootElement
+@XmlRootElement(name = "plant")
 public class PlantResource {
 
-    /**
-     */
-    private long id;
+	Long plantId;
 
-    /**
-     */
-    private String name;
+	Float price;
 
-    /**
-     */
-    private String description;
+	String name;
 
-    /**
-     */
-    private float price;
+	String description;
 }

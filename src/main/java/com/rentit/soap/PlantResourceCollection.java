@@ -1,30 +1,34 @@
 package com.rentit.soap;
-import org.springframework.roo.addon.javabean.RooJavaBean;
-import org.springframework.roo.addon.jpa.activerecord.RooJpaActiveRecord;
-import org.springframework.roo.addon.tostring.RooToString;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.ManyToMany;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@RooJavaBean
-@RooToString
-//@RooJpaActiveRecord
-@XmlRootElement
+@XmlRootElement(name = "plants")
 public class PlantResourceCollection {
 
-    /**
-     */
-    //@ManyToMany(cascade = CascadeType.ALL)
-    private List<PlantResource> plantResources = new ArrayList<PlantResource>();
+	// To change representation of object in XML you need to annotait getter.
+	private List<PlantResource> listOfPlants;
 
-	public void addPlant(PlantResource resource) {
-		this.plantResources.add(resource);
-		
+	@XmlElement(name = "plant")
+	public List<PlantResource> getListOfPlants() {
+		return listOfPlants;
 	}
 
-	
+	public void setListOfPlants(List<PlantResource> listOfPlants) {
+		this.listOfPlants = listOfPlants;
+	}
+
+	public void addPlant(PlantResource plant) {
+		this.listOfPlants.add(plant);
+	}
+
+	public PlantResourceCollection() {
+		listOfPlants = new ArrayList<PlantResource>();
+	}
+
+	public PlantResourceCollection(List<PlantResource> listOfResourses) {
+		this.listOfPlants = new ArrayList<PlantResource>(listOfResourses);
+	}
 }

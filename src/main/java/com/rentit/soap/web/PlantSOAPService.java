@@ -4,23 +4,29 @@ import java.util.List;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.rentit.Plant;
+import com.rentit.soap.DateRangeResource;
 import com.rentit.soap.PlantResourceAssembler;
 import com.rentit.soap.PlantResourceCollection;
 
-@RooJavaBean
 @WebService
 public class PlantSOAPService {
+	
+	@Autowired
+	com.rentit.repository.PlantRepository plantRepository;
+	
 	@WebMethod
-	public PlantResourceCollection getAllPlants(){
-		System.out.println("getAllPlants()");
-		List<Plant> plants = Plant.findAllPlants();
-		System.out.println("found " + plants.size() + " plants.");
+	public PlantResourceCollection getAvailiblePlants(@RequestBody DateRangeResource reqest){
+		
+		List<Plant> listOfAvailiblePlants = plantRepository.getAvailiblePlant(reqest.getStart(), reqest.getEnd());
+		
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
-		PlantResourceCollection resList = assembler.toResource(plants);
-		System.out.println("Returning " + resList.getPlantResources().size() + " resources.");
-		return resList;
+		
+		return assembler.toResource(listOfAvailiblePlants);
+		
 	}
 }
