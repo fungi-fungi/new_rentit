@@ -15,10 +15,13 @@ import com.rentit.soap.PlantResourceCollection;
 public class PlantSOAPService {
 	@WebMethod
 	public PlantResourceCollection getAllPlants(){
+		System.out.println("getAllPlants()");
 		PlantResourceCollection resourceList = new PlantResourceCollection();
 		List<Plant> plants = Plant.findAllPlants();
+		System.out.println("found " + plants.size() + " plants.");
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
 		PlantResourceCollection resList = assembler.toResource(plants);
+		System.out.println("Returning " + resList.getPlantResources().size() + " resources.");
 		return resourceList;
 	}
 }
