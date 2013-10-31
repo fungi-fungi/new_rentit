@@ -30,7 +30,7 @@ public class PlantSOAPService {
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
 		PlantResourceCollection result = assembler.toResource(listOfAvailiblePlants);
 		
-		System.out.println("sending: " + result.getListOfPlants().size());
+		System.out.println("sending: " + result.getPlants().size());
 		
 		return result;
 		
