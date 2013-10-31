@@ -20,4 +20,13 @@
 		</wss:service>
 	</wss:binding>
 	<bean id="plantService" class="com.rentit.soap.web.PlantSOAPService" /> 
+	
+	<wss:binding url="/PurchaseOrderService">
+		<wss:service>
+			<ws:service bean="#po" />
+		</wss:service>
+	</wss:binding>
+	<bean id="po" class="com.rentit.soap.web.PurchaseOrderService" /> 
+	
+	
 </beans> 

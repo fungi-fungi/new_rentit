@@ -86,7 +86,8 @@
 	</servlet> 
 	<servlet-mapping> 
 	 <servlet-name>jaxws-servlet</servlet-name>
-	 <url-pattern>/PlantSOAPService</url-pattern> 
+	 <url-pattern>/PlantSOAPService</url-pattern>
+	 <url-pattern>/PurchaseOrderService</url-pattern> 
 	</servlet-mapping> 
   
 		 
