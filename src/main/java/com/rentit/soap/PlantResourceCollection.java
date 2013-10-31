@@ -12,6 +12,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 public class PlantResourceCollection {
 
 	// To change representation of object in XML you need to annotait getter.
+	@XmlElement
 	private List<PlantResource> listOfPlants;
 
 	public void addPlant(PlantResource resource) {
