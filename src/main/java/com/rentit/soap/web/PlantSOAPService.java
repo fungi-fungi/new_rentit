@@ -28,8 +28,11 @@ public class PlantSOAPService {
 		List<Plant> listOfAvailiblePlants = plantRepository.getAvailiblePlant(reqest.getStart(), reqest.getEnd());
 		
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
+		PlantResourceCollection result = assembler.toResource(listOfAvailiblePlants);
 		
-		return assembler.toResource(listOfAvailiblePlants);
+		System.out.println("found: " + result.getListOfPlants().size());
+		
+		return result;
 		
 	}
 }
