@@ -21,7 +21,10 @@ public class PlantSOAPService {
 	
 	@WebMethod
 	public PlantResourceCollection getAvailiblePlants(@RequestBody DateRangeResource reqest){
-		
+		System.out.println("getAvailiblePlants()");
+		System.out.println(reqest.getStart());
+		System.out.println(reqest.getEnd());
+
 		List<Plant> listOfAvailiblePlants = plantRepository.getAvailiblePlant(reqest.getStart(), reqest.getEnd());
 		
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
