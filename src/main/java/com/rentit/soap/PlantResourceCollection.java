@@ -17,6 +17,7 @@ public class PlantResourceCollection {
 		if(plants == null) {
 			plants = new ArrayList<PlantResource>();
 		}		
+		plants.add(resource);
 	}
 	
 	@XmlElement(name = "plants")
