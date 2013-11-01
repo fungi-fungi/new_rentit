@@ -17,12 +17,12 @@
 	</wss:binding>
 	<bean id="plantService" class="com.rentit.soap.web.PlantSOAPService" />
 
-	<wss:binding url="/PurchaseOrderService">
+	<wss:binding url="/PurchaseOrderSOAPService">
 		<wss:service>
 			<ws:service bean="#purchaseOrder" />
 		</wss:service>
 	</wss:binding>
-	<bean id="purchaseOrder" class="com.rentit.soap.web.PurchaseOrderService" />
+	<bean id="purchaseOrder" class="com.rentit.soap.web.PurchaseOrderSOAPService" />
 
 
 </beans> 

@@ -87,7 +87,17 @@
 	<servlet-mapping> 
 	 <servlet-name>jaxws-servlet</servlet-name>
 	 <url-pattern>/PlantSOAPService</url-pattern>
-	 <url-pattern>/PurchaseOrderService</url-pattern> 
+	</servlet-mapping> 
+	
+	<servlet> 
+	<servlet-name>my-servlet</servlet-name> 
+	 <servlet-class> 
+	com.sun.xml.ws.transport.http.servlet.WSSpringServlet 
+	</servlet-class> 
+	</servlet> 
+	<servlet-mapping> 
+	 <servlet-name>my-servlet</servlet-name>
+	 <url-pattern>/PurchaseOrderSOAPService</url-pattern> 
 	</servlet-mapping> 
   
 		 
