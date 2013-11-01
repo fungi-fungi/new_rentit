@@ -9,24 +9,20 @@
 	 http://jax-ws.dev.java.net/spring/servlet 
 	 http://jax-ws.dev.java.net/spring/servlet.xsd">
 
-<!-- 
-	<wss:binding url="/PlantSOAPService" service="#plantService" /> 
-	<ws:service id="plantService" impl="com.rentit.soap.web.PlantSOAPService" />  -->
 
-
- 	<wss:binding url="/PlantSOAPService">
+	<wss:binding url="/PlantSOAPService">
 		<wss:service>
 			<ws:service bean="#plantService" />
 		</wss:service>
 	</wss:binding>
-	<bean id="plantService" class="com.rentit.soap.web.PlantSOAPService" /> 
-	
+	<bean id="plantService" class="com.rentit.soap.web.PlantSOAPService" />
+
 	<wss:binding url="/PurchaseOrderService">
 		<wss:service>
-			<ws:service bean="#po" />
+			<ws:service bean="#purchaseOrder" />
 		</wss:service>
 	</wss:binding>
-	<bean id="po" class="com.rentit.soap.web.PurchaseOrderService" /> 
-	
-	
+	<bean id="purchaseOrder" class="com.rentit.soap.web.PurchaseOrderService" />
+
+
 </beans> 
