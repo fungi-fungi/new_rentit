@@ -17,4 +17,10 @@ public interface CustomerRepository {
 	@Query("SELECT c.id FROM Customer AS c WHERE c.customerId = :id")
 	@Transactional(readOnly = true)
 	public long findIdByCustomerId(@Param("id") Long id);
+	
+	@Query("SELECT c.name FROM Customer AS c WHERE c.customerId = :id")
+	@Transactional(readOnly = true)
+	public String findCustomerName(@Param("id") Long id);
+	
+	
 }
