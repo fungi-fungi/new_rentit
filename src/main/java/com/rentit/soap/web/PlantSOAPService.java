@@ -21,16 +21,11 @@ public class PlantSOAPService {
 	
 	@WebMethod
 	public PlantResourceCollection getAvailiblePlants(@RequestBody DateRangeResource reqest){
-		System.out.println("getAvailiblePlants()");
-		System.out.println(reqest.getStart());
-		System.out.println(reqest.getEnd());
 
 		List<Plant> listOfAvailiblePlants = plantRepository.getAvailiblePlant(reqest.getStart(), reqest.getEnd());
-		System.out.println("found from db: " + listOfAvailiblePlants.size());
+		
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
 		PlantResourceCollection result = assembler.toResource(listOfAvailiblePlants);
-		
-		System.out.println("sending: " + result.getPlants().size());
 		
 		return result;
 		

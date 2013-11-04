@@ -12,7 +12,7 @@
 
 	<c:forEach var="po" items="${po}">
 
-		<form:form method="POST" action="/HelloWeb/addStudent">
+		<form:form method="POST" modelAttribute="postatusupdate">
 			<table>
 				<tr>
 					<td>Name</td>
@@ -29,9 +29,14 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<input type="submit" value="Accept" /> 
-						<input type="submit" value="Reject" />
+						<form:hidden path="purchaseOrderId"  value="${po.puchaseID}"/>
+						<form:radiobutton path="status" value="${accept}" label="Accept" /><br></br>
+						<form:radiobutton path="status" value="${reject}" label="Reject" /><br></br>
+						<form:textarea path="comment" label="Comment" />
 					</td>
+				</tr>
+				<tr>
+					<td colspan="4"><input type="submit" value="Send" /></td>
 				</tr>
 			</table>
 		</form:form>

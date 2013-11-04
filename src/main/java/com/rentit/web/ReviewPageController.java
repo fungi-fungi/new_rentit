@@ -1,5 +1,5 @@
 package com.rentit.web;
-import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -13,59 +13,69 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
 import com.rentit.PurchaseOrder;
+import com.rentit.Statuses;
 import com.rentit.repository.PurchaseOrderRepository;
+import com.rentit.soap.TempSolution;
 import com.rentit.soap.WebPurchaseOrderAssembler;
 import com.rentit.soap.WebPurchaseOrderResource;
+import com.rentit.soap.client.PoStatusUpdateRequest;
+import com.rentit.soap.client.PurchaseOrderSOAPService;
+import com.sun.jersey.api.client.ClientResponse.Status;
+
 
 @RequestMapping("/purchaseorders/review/**")
 @Controller
 public class ReviewPageController {
 
-	@Autowired 
+	@Autowired
 	PurchaseOrderRepository poRepository;
+	@Autowired 
+	PurchaseOrderSOAPService poSOAPService;
+
+	@RequestMapping(method = RequestMethod.POST, value = "{id}")
+	public void post(@PathVariable Long id, ModelMap modelMap,
+			HttpServletRequest request, HttpServletResponse response) {
+	}
+
+	@RequestMapping
+	public String index() {
+		return "purchaseorders/review/index";
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public String someAction(Map<String, Object> map, HttpServletRequest request) {
+		
+		List<PurchaseOrder> purchaseOrders = poRepository.findPandingPurchaseOrder(Statuses.PANDING);
+		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
+		List<WebPurchaseOrderResource> po = assembler
+				.toListResource(purchaseOrders);
+
+		map.put("po", po);
+		map.put("accept", com.rentit.soap.client.Statuses.ACCEPTED);
+		map.put("reject", com.rentit.soap.client.Statuses.REJECTED);
+		map.put("postatusupdate", new PoStatusUpdateRequest());
+
+		return "purchaseorders/review/show";
+	}
 	
-    @RequestMapping(method = RequestMethod.POST, value = "{id}")
-    public void post(@PathVariable Long id, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
-    }
+	@RequestMapping(method=RequestMethod.POST)
+	public String handlePost(@ModelAttribute("tempsolution") PoStatusUpdateRequest data, Map<String, Object> map, HttpServletRequest request){
 
-    @RequestMapping
-    public String index() {
-        return "purchaseorders/review/index";
-    }
-    
-    @RequestMapping(method = RequestMethod.GET)
-    public String someAction(Map<String, Object> map, HttpServletRequest request) {
-
-    	List<PurchaseOrder> purchaseOrders = poRepository.findAll();
-		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
-		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
-
-        map.put("po", po);
-
-        return "purchaseorders/review/show";
-       }
-    
-  /*  @RequestMapping(method = RequestMethod.GET)
-	public ModelAndView show(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
 		
-    	List<PurchaseOrder> purchaseOrders = poRepository.findAll();
-
-		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
-
-		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
-
-		Map<String,String> model1 = new HashMap<String,String>();
-        model1.put("hello", "hello");
-    	
-		modelMap.addAttribute("po", "hello");
+		PurchaseOrder order = poRepository.findPOById(data.getPurchaseOrderId());
+		if(data.getStatus().equals(com.rentit.soap.client.Statuses.ACCEPTED)){
+			order.setStatus(Statuses.ACCEPT);
+		}else{
+			order.setStatus(Statuses.REJECTED);
+		}
+		order.persist();
 		
-		Map<String, Object> model = new HashMap<String, Object>();
-		model.put("MSG", "Thank u");
+		poSOAPService.setPoStatus(data);
 		
-		return new ModelAndView(new RedirectView("purchaseorders/review/show"), model);
-	}*/
+	    
+	    return "purchaseorders/review/index";
+
+	} 
 }
