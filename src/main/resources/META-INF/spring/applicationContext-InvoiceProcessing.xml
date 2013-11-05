@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns:int-ws="http://www.springframework.org/schema/integration/ws"
+	xmlns:int-xml="http://www.springframework.org/schema/integration/xml"
+	xmlns:int-mail="http://www.springframework.org/schema/integration/mail"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+ 	http://www.springframework.org/schema/beans/spring-beans.xsd
+ 	http://www.springframework.org/schema/integration
+ 	http://www.springframework.org/schema/integration/spring-integration.xsd
+ 	http://www.springframework.org/schema/integration/ws
+ 	http://www.springframework.org/schema/integration/ws/spring-integration-ws.xsd
+ 	http://www.springframework.org/schema/integration/xml
+ 	http://www.springframework.org/schema/integration/xml/spring-integration-xvl.xsd
+ 	http://www.springframework.org/schema/integration/mail
+ 	http://www.springframework.org/schema/integration/mail/spring-integration-mail.xsd
+ 	http://www.springframework.org/schema/integration/util
+ 	http://www.springframework.org/schema/integration/util/spring-util-2.0.xsd">
+
+	<int:channel id="outboundMailChannel" />
+	<int:service-activator id="invoiceSending" input-channel="normalPath" method="process" output-channel="outboundMailChannel">
+		<bean class="com.rentit.service.InvoiceService" />
+	</int:service-activator>
+		
+	
+	<int-mail:outbound-channel-adapter
+		channel="outboundMailChannel" mail-sender="mailSender" />
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.hotmail.com" />
+		<property name="port" value="587" />
+		<property name="username" value="psyfungus@hotmail.com" />
+		<property name="password" value="0305Hluhiv" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.auth">true</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>
+ 

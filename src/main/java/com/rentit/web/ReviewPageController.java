@@ -17,12 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.rentit.PurchaseOrder;
 import com.rentit.Statuses;
 import com.rentit.repository.PurchaseOrderRepository;
-import com.rentit.soap.TempSolution;
 import com.rentit.soap.WebPurchaseOrderAssembler;
 import com.rentit.soap.WebPurchaseOrderResource;
 import com.rentit.soap.client.PoStatusUpdateRequest;
 import com.rentit.soap.client.PurchaseOrderSOAPService;
-import com.sun.jersey.api.client.ClientResponse.Status;
 
 
 @RequestMapping("/purchaseorders/review/**")
