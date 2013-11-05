@@ -29,8 +29,8 @@ public class ReviewPageController {
 
 	@Autowired
 	PurchaseOrderRepository poRepository;
-	@Autowired 
-	PurchaseOrderSOAPService poSOAPService;
+	/*@Autowired 
+	PurchaseOrderSOAPService poSOAPService;*/
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}")
 	public void post(@PathVariable Long id, ModelMap modelMap,
@@ -70,7 +70,7 @@ public class ReviewPageController {
 		}
 		order.persist();
 		
-		poSOAPService.setPoStatus(data);
+		//poSOAPService.setPoStatus(data);
 		
 	    
 	    return "purchaseorders/review/index";

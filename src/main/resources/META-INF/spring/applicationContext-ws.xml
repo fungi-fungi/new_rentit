@@ -26,13 +26,13 @@
 	<bean id="purchaseOrder" class="com.rentit.soap.web.PurchaseOrderSOAPService" />
 
 
- 	<bean id="purchaseOrderSOAPService"	class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
+<!--  	<bean id="purchaseOrderSOAPService"	class="org.springframework.remoting.jaxws.JaxWsPortProxyFactoryBean">
 		<property name="serviceName" value="PurchaseOrderSOAPServiceService" />
 		<property name="serviceInterface" value="com.rentit.soap.client.PurchaseOrderSOAPService" />
 		<property name="wsdlDocumentUrl" value="http://buildit-2.herokuapp.com/PurchaseOrderSOAPService?wsdl" />
 		<property name="namespaceUri" value="http://web.soap.ut.ee/" />
 		<property name="portName" value="PurchaseOrderSOAPServicePort" />
-	</bean>
+	</bean> -->
 
 
 

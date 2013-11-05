@@ -19,9 +19,9 @@
  	http://www.springframework.org/schema/integration/util/spring-util-2.0.xsd">
 
 	<int:channel id="outboundMailChannel" />
-	<int:service-activator id="invoiceSending" input-channel="normalPath" method="process" output-channel="outboundMailChannel">
+	<!-- <int:service-activator id="invoiceSending" input-channel="normalPath" method="process" output-channel="outboundMailChannel">
 		<bean class="com.rentit.service.InvoiceService" />
-	</int:service-activator>
+	</int:service-activator> -->
 		
 	
 	<int-mail:outbound-channel-adapter
