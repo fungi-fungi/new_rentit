@@ -94,8 +94,11 @@ public class ReviewPageController {
 		InvoiceService invoiceSender = (InvoiceService) context.getBean("mailMail");
 		
 		try {
-			invoiceSender.sendInvoice(invoiceAssembler.toResource(invoice));
-			System.out.print( "Success" );
+			
+			if(data.getStatus().equals(com.rentit.soap.client.Statuses.ACCEPTED)){
+				invoiceSender.sendInvoice(invoiceAssembler.toResource(invoice));
+				System.out.print( "Success" );
+			}
 		} catch (JAXBException e) {
 			
 			System.out.print( "Error" );
