@@ -18,19 +18,23 @@
  	http://www.springframework.org/schema/integration/util
  	http://www.springframework.org/schema/integration/util/spring-util-2.0.xsd">
 
-	<int:channel id="outboundMailChannel" />
-	<!-- <int:service-activator id="invoiceSending" input-channel="normalPath" method="process" output-channel="outboundMailChannel">
+	<!-- <int:channel id="outboundMailChannel" />
+	
+	<int:service-activator id="invoiceSending" input-channel="normalPath" method="process" output-channel="outboundMailChannel">
 		<bean class="com.rentit.service.InvoiceService" />
 	</int:service-activator> -->
-		
 	
-	<int-mail:outbound-channel-adapter
-		channel="outboundMailChannel" mail-sender="mailSender" />
+	
+	<bean id="mailMail" class="com.rentit.service.InvoiceService">
+		<property name="mailSender" ref="mailSender" />
+	</bean>	
+	
+	<!-- <int-mail:outbound-channel-adapter channel="outboundMailChannel" mail-sender="mailSender" /> -->
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.hotmail.com" />
+		<property name="host" value="smtp.gmail.com" />
 		<property name="port" value="587" />
-		<property name="username" value="psyfungus@hotmail.com" />
-		<property name="password" value="0305Hluhiv" />
+		<property name="username" value="rentit02@gmail.com	" />
+		<property name="password" value="esi_2013" />
 		<property name="javaMailProperties">
 			<props>
 				<prop key="mail.smtp.starttls.enable">true</prop>
