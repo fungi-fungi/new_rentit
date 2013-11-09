@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:form="http://www.springframework.org/tags/form"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<h3>Purchase Order</h3>
+
+
+	<form:form method="POST" modelAttribute="postatusupdate">
+		<c:forEach var="po" items="${po}">
+
+
+			<table>
+				<tr>
+					<td>Send</td>
+					<td>Name</td>
+					<td>Customer</td>
+					<td>Start date</td>
+					<td>End date</td>
+
+				</tr>
+				<tr>
+					<td><input type="radio" name="purchaseId" value="${po.puchaseID}" /></td>
+					<td>${po.planName}</td>
+					<td>${po.customer}</td>
+					<td>${po.startDate}</td>
+					<td>${po.endDate}</td>
+				</tr>
+
+			</table>
+
+		</c:forEach>
+		<td colspan="4"><input type="submit" value="Send" /></td>
+	</form:form>
+
+
+</div>

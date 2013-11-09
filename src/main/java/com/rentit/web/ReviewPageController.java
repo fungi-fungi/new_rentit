@@ -76,35 +76,9 @@ public class ReviewPageController {
 		}
 		order.persist();
 		
-		
-		Invoice invoice = new Invoice();
-		invoice.setPurchaseOrder(order);
-		invoice.setStatus(Statuses.PANDING);
-		invoice.setDueDate(order.getDueDate());
-		
-		InvoiceResourceAssembler invoiceAssembler = new InvoiceResourceAssembler();
-		
-		
 		// Send SOAR request to BuilIt 
 		poSOAPService.setPoStatus(data);
 
-
-		ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:/META-INF/spring/applicationContext-InvoiceProcessing.xml");
-	 
-		InvoiceService invoiceSender = (InvoiceService) context.getBean("mailMail");
-		
-		try {
-			
-			if(data.getStatus().equals(com.rentit.soap.client.Statuses.ACCEPTED)){
-				invoiceSender.sendInvoice(invoiceAssembler.toResource(invoice));
-				System.out.print( "Success" );
-			}
-		} catch (JAXBException e) {
-			
-			System.out.print( "Error" );
-			e.printStackTrace();
-		}
-		
 	    return "purchaseorders/review/index";
 
 	} 
