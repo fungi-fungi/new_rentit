@@ -17,7 +17,7 @@ import javax.xml.ws.WebServiceFeature;
  * Generated source version: 2.2
  * 
  */
-@WebServiceClient(name = "PurchaseOrderSOAPServiceService", targetNamespace = "http://web.soap.ut.ee/", wsdlLocation = "http://buildit-2.herokuapp.com/PurchaseOrderSOAPService?wsdl")
+@WebServiceClient(name = "PurchaseOrderSOAPServiceService", targetNamespace = "http://web.soap.ut.ee/", wsdlLocation = "/WEB-INF/wsdl/PurchaseOrderSOAPService.wsdl")
 public class PurchaseOrderSOAPServiceService
     extends Service
 {
@@ -30,7 +30,7 @@ public class PurchaseOrderSOAPServiceService
         URL url = null;
         WebServiceException e = null;
         try {
-            url = new URL("http://buildit-2.herokuapp.com/PurchaseOrderSOAPService?wsdl");
+            url = new URL("/WEB-INF/wsdl/PurchaseOrderSOAPService.wsdl");
         } catch (MalformedURLException ex) {
             e = new WebServiceException(ex);
         }

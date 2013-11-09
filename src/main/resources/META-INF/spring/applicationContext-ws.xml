@@ -32,7 +32,7 @@
 		<property name="serviceInterface"
 			value="com.rentit.soap.client.PurchaseOrderSOAPService" />
 		<property name="wsdlDocumentUrl"
-			value="http://buildit-2.herokuapp.com/PurchaseOrderSOAPService?wsdl" />
+			value="/WEB-INF/wsdl/PurchaseOrderSOAPService.wsdl" />
 		<property name="namespaceUri" value="http://web.soap.ut.ee/" />
 		<property name="portName" value="PurchaseOrderSOAPServicePort" />
 	</bean>

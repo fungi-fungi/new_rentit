@@ -1,0 +1,41 @@
+<xs:schema xmlns:tns="http://web.soap.ut.ee/" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	version="1.0" targetNamespace="http://web.soap.ut.ee/">
+	<xs:element name="poStatusUpdateRequest" type="tns:poStatusUpdateRequest" />
+	<xs:element name="poStatusUpdateResponse" type="tns:poStatusUpdateResponse" />
+	<xs:element name="setPoStatus" type="tns:setPoStatus" />
+	<xs:element name="setPoStatusResponse" type="tns:setPoStatusResponse" />
+	<xs:complexType name="setPoStatus">
+		<xs:sequence>
+			<xs:element name="arg0" type="tns:poStatusUpdateRequest"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="poStatusUpdateRequest">
+		<xs:sequence>
+			<xs:element name="comment" type="xs:string" minOccurs="0" />
+			<xs:element name="purchaseOrderId" type="xs:long" />
+			<xs:element name="status" type="tns:statuses" minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="setPoStatusResponse">
+		<xs:sequence>
+			<xs:element name="return" type="tns:poStatusUpdateResponse"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="poStatusUpdateResponse">
+		<xs:sequence>
+			<xs:element name="message" type="xs:string" minOccurs="0" />
+			<xs:element name="succeeded" type="xs:boolean" />
+		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="statuses">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ACCEPTED" />
+			<xs:enumeration value="PANDING" />
+			<xs:enumeration value="PAID" />
+			<xs:enumeration value="REJECTED" />
+			<xs:enumeration value="CANCELED" />
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
