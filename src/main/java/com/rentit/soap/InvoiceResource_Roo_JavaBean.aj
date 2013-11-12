@@ -33,6 +33,14 @@ privileged aspect InvoiceResource_Roo_JavaBean {
         this.price = price;
     }
     
+    public float InvoiceResource.getTotalPrice() {
+        return this.totalPrice;
+    }
+    
+    public void InvoiceResource.setTotalPrice(float totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+    
     public Statuses InvoiceResource.getStatus() {
         return this.status;
     }

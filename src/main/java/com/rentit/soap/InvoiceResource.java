@@ -21,6 +21,8 @@ public class InvoiceResource {
 	private long purchaseId; 
 
 	private float price;
+	
+	private float totalPrice;
 
 	private Statuses status;
 

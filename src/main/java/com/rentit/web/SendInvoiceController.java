@@ -1,10 +1,10 @@
 package com.rentit.web;
+
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.JAXBException;
 
 import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,23 +29,26 @@ import com.rentit.soap.client.PoStatusUpdateRequest;
 @RequestMapping("/sendinvoice/**")
 @Controller
 public class SendInvoiceController {
-	
+
 	@Autowired
 	PurchaseOrderRepository poRepository;
 
-    @RequestMapping(method = RequestMethod.POST, value = "{id}")
-    public void post(@PathVariable Long id, ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
-    }
+	@RequestMapping(method = RequestMethod.POST, value = "{id}")
+	public void post(@PathVariable Long id, ModelMap modelMap,
+			HttpServletRequest request, HttpServletResponse response) {
+	}
 
-    @RequestMapping
-    public String index() {
-        return "sendinvoice/index";
-    }
-    
-    @RequestMapping(method = RequestMethod.GET)
-	public String showInvoices(Map<String, Object> map, HttpServletRequest request) {
-		
-		List<PurchaseOrder> purchaseOrders = poRepository.findPandingPurchaseOrder(Statuses.ACCEPT);
+	@RequestMapping
+	public String index() {
+		return "sendinvoice/index";
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public String showInvoices(Map<String, Object> map,
+			HttpServletRequest request) {
+
+		List<PurchaseOrder> purchaseOrders = poRepository
+				.findPandingPurchaseOrder(Statuses.ACCEPT);
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
 		List<WebPurchaseOrderResource> po = assembler
 				.toListResource(purchaseOrders);
@@ -55,34 +58,30 @@ public class SendInvoiceController {
 
 		return "sendinvoice/show";
 	}
-    
-    @RequestMapping(method=RequestMethod.POST)
-    public String sendInvoice(@RequestParam("purchaseId") Long value){
-    	
-    	PurchaseOrder order = poRepository.findPOById(value);
-    	
-    	Invoice invoice = new Invoice();
+
+	@RequestMapping(method = RequestMethod.POST)
+	public String sendInvoice(@RequestParam("purchaseId") Long value) {
+
+		PurchaseOrder order = poRepository.findPOById(value);
+
+		Invoice invoice = new Invoice();
 		invoice.setPurchaseOrder(order);
 		invoice.setStatus(Statuses.ACCEPT);
 		invoice.setDueDate(order.getDueDate());
-		
+
+		invoice.persist();
+
 		InvoiceResourceAssembler invoiceAssembler = new InvoiceResourceAssembler();
-		
-		ApplicationContext context = new ClassPathXmlApplicationContext("classpath*:/META-INF/spring/applicationContext-InvoiceProcessing.xml");
-		 
+
+		ApplicationContext context = new ClassPathXmlApplicationContext(
+				"classpath*:/META-INF/spring/applicationContext-InvoiceProcessing.xml");
+
 		InvoiceService invoiceSender = (InvoiceService) context.getBean("mailMail");
-		
-		try {
-			
-				invoiceSender.sendInvoice(invoiceAssembler.toResource(invoice));
-				System.out.print( "Success" );
-		} catch (JAXBException e) {
-			
-			System.out.print( "Error" );
-			e.printStackTrace();
-		}
-		
+
+		invoiceSender.sendInvoice(invoiceAssembler.toResource(invoice));
+		System.out.print("Success");
+
 		return "sendinvoice/show";
-		
-    }
+
+	}
 }
