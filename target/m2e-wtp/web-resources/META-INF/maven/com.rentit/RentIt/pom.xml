@@ -13,7 +13,8 @@
 		<roo.version>1.2.4.RELEASE</roo.version>
 		<slf4j.version>1.7.5</slf4j.version>
 		<spring.version>3.2.3.RELEASE</spring.version>
-	</properties>
+	<spring-security.version>3.1.0.RELEASE</spring-security.version>
+    </properties>
 	<repositories>
 		<repository>
 			<id>spring-maven-release</id>
@@ -295,17 +296,75 @@
 			<artifactId>jersey-client</artifactId>
 			<version>1.17.1</version>
 		</dependency>
-	<dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-            <version>1.2.0.RELEASE</version>
-        </dependency>
-        <dependency> 
-			<groupId>org.jvnet.jax-ws-commons.spring</groupId> 
-			 <artifactId>jaxws-spring</artifactId> 
-			 <version>1.9</version> 
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>1.2.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jvnet.jax-ws-commons.spring</groupId>
+			<artifactId>jaxws-spring</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-ws</artifactId>
+			<version>2.2.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-xml</artifactId>
+			<version>2.2.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-mail</artifactId>
+			<version>2.2.6.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-oxm</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
 
+
+	<dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring-security.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring-security.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>commons-logging</groupId>
+                    <artifactId>commons-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring-security.version}</version>
+        </dependency>
     </dependencies>
 	<build>
 		<plugins>
