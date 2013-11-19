@@ -16,7 +16,8 @@
 		<intercept-url pattern="/login/**" access="permitAll" />
 		<intercept-url pattern="/*SOAP*/**" access="permitAll" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />
-		<intercept-url pattern="/rest/phrs/**" access="hasRole('ROLE_CONSUMER')" />
+		<intercept-url pattern="/rest/**" access="hasRole('ROLE_USER')" />
+
 		<http-basic />
 
 	</http>
