@@ -4,13 +4,11 @@
 package com.rentit.web;
 
 import com.rentit.PurchaseOrder;
-import com.rentit.Statuses;
 import com.rentit.repository.CustomerRepository;
 import com.rentit.repository.PlantRepository;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.web.PurchaseOrderController;
 import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.joda.time.format.DateTimeFormat;
@@ -104,7 +102,6 @@ privileged aspect PurchaseOrderController_Roo_Controller {
     }
     
     void PurchaseOrderController.addDateTimeFormatPatterns(Model uiModel) {
-        uiModel.addAttribute("purchaseOrder_duedate_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
         uiModel.addAttribute("purchaseOrder_startdate_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
         uiModel.addAttribute("purchaseOrder_enddate_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
     }
@@ -114,7 +111,6 @@ privileged aspect PurchaseOrderController_Roo_Controller {
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("customers", customerRepository.findAll());
         uiModel.addAttribute("plants", plantRepository.findAll());
-        uiModel.addAttribute("statuseses", Arrays.asList(Statuses.values()));
     }
     
     String PurchaseOrderController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

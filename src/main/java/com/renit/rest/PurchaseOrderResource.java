@@ -14,46 +14,30 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import com.rentit.Customer;
 import com.rentit.Plant;
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 
 @RooJavaBean
 @XmlRootElement(name = "po")
 public class PurchaseOrderResource {
-	/**
-	 */
-	private Long puchaseID;
 
-	/**
-     */
+	private Long puchaseId;
+
 	@Enumerated
-	private Statuses status;
+	private PurchaseOrderStatuses status;
 
-	/**
-     */
 	@OneToOne
 	private long customerId;
 
-	/**
-     */
 	@OneToOne
-	private long plantId;
+	private long plantId;	
 
-	/**
-     */
-	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
-	@DateTimeFormat(style = "M-")
-	private Date dueDate;
+	private String destination;
 
-	/**
-     */
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(style = "M-")
 	private Date startDate;
 
-	/**
-     */
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(style = "M-")

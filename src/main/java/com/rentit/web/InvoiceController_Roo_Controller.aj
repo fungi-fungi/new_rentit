@@ -4,7 +4,7 @@
 package com.rentit.web;
 
 import com.rentit.Invoice;
-import com.rentit.Statuses;
+import com.rentit.InvoiceStatuses;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.web.InvoiceController;
 import java.io.UnsupportedEncodingException;
@@ -102,8 +102,8 @@ privileged aspect InvoiceController_Roo_Controller {
     void InvoiceController.populateEditForm(Model uiModel, Invoice invoice) {
         uiModel.addAttribute("invoice", invoice);
         addDateTimeFormatPatterns(uiModel);
+        uiModel.addAttribute("invoicestatuseses", Arrays.asList(InvoiceStatuses.values()));
         uiModel.addAttribute("purchaseorders", purchaseOrderRepository.findAll());
-        uiModel.addAttribute("statuseses", Arrays.asList(Statuses.values()));
     }
     
     String InvoiceController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

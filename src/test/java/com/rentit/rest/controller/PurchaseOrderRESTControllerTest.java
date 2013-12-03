@@ -14,7 +14,7 @@ import org.junit.Test;
 import com.renit.rest.CustomerResource;
 import com.renit.rest.PlantResource;
 import com.renit.rest.PurchaseOrderResource;
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -94,7 +94,7 @@ public class PurchaseOrderRESTControllerTest {
 		
 		
 		long purchaseId = 999999;
-		Statuses status = Statuses.PANDING;
+		PurchaseOrderStatuses status = PurchaseOrderStatuses.PANDING;
 		Calendar startDate = GregorianCalendar.getInstance();
 		startDate.set(2013, 10, 10, 12, 00, 00);
 		Calendar endDate = GregorianCalendar.getInstance();
@@ -105,10 +105,9 @@ public class PurchaseOrderRESTControllerTest {
 		
 		PurchaseOrderResource poResource = new PurchaseOrderResource();
 		poResource.setCustomerId(customerId);
-		poResource.setDueDate(dueDate.getTime());
 		poResource.setEndDate(endDate.getTime());
 		poResource.setPlantId(plantId);
-		poResource.setPuchaseID(purchaseId);
+		poResource.setPuchaseId(purchaseId);
 		poResource.setStartDate(startDate.getTime());
 		poResource.setStatus(status);
 		
@@ -127,7 +126,7 @@ public class PurchaseOrderRESTControllerTest {
 	public void after(){
     	
     	Client client = Client.create();
-    	WebResource webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + getPoRes().getPuchaseID());
+    	WebResource webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + getPoRes().getPuchaseId());
     	ClientResponse response = webResource.type(MediaType.APPLICATION_XML) 
 				 .accept(MediaType.APPLICATION_XML).delete(ClientResponse.class); 
     	assertEquals(response.getStatus(), Status.CREATED.getStatusCode());
@@ -148,17 +147,16 @@ public class PurchaseOrderRESTControllerTest {
     @Test
     public void createPurchaseOrderResource() {
     	Client client = Client.create();
-    	WebResource webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + getPoRes().getPuchaseID());
+    	WebResource webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + getPoRes().getPuchaseId());
     	ClientResponse response = webResource.get(ClientResponse.class);
 		
     	PurchaseOrderResource poResource = response.getEntity(PurchaseOrderResource.class); 
 		
     	assertEquals(poResource.getStatus(), getPoRes().getStatus());
     	assertEquals(poResource.getStartDate(), getPoRes().getStartDate());
-    	assertEquals(poResource.getPuchaseID(), getPoRes().getPuchaseID());
+    	assertEquals(poResource.getPuchaseId(), getPoRes().getPuchaseId());
     	assertEquals(poResource.getPlantId(), getPoRes().getPlantId());
     	assertEquals(poResource.getEndDate(), getPoRes().getEndDate() );
-    	assertEquals(poResource.getDueDate(), getPoRes().getDueDate());
     	assertEquals(poResource.getCustomerId(), getPoRes().getCustomerId());
     }
     
@@ -174,27 +172,25 @@ public class PurchaseOrderRESTControllerTest {
     	
     	PurchaseOrderResource newPoResource = getPoRes();
     	newPoResource.setEndDate(endDate.getTime());
-    	newPoResource.setDueDate(dueDate.getTime());
     	newPoResource.setStartDate(startDate.getTime());
     	
     	Client client = Client.create();
-    	WebResource webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + newPoResource.getPuchaseID());
+    	WebResource webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + newPoResource.getPuchaseId());
     	ClientResponse response = webResource.type(MediaType.APPLICATION_XML) 
 				 .accept(MediaType.APPLICATION_XML).post(ClientResponse.class, newPoResource); 
     	assertEquals(response.getStatus(), Status.CREATED.getStatusCode());
     	
 	    client = Client.create();
-	   	webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + getPoRes().getPuchaseID());
+	   	webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + getPoRes().getPuchaseId());
 	   	response = webResource.get(ClientResponse.class);
 			
 	   	PurchaseOrderResource poResource = response.getEntity(PurchaseOrderResource.class); 
 			
 	   	assertEquals(poResource.getStatus(), newPoResource.getStatus());
 	   	assertEquals(poResource.getStartDate(), newPoResource.getStartDate());
-	   	assertEquals(poResource.getPuchaseID(), newPoResource.getPuchaseID());
+	   	assertEquals(poResource.getPuchaseId(), newPoResource.getPuchaseId());
 	   	assertEquals(poResource.getPlantId(), newPoResource.getPlantId());
 	   	assertEquals(poResource.getEndDate(), newPoResource.getEndDate() );
-	   	assertEquals(poResource.getDueDate(), newPoResource.getDueDate());
 	   	assertEquals(poResource.getCustomerId(), newPoResource.getCustomerId());
     }
     
@@ -203,17 +199,17 @@ public class PurchaseOrderRESTControllerTest {
     	
     	Client client = Client.create();
     	WebResource webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI +
-    			getPoRes().getPuchaseID() + CANCEL_PURCHASE_ORDER); 	
+    			getPoRes().getPuchaseId() + CANCEL_PURCHASE_ORDER); 	
     	ClientResponse response = webResource.type(MediaType.APPLICATION_XML) 
 				 .accept(MediaType.APPLICATION_XML).delete(ClientResponse.class);  
     	
     	
-    	webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + getPoRes().getPuchaseID());
+    	webResource = client.resource(PURCHASE_ORDER_RESOURCE_URI + getPoRes().getPuchaseId());
     	response = webResource.get(ClientResponse.class);
 		
     	PurchaseOrderResource poResource = response.getEntity(PurchaseOrderResource.class); 
 		
-    	assertEquals(poResource.getStatus(), Statuses.CANCELED);
+    	assertEquals(poResource.getStatus(), PurchaseOrderStatuses.CANCELED);
     	
     }
 }

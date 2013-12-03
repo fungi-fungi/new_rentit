@@ -9,7 +9,8 @@ public class CustomerResourceAssembler {
 
 		CustomerResource customerResource = new CustomerResource();
 		customerResource.setName(customer.getName());
-		customerResource.setCustomerId(customer.getCustomerId());
+		customerResource.setCustomerId(customer.getId());
+		customerResource.setEmail(customer.getEmail());
 		
 		return customerResource;
 	}

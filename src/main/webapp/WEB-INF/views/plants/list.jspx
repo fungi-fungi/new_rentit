@@ -7,7 +7,6 @@
             <table:column id="c_com_rentit_Plant_description" property="description" z="kiHuH6o+uSajxBVXFWiBaVOIGvs="/>
             <table:column id="c_com_rentit_Plant_price" property="price" z="G/wznVOpZO8dr7WLsvY+aGL2xbU="/>
             <table:column id="c_com_rentit_Plant_name" property="name" z="tUmZn6HCHboaH7+iKDYgllDKDbA="/>
-            <table:column id="c_com_rentit_Plant_plantId" property="plantId" z="Atm1oo1iqlRoj9QQ+J4yjTtfJA8="/>
         </table:table>
     </page:list>
 </div>

@@ -1,5 +1,6 @@
 package com.rentit.web;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -17,8 +18,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rentit.Invoice;
+import com.rentit.InvoiceStatuses;
 import com.rentit.PurchaseOrder;
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.InvoiceResourceAssembler;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.service.InvoiceService;
@@ -48,7 +50,7 @@ public class SendInvoiceController {
 			HttpServletRequest request) {
 
 		List<PurchaseOrder> purchaseOrders = poRepository
-				.findPandingPurchaseOrder(Statuses.ACCEPT);
+				.findPandingPurchaseOrder(PurchaseOrderStatuses.ACCEPTED);
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
 		List<WebPurchaseOrderResource> po = assembler
 				.toListResource(purchaseOrders);
@@ -66,8 +68,8 @@ public class SendInvoiceController {
 
 		Invoice invoice = new Invoice();
 		invoice.setPurchaseOrder(order);
-		invoice.setStatus(Statuses.ACCEPT);
-		invoice.setDueDate(order.getDueDate());
+		invoice.setStatus(InvoiceStatuses.PANDING);
+		invoice.setDueDate(new Date());
 
 		invoice.persist();
 

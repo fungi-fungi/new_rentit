@@ -38,7 +38,7 @@ public class PlantRESTContraller {
 	public ResponseEntity<Void> incertPlantResource(@RequestBody PlantResource plantResource) {
 		
 		Plant plant = new Plant();
-		plant.setPlantId(plantResource.getPlantId());
+		plant.setId(plantResource.getPlantId());
 		plant.setName(plantResource.getName());
 		plant.setDescription(plantResource.getDescription());
 		plant.setPrice(plantResource.getPrice());

@@ -35,7 +35,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Customer, String> ApplicationConversionServiceFactoryBean.getCustomerToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.Customer, java.lang.String>() {
             public String convert(Customer customer) {
-                return new StringBuilder().append(customer.getCustomerId()).append(' ').append(customer.getName()).toString();
+                return new StringBuilder().append(customer.getName()).append(' ').append(customer.getEmail()).toString();
             }
         };
     }
@@ -83,7 +83,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Plant, String> ApplicationConversionServiceFactoryBean.getPlantToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.Plant, java.lang.String>() {
             public String convert(Plant plant) {
-                return new StringBuilder().append(plant.getPlantId()).append(' ').append(plant.getName()).append(' ').append(plant.getDescription()).append(' ').append(plant.getPrice()).toString();
+                return new StringBuilder().append(plant.getName()).append(' ').append(plant.getDescription()).append(' ').append(plant.getPrice()).toString();
             }
         };
     }
@@ -107,7 +107,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<PurchaseOrder, String> ApplicationConversionServiceFactoryBean.getPurchaseOrderToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.PurchaseOrder, java.lang.String>() {
             public String convert(PurchaseOrder purchaseOrder) {
-                return new StringBuilder().append(purchaseOrder.getPuchaseID()).append(' ').append(purchaseOrder.getDueDate()).append(' ').append(purchaseOrder.getStartDate()).append(' ').append(purchaseOrder.getEndDate()).toString();
+                return new StringBuilder().append(purchaseOrder.getPuchaseId()).append(' ').append(purchaseOrder.getDestination()).append(' ').append(purchaseOrder.getStartDate()).append(' ').append(purchaseOrder.getEndDate()).toString();
             }
         };
     }

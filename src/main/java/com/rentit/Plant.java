@@ -13,18 +13,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "plant")
 public class Plant {
 
-	private long plantId;
-	/**
-     */
-	
+	@NotNull
 	private String name;
 
-	/**
-     */
 	private String description;
 
-	/**
-     */
 	@NotNull
 	private Float price;
 }

@@ -3,7 +3,7 @@
 
 package com.rentit.soap;
 
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 import com.rentit.soap.WebPurchaseOrderResource;
 import java.util.Date;
 
@@ -33,11 +33,11 @@ privileged aspect WebPurchaseOrderResource_Roo_JavaBean {
         this.customer = customer;
     }
     
-    public Statuses WebPurchaseOrderResource.getStatus() {
+    public PurchaseOrderStatuses WebPurchaseOrderResource.getStatus() {
         return this.status;
     }
     
-    public void WebPurchaseOrderResource.setStatus(Statuses status) {
+    public void WebPurchaseOrderResource.setStatus(PurchaseOrderStatuses status) {
         this.status = status;
     }
     

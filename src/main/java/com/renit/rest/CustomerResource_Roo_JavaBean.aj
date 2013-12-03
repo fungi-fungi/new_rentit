@@ -23,4 +23,12 @@ privileged aspect CustomerResource_Roo_JavaBean {
         this.name = name;
     }
     
+    public String CustomerResource.getEmail() {
+        return this.email;
+    }
+    
+    public void CustomerResource.setEmail(String email) {
+        this.email = email;
+    }
+    
 }

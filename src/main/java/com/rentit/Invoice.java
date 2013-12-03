@@ -15,20 +15,14 @@ import javax.persistence.OneToOne;
 @RooJpaActiveRecord
 public class Invoice {
 
-    /**
-     */
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "M-")
     private Date dueDate;
 
-    /**
-     */
     @Enumerated
-    private Statuses status;
+    private InvoiceStatuses status;
 
-    /**
-     */
     @OneToOne
     private PurchaseOrder purchaseOrder;
 }

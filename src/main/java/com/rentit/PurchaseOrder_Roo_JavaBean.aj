@@ -6,24 +6,24 @@ package com.rentit;
 import com.rentit.Customer;
 import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 import java.util.Date;
 
 privileged aspect PurchaseOrder_Roo_JavaBean {
     
-    public Long PurchaseOrder.getPuchaseID() {
-        return this.puchaseID;
+    public Long PurchaseOrder.getPuchaseId() {
+        return this.puchaseId;
     }
     
-    public void PurchaseOrder.setPuchaseID(Long puchaseID) {
-        this.puchaseID = puchaseID;
+    public void PurchaseOrder.setPuchaseId(Long puchaseId) {
+        this.puchaseId = puchaseId;
     }
     
-    public Statuses PurchaseOrder.getStatus() {
+    public PurchaseOrderStatuses PurchaseOrder.getStatus() {
         return this.status;
     }
     
-    public void PurchaseOrder.setStatus(Statuses status) {
+    public void PurchaseOrder.setStatus(PurchaseOrderStatuses status) {
         this.status = status;
     }
     
@@ -43,12 +43,12 @@ privileged aspect PurchaseOrder_Roo_JavaBean {
         this.plant = plant;
     }
     
-    public Date PurchaseOrder.getDueDate() {
-        return this.dueDate;
+    public String PurchaseOrder.getDestination() {
+        return this.destination;
     }
     
-    public void PurchaseOrder.setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
+    public void PurchaseOrder.setDestination(String destination) {
+        this.destination = destination;
     }
     
     public Date PurchaseOrder.getStartDate() {

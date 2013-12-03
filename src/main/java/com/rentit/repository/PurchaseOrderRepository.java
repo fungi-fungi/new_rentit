@@ -7,7 +7,7 @@ import org.springframework.roo.addon.layers.repository.jpa.RooJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.rentit.PurchaseOrder;
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 
 @RooJpaRepository(domainType = PurchaseOrder.class)
 public interface PurchaseOrderRepository {
@@ -18,5 +18,5 @@ public interface PurchaseOrderRepository {
 	
 	@Query("SELECT p FROM PurchaseOrder AS p WHERE p.status = :status")
 	@Transactional(readOnly = true)
-	List<PurchaseOrder> findPandingPurchaseOrder(@Param("status") Statuses status);
+	List<PurchaseOrder> findPandingPurchaseOrder(@Param("status") PurchaseOrderStatuses status);
 }

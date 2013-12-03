@@ -16,11 +16,10 @@ public class WebPurchaseOrderAssembler {
 		poResource.setStatus(po.getStatus());
 		poResource.setStartDate(po.getStartDate());
 		poResource.setEndDate(po.getEndDate());
-		poResource.setDueDate(po.getDueDate());
 		if(po.getPlant() != null) {
 			poResource.setPlanName(po.getPlant().getName());
 		}
-		poResource.setPuchaseID(po.getPuchaseID());
+		poResource.setPuchaseID(po.getPuchaseId());
 		if(po.getCustomer() != null) {
 			poResource.setCustomer(po.getCustomer().getName());
 		}

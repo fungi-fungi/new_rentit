@@ -11,7 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 
 @RooJavaBean
 @XmlRootElement(name = "po")
@@ -24,7 +24,7 @@ public class WebPurchaseOrderResource {
 	private String customer;
 	
 	@Enumerated
-	private Statuses status;
+	private PurchaseOrderStatuses status;
 	
 	/**
      */

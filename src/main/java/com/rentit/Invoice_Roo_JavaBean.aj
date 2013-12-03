@@ -4,8 +4,8 @@
 package com.rentit;
 
 import com.rentit.Invoice;
+import com.rentit.InvoiceStatuses;
 import com.rentit.PurchaseOrder;
-import com.rentit.Statuses;
 import java.util.Date;
 
 privileged aspect Invoice_Roo_JavaBean {
@@ -18,11 +18,11 @@ privileged aspect Invoice_Roo_JavaBean {
         this.dueDate = dueDate;
     }
     
-    public Statuses Invoice.getStatus() {
+    public InvoiceStatuses Invoice.getStatus() {
         return this.status;
     }
     
-    public void Invoice.setStatus(Statuses status) {
+    public void Invoice.setStatus(InvoiceStatuses status) {
         this.status = status;
     }
     

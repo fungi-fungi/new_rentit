@@ -3,13 +3,13 @@
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_com_rentit_PurchaseOrder" modelAttribute="purchaseOrder" path="/purchaseorders" render="${empty dependencies}" z="KvnoOhOtuErnsugVVWIY4ZaJ830=">
-        <field:select field="status" id="c_com_rentit_PurchaseOrder_status" items="${statuseses}" path="statuseses" z="+loJuAOALi8354xoCaW/fwkg07g="/>
         <field:select field="customer" id="c_com_rentit_PurchaseOrder_customer" itemValue="id" items="${customers}" path="/customers" z="txH66edmRnUOEA1REsS4HfvVypE="/>
         <field:select field="plant" id="c_com_rentit_PurchaseOrder_plant" itemValue="id" items="${plants}" path="/plants" z="X76KOFzDc0XPNNyKgsZn84o7hrM="/>
-        <field:input field="puchaseID" id="c_com_rentit_PurchaseOrder_puchaseID" validationMessageCode="field_invalid_integer" z="1jS0RRZ509Ek2tLG03bB9rPtCyI="/>
-        <field:datetime dateTimePattern="${purchaseOrder_duedate_date_format}" field="dueDate" id="c_com_rentit_PurchaseOrder_dueDate" required="true" z="bVOP9fXc33STwJJaH3AatmSlWes="/>
         <field:datetime dateTimePattern="${purchaseOrder_startdate_date_format}" field="startDate" id="c_com_rentit_PurchaseOrder_startDate" required="true" z="jSNqum3kJ+pxjMjC6b4iWXejDiQ="/>
         <field:datetime dateTimePattern="${purchaseOrder_enddate_date_format}" field="endDate" id="c_com_rentit_PurchaseOrder_endDate" required="true" z="Q7aBeQ0H9hHXliaNb5K8aX51Emg="/>
+        <field:input field="puchaseId" id="c_com_rentit_PurchaseOrder_puchaseId" required="true" validationMessageCode="field_invalid_integer" z="1NfNuyNLFlYIp+2A1lBYLe3fzPM="/>
+        <field:input field="destination" id="c_com_rentit_PurchaseOrder_destination" z="NnbkHArvffpE2fh8mtf7029IyY4="/>
+        <field:input field="status" id="c_com_rentit_PurchaseOrder_status" z="lh7K06DI9/CX56LdmL1AMOu4lTY="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_com_rentit_PurchaseOrder" render="${not empty dependencies}" z="xatVNmJsu9vsNWsoNPFSD/rDHLk="/>
 </div>

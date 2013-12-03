@@ -4,7 +4,7 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_com_rentit_Customer" modelAttribute="customer" path="/customers" render="${empty dependencies}" z="+8dic5dB6s/DFDP1NOsJ5vlc6T8=">
         <field:input field="name" id="c_com_rentit_Customer_name" z="VMe1b44dIL0GGw6rk8DT6jbNCVY="/>
-        <field:input field="customerId" id="c_com_rentit_Customer_customerId" z="g5A4UKxuXGQbpmgC/+eZ9XJQFLc="/>
+        <field:input field="email" id="c_com_rentit_Customer_email" validationMessageCode="field_invalid_email" z="dFTdhz44lGMJ89yMNS7P2jOMfF0="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_com_rentit_Customer" render="${not empty dependencies}" z="wy8Hnh/ITDwK/79+dyrmX5lhkRc="/>
 </div>

@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rentit.Invoice;
 import com.rentit.PurchaseOrder;
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.InvoiceResourceAssembler;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.service.InvoiceService;
@@ -52,7 +52,7 @@ public class ReviewPageController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String someAction(Map<String, Object> map, HttpServletRequest request) {
 		
-		List<PurchaseOrder> purchaseOrders = poRepository.findPandingPurchaseOrder(Statuses.PANDING);
+		List<PurchaseOrder> purchaseOrders = poRepository.findPandingPurchaseOrder(PurchaseOrderStatuses.PANDING);
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
 		List<WebPurchaseOrderResource> po = assembler
 				.toListResource(purchaseOrders);
@@ -70,9 +70,9 @@ public class ReviewPageController {
 
 		PurchaseOrder order = poRepository.findPOById(data.getPurchaseOrderId());
 		if(data.getStatus().equals(com.rentit.soap.client.Statuses.ACCEPTED)){
-			order.setStatus(Statuses.ACCEPT);
+			order.setStatus(PurchaseOrderStatuses.ACCEPTED);
 		}else{
-			order.setStatus(Statuses.REJECTED);
+			order.setStatus(PurchaseOrderStatuses.REJECTED);
 		}
 		order.persist();
 		

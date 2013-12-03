@@ -12,7 +12,7 @@ public class PlantResourceAssembler {
 	public PlantResource toResource(Plant plant) {
 
 		PlantResource plantResource = new PlantResource();
-		plantResource.setPlantId(plant.getPlantId());
+		plantResource.setPlantId(plant.getId());
 		plantResource.setName(plant.getName());
 		plantResource.setPrice(plant.getPrice());
 		plantResource.setDescription(plant.getDescription());

@@ -4,6 +4,6 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:update id="fu_com_rentit_Customer" modelAttribute="customer" path="/customers" versionField="Version" z="OMWrMLEsZqFY7Yw9eqAWjEWNDwE=">
         <field:input field="name" id="c_com_rentit_Customer_name" z="VMe1b44dIL0GGw6rk8DT6jbNCVY="/>
-        <field:input field="customerId" id="c_com_rentit_Customer_customerId" z="g5A4UKxuXGQbpmgC/+eZ9XJQFLc="/>
+        <field:input field="email" id="c_com_rentit_Customer_email" validationMessageCode="field_invalid_email" z="dFTdhz44lGMJ89yMNS7P2jOMfF0="/>
     </form:update>
 </div>

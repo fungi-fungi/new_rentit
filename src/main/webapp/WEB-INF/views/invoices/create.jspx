@@ -4,8 +4,8 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_com_rentit_Invoice" modelAttribute="invoice" path="/invoices" render="${empty dependencies}" z="cUEY4SEWt+2WDLabx/94uLU2jQ4=">
         <field:datetime dateTimePattern="${invoice_duedate_date_format}" field="dueDate" id="c_com_rentit_Invoice_dueDate" required="true" z="5UGA3cYk0e0QUg1xKPKfAf9KTz8="/>
-        <field:select field="status" id="c_com_rentit_Invoice_status" items="${statuseses}" path="statuseses" z="q+t0djz3bxE/m4ldPPI0IxiGa2Y="/>
         <field:select field="purchaseOrder" id="c_com_rentit_Invoice_purchaseOrder" itemValue="id" items="${purchaseorders}" path="/purchaseorders" z="ovNx/7hBN6uZi0cYqbwdhiv2AkM="/>
+        <field:select field="status" id="c_com_rentit_Invoice_status" items="${invoicestatuseses}" path="invoicestatuseses" z="qo0V/7aW3/qXFOGcTSOGEtrcNak="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_com_rentit_Invoice" render="${not empty dependencies}" z="Wx6GowVfRE1U/QZFayCwQL7zU3g="/>
 </div>

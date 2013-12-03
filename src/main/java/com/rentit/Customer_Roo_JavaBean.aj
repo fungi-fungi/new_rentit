@@ -7,20 +7,20 @@ import com.rentit.Customer;
 
 privileged aspect Customer_Roo_JavaBean {
     
-    public long Customer.getCustomerId() {
-        return this.customerId;
-    }
-    
-    public void Customer.setCustomerId(long customerId) {
-        this.customerId = customerId;
-    }
-    
     public String Customer.getName() {
         return this.name;
     }
     
     public void Customer.setName(String name) {
         this.name = name;
+    }
+    
+    public String Customer.getEmail() {
+        return this.email;
+    }
+    
+    public void Customer.setEmail(String email) {
+        this.email = email;
     }
     
 }

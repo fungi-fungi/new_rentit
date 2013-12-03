@@ -10,7 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 
 @RooJavaBean
 @XmlRootElement(name = "invoice")
@@ -24,7 +24,7 @@ public class InvoiceResource {
 	
 	private float totalPrice;
 
-	private Statuses status;
+	private PurchaseOrderStatuses status;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(style = "M-")

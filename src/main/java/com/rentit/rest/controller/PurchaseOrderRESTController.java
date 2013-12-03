@@ -16,7 +16,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.renit.rest.PurchaseOrderResource;
 import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.PurchaseOrderAssembler;
 import com.rentit.repository.CustomerRepository;
 import com.rentit.repository.PlantRepository;
@@ -61,7 +61,7 @@ public class PurchaseOrderRESTController {
 	@RequestMapping(method=RequestMethod.DELETE, value="{id}/accept")
 	public ResponseEntity<Void> cencelPurchaseOrderResource(@PathVariable Long id) {
 		PurchaseOrder po = poRepository.findPOById(id);
-		po.setStatus(Statuses.CANCELED);
+		po.setStatus(PurchaseOrderStatuses.CANCELED);
 		po.persist();
 		
 		HttpHeaders headers = new HttpHeaders();
@@ -75,7 +75,7 @@ public class PurchaseOrderRESTController {
 	public ResponseEntity<Void> modifyPurchaseOrderResource(@PathVariable Long id, @RequestBody PurchaseOrderResource poResource) {
 		
 		PurchaseOrder po = poRepository.findPOById(id);
-		po.setPuchaseID(poResource.getPuchaseID());
+		po.setPuchaseId(poResource.getPuchaseId());
 		
 		//TODO: Check if plant and customer exist
 		po.setCustomer(customerRepository.findCustomerByCustomerId(poResource.getCustomerId()));
@@ -83,7 +83,6 @@ public class PurchaseOrderRESTController {
 		po.setStatus(poResource.getStatus());
 		po.setStartDate(poResource.getStartDate());
 		po.setEndDate(poResource.getEndDate());
-		po.setDueDate(poResource.getDueDate());
 		po.persist();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -99,15 +98,14 @@ public class PurchaseOrderRESTController {
 	public ResponseEntity<Void> createPurchaseOrderResource(@RequestBody PurchaseOrderResource poResource) {
 		
 		PurchaseOrder po = new PurchaseOrder();
-		po.setPuchaseID(poResource.getPuchaseID());
+		po.setPuchaseId(poResource.getPuchaseId());
 		//TODO: Check if plant and customer exist
 		po.setCustomer(customerRepository.findCustomerByCustomerId(poResource.getCustomerId()));
 		po.setPlant(plantRepository.findPlantByPlantId(poResource.getPlantId()));
 		// New request should be panding
-		po.setStatus(Statuses.PANDING);
+		po.setStatus(PurchaseOrderStatuses.PANDING);
 		po.setStartDate(poResource.getStartDate());
 		po.setEndDate(poResource.getEndDate());
-		po.setDueDate(poResource.getDueDate());
 		po.persist();
 
 		HttpHeaders headers = new HttpHeaders();

@@ -7,9 +7,8 @@ import org.springframework.roo.addon.tostring.RooToString;
 @RooToString
 @RooJpaActiveRecord
 public class Customer {
-
-	private long customerId;
-    /**
-     */
+    
     private String name;
+    
+    private String email;
 }

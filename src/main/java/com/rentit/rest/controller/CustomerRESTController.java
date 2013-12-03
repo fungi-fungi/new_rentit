@@ -39,7 +39,7 @@ public class CustomerRESTController {
 		
 		Customer customer = new Customer();
 		customer.setName(customerResource.getName());
-		customer.setCustomerId(customerResource.getCustomerId());
+		customer.setId(customerResource.getCustomerId());
 		customer.persist();
 		
 		HttpHeaders headers = new HttpHeaders();

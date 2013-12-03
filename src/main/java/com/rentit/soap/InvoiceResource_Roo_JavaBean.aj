@@ -3,7 +3,7 @@
 
 package com.rentit.soap;
 
-import com.rentit.Statuses;
+import com.rentit.PurchaseOrderStatuses;
 import com.rentit.soap.InvoiceResource;
 import java.util.Date;
 
@@ -41,11 +41,11 @@ privileged aspect InvoiceResource_Roo_JavaBean {
         this.totalPrice = totalPrice;
     }
     
-    public Statuses InvoiceResource.getStatus() {
+    public PurchaseOrderStatuses InvoiceResource.getStatus() {
         return this.status;
     }
     
-    public void InvoiceResource.setStatus(Statuses status) {
+    public void InvoiceResource.setStatus(PurchaseOrderStatuses status) {
         this.status = status;
     }
     

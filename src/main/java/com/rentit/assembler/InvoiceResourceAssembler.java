@@ -11,7 +11,7 @@ public class InvoiceResourceAssembler {
 
 		InvoiceResource invoiceResource = new InvoiceResource();
 		invoiceResource.setPurchaseId(invoice.getPurchaseOrder().getId());
-		invoiceResource.setDueDate(invoice.getPurchaseOrder().getDueDate());
+		invoiceResource.setDueDate(invoice.getDueDate());
 		invoiceResource.setStartDate(invoice.getPurchaseOrder().getStartDate());
 		invoiceResource.setEndDate(invoice.getPurchaseOrder().getEndDate());
 		invoiceResource.setPlantName(invoice.getPurchaseOrder().getPlant().getName());
