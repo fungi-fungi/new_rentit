@@ -1,6 +1,10 @@
 package com.rentit.rest.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.renit.rest.PlantResourceList;
 import com.rentit.Plant;
@@ -25,16 +30,28 @@ public class PlantListRESTController {
 	com.rentit.repository.PlantRepository plantRepository;
 
 	@RequestMapping(method = RequestMethod.GET, value = "")
-	public ResponseEntity<PlantResourceList> getPlantsResourcesList(@RequestBody(required = false) DateRangeResource dates) {
+	public ResponseEntity<PlantResourceList> getPlantsResourcesList(
+			@RequestParam(required = false, value = "start") String start,
+			@RequestParam(required = false, value = "end") String end) {
 
 		List<Plant> plants = new ArrayList<Plant>();
 
-		if (dates != null) {
-			plants = plantRepository.getAvailiblePlants(dates.getStart(),
-					dates.getEnd());
+		//TODO: Think about custom Exceptions
+		
+		if (end != null && start != null) {
 
-		} else {
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+			try {
+				plants = plantRepository.getAvailiblePlants(dateFormat.parse(start), dateFormat.parse(end));
+			} catch (ParseException e) {
+				return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
+			}
+
+		} else if (end == null && start == null) {
 			plants = plantRepository.findAll();
+		} else{
+			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
 		}
 
 		PlantResourceAssembler assembler = new PlantResourceAssembler();

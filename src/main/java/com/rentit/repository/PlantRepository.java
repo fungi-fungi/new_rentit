@@ -24,7 +24,7 @@ public interface PlantRepository {
 	
 	@Query("SELECT p FROM Plant AS p WHERE p.id NOT IN "
 			+ "( SELECT po.plant.id FROM PurchaseOrder AS po "
-			+ "  WHERE po.endDate >= :start AND po.startDate <= :end AND po.status)")
+			+ "WHERE po.endDate >= :start AND po.startDate <= :end)")
 	
 	
 	//TODO: Fix query to filter by Status as well
