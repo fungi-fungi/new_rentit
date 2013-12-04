@@ -3,10 +3,10 @@
 
 package com.rentit;
 
-import com.rentit.Customer;
 import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
+import com.rentit.security.Users;
 import java.util.Date;
 
 privileged aspect PurchaseOrder_Roo_JavaBean {
@@ -27,11 +27,11 @@ privileged aspect PurchaseOrder_Roo_JavaBean {
         this.status = status;
     }
     
-    public Customer PurchaseOrder.getCustomer() {
+    public Users PurchaseOrder.getCustomer() {
         return this.customer;
     }
     
-    public void PurchaseOrder.setCustomer(Customer customer) {
+    public void PurchaseOrder.setCustomer(Users customer) {
         this.customer = customer;
     }
     

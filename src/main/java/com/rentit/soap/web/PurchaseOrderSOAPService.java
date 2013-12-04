@@ -27,8 +27,8 @@ public class PurchaseOrderSOAPService {
 		PurchaseOrder po = new PurchaseOrder();
 		po.setPuchaseId(reqest.getPuchaseID());
 		// TODO: Check if plant and customer exist
-		po.setCustomer(customerRepository.findCustomerByCustomerId(reqest.getCustomerId()));
-		po.setPlant(plantRepository.findPlantByPlantId(reqest.getPlantId()));
+		po.setCustomer(customerRepository.findOne(reqest.getCustomerId()));
+		po.setPlant(plantRepository.findOne(reqest.getPlantId()));
 		po.setStatus(PurchaseOrderStatuses.PANDING);
 		po.setStartDate(reqest.getStartDate());
 		po.setEndDate(reqest.getEndDate());

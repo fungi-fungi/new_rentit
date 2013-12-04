@@ -10,17 +10,17 @@
 			login-page="/login" authentication-failure-url="/login?login_error=t" />
 		<logout logout-url="/resources/j_spring_security_logout" />
 		<!-- Configure these elements to secure URIs in your application -->
-		<!-- <intercept-url pattern="/choices/**" access="hasRole('ROLE_ADMIN')" />
+		<intercept-url pattern="/choices/**" access="hasRole('ROLE_ADMIN')" />
 		<intercept-url pattern="/member/**" access="isAuthenticated()" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
 		<intercept-url pattern="/login/**" access="permitAll" />
 		<intercept-url pattern="/*SOAP*/**" access="permitAll" />
 		<intercept-url pattern="/**" access="isAuthenticated()" />
-		<intercept-url pattern="/rest/**" access="hasRole('ROLE_USER')" /> -->
+		<intercept-url pattern="/rest/**" access="hasRole('ROLE_USER')" />
 
 
 		<!-- TODO: Change later -->
-		<intercept-url pattern="/**" access="permitAll" />
+		<!-- <intercept-url pattern="/**" access="permitAll" /> -->
 
 		<http-basic />
 
@@ -43,7 +43,7 @@
 		</authentication-provider>
 		<authentication-provider>
 			<jdbc-user-service data-source-ref="dataSource"
-				users-by-username-query="SELECT username, password, enabled FROM users WHERE username = ?;"
+				users-by-username-query="SELECT username, password, enabled, email FROM users WHERE username = ?;"
 				authorities-by-username-query="SELECT p.username, a.authority FROM users p, authorities a, assignments ra WHERE p.id = ra.user_rent_it AND a.id = ra.authority AND p.username = ?;" />
 		</authentication-provider>
 	</authentication-manager>

@@ -3,13 +3,14 @@
 
 package com.rentit.web.security;
 
+import com.rentit.repository.CustomerRepository;
 import com.rentit.security.Assignments;
 import com.rentit.security.Authorities;
-import com.rentit.security.Users;
 import com.rentit.web.security.AssignmentsController;
 import java.io.UnsupportedEncodingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,9 @@ import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 
 privileged aspect AssignmentsController_Roo_Controller {
+    
+    @Autowired
+    CustomerRepository AssignmentsController.customerRepository;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String AssignmentsController.create(@Valid Assignments assignments, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -89,7 +93,7 @@ privileged aspect AssignmentsController_Roo_Controller {
     void AssignmentsController.populateEditForm(Model uiModel, Assignments assignments) {
         uiModel.addAttribute("assignments", assignments);
         uiModel.addAttribute("authoritieses", Authorities.findAllAuthoritieses());
-        uiModel.addAttribute("userses", Users.findAllUserses());
+        uiModel.addAttribute("userses", customerRepository.findAll());
     }
     
     String AssignmentsController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

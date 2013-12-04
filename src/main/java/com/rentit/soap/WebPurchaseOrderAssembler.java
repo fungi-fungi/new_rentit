@@ -21,7 +21,7 @@ public class WebPurchaseOrderAssembler {
 		}
 		poResource.setPuchaseID(po.getPuchaseId());
 		if(po.getCustomer() != null) {
-			poResource.setCustomer(po.getCustomer().getName());
+			poResource.setCustomer(po.getCustomer().getUsername());
 		}
 
 		return poResource;

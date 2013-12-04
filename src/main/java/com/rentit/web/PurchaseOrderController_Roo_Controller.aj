@@ -4,11 +4,13 @@
 package com.rentit.web;
 
 import com.rentit.PurchaseOrder;
+import com.rentit.PurchaseOrderStatuses;
 import com.rentit.repository.CustomerRepository;
 import com.rentit.repository.PlantRepository;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.web.PurchaseOrderController;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.joda.time.format.DateTimeFormat;
@@ -29,10 +31,10 @@ privileged aspect PurchaseOrderController_Roo_Controller {
     PurchaseOrderRepository PurchaseOrderController.purchaseOrderRepository;
     
     @Autowired
-    CustomerRepository PurchaseOrderController.customerRepository;
+    PlantRepository PurchaseOrderController.plantRepository;
     
     @Autowired
-    PlantRepository PurchaseOrderController.plantRepository;
+    CustomerRepository PurchaseOrderController.customerRepository;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String PurchaseOrderController.create(@Valid PurchaseOrder purchaseOrder, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -109,8 +111,9 @@ privileged aspect PurchaseOrderController_Roo_Controller {
     void PurchaseOrderController.populateEditForm(Model uiModel, PurchaseOrder purchaseOrder) {
         uiModel.addAttribute("purchaseOrder", purchaseOrder);
         addDateTimeFormatPatterns(uiModel);
-        uiModel.addAttribute("customers", customerRepository.findAll());
         uiModel.addAttribute("plants", plantRepository.findAll());
+        uiModel.addAttribute("purchaseorderstatuseses", Arrays.asList(PurchaseOrderStatuses.values()));
+        uiModel.addAttribute("userses", customerRepository.findAll());
     }
     
     String PurchaseOrderController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

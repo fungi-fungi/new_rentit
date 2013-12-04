@@ -12,7 +12,7 @@ import com.rentit.PurchaseOrderStatuses;
 @RooJpaRepository(domainType = PurchaseOrder.class)
 public interface PurchaseOrderRepository {
 	
-	@Query("SELECT p FROM PurchaseOrder AS p WHERE p.puchaseID = :id")
+	@Query("SELECT p FROM PurchaseOrder AS p WHERE p.puchaseId = :id")
 	@Transactional(readOnly = true)
 	PurchaseOrder findPOById(@Param("id") Long id);
 	

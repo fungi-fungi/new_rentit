@@ -3,7 +3,6 @@
 
 package com.rentit.web;
 
-import com.rentit.Customer;
 import com.rentit.Invoice;
 import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
@@ -24,37 +23,13 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     declare @type: ApplicationConversionServiceFactoryBean: @Configurable;
     
     @Autowired
-    CustomerRepository ApplicationConversionServiceFactoryBean.customerRepository;
-    
-    @Autowired
     PlantRepository ApplicationConversionServiceFactoryBean.plantRepository;
     
     @Autowired
     PurchaseOrderRepository ApplicationConversionServiceFactoryBean.purchaseOrderRepository;
     
-    public Converter<Customer, String> ApplicationConversionServiceFactoryBean.getCustomerToStringConverter() {
-        return new org.springframework.core.convert.converter.Converter<com.rentit.Customer, java.lang.String>() {
-            public String convert(Customer customer) {
-                return new StringBuilder().append(customer.getName()).append(' ').append(customer.getEmail()).toString();
-            }
-        };
-    }
-    
-    public Converter<Long, Customer> ApplicationConversionServiceFactoryBean.getIdToCustomerConverter() {
-        return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.rentit.Customer>() {
-            public com.rentit.Customer convert(java.lang.Long id) {
-                return customerRepository.findOne(id);
-            }
-        };
-    }
-    
-    public Converter<String, Customer> ApplicationConversionServiceFactoryBean.getStringToCustomerConverter() {
-        return new org.springframework.core.convert.converter.Converter<java.lang.String, com.rentit.Customer>() {
-            public com.rentit.Customer convert(String id) {
-                return getObject().convert(getObject().convert(id, Long.class), Customer.class);
-            }
-        };
-    }
+    @Autowired
+    CustomerRepository ApplicationConversionServiceFactoryBean.customerRepository;
     
     public Converter<Invoice, String> ApplicationConversionServiceFactoryBean.getInvoiceToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.Invoice, java.lang.String>() {
@@ -179,7 +154,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Users, String> ApplicationConversionServiceFactoryBean.getUsersToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.rentit.security.Users, java.lang.String>() {
             public String convert(Users users) {
-                return new StringBuilder().append(users.getUsername()).append(' ').append(users.getPassword()).toString();
+                return new StringBuilder().append(users.getUsername()).append(' ').append(users.getName()).append(' ').append(users.getPassword()).append(' ').append(users.getEmail()).toString();
             }
         };
     }
@@ -187,7 +162,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Long, Users> ApplicationConversionServiceFactoryBean.getIdToUsersConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.rentit.security.Users>() {
             public com.rentit.security.Users convert(java.lang.Long id) {
-                return Users.findUsers(id);
+                return customerRepository.findOne(id);
             }
         };
     }
@@ -201,9 +176,6 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     }
     
     public void ApplicationConversionServiceFactoryBean.installLabelConverters(FormatterRegistry registry) {
-        registry.addConverter(getCustomerToStringConverter());
-        registry.addConverter(getIdToCustomerConverter());
-        registry.addConverter(getStringToCustomerConverter());
         registry.addConverter(getInvoiceToStringConverter());
         registry.addConverter(getIdToInvoiceConverter());
         registry.addConverter(getStringToInvoiceConverter());

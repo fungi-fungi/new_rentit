@@ -5,7 +5,7 @@
     <form:create id="fc_com_rentit_Plant" modelAttribute="plant" path="/plants" render="${empty dependencies}" z="XL7eWMDw/MSmL+0YFz8xMEOvkxg=">
         <field:input field="description" id="c_com_rentit_Plant_description" z="AVpBZ/O1lv10Cyf8wxILs5BQnuM="/>
         <field:input field="price" id="c_com_rentit_Plant_price" required="true" validationMessageCode="field_invalid_number" z="dRp3CMWoo2pwjNAJTvUkjheEui4="/>
-        <field:input field="name" id="c_com_rentit_Plant_name" z="4EW87oLkP3YzvuIEmmeinmFFFvA="/>
+        <field:input field="name" id="c_com_rentit_Plant_name" required="true" z="r8VOKon7vbvLqkt2yszqr6UvgXY="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_com_rentit_Plant" render="${not empty dependencies}" z="Qw3fJsxSBq6SxehkMaNPiyMs8WQ="/>
 </div>

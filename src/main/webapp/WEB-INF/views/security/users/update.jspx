@@ -6,5 +6,7 @@
         <field:input field="username" id="c_com_rentit_security_Users_username" min="3" required="true" z="iQYywJ8eoDdH5P8p8emddcOQjUc="/>
         <field:input field="password" id="c_com_rentit_security_Users_password" min="3" required="true" z="dtAIuCcNbGzYz4kEI1KQp/KGJiM="/>
         <field:checkbox field="enabled" id="c_com_rentit_security_Users_enabled" z="6s8bBUe8JLcBuD8BFuIv+O44030="/>
+        <field:input field="email" id="c_com_rentit_security_Users_email" min="3" required="true" validationMessageCode="field_invalid_email" z="JgZOhGwSP+aT1NpWdm1BiKAQL28="/>
+        <field:input field="name" id="c_com_rentit_security_Users_name" z="fkcnPPhZzvZvg9OPUBNWk/JSUSA="/>
     </form:update>
 </div>

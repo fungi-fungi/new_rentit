@@ -1,4 +1,4 @@
-package com.rentit.soap;
+package com.rentit.dto;
 
 import java.util.Date;
 

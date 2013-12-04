@@ -12,8 +12,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
-import com.rentit.Customer;
-import com.rentit.Plant;
 import com.rentit.PurchaseOrderStatuses;
 
 @RooJavaBean

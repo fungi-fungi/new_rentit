@@ -7,6 +7,8 @@
             <table:column id="c_com_rentit_security_Users_username" property="username" z="XHsVlc1dLnupd6kwEhnQ9gk7+pw="/>
             <table:column id="c_com_rentit_security_Users_password" property="password" z="fKqUgoZkzKDd4KVWPvj5pIKmwq4="/>
             <table:column id="c_com_rentit_security_Users_enabled" property="enabled" z="U85GOqkg7gXrTl33oLmPvfyNAyU="/>
+            <table:column id="c_com_rentit_security_Users_email" property="email" z="K8dXD+TOnRH+vaJ866JeLSEtTJ0="/>
+            <table:column id="c_com_rentit_security_Users_name" property="name" z="OtzdTHA5sSjXmtSbb0agw55w6qA="/>
         </table:table>
     </page:list>
 </div>

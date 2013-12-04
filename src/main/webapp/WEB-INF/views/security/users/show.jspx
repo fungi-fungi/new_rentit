@@ -6,5 +6,7 @@
         <field:display field="username" id="s_com_rentit_security_Users_username" object="${users}" z="mDJPy5liU+nq/tqLR2x+CKH3/00="/>
         <field:display field="password" id="s_com_rentit_security_Users_password" object="${users}" z="bsYDrVF5jR4Pisu+vq2nQR/597I="/>
         <field:display field="enabled" id="s_com_rentit_security_Users_enabled" object="${users}" z="yEXZ1qyinzbJ1oLNRTDxD0jzCMk="/>
+        <field:display field="email" id="s_com_rentit_security_Users_email" object="${users}" z="ib9b1bIDqyWDXBDoNFhuyNND7ac="/>
+        <field:display field="name" id="s_com_rentit_security_Users_name" object="${users}" z="qVnLuw5s0ZNWKa32D5gMMiD7mR8="/>
     </page:show>
 </div>

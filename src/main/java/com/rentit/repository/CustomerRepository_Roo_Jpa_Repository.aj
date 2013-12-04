@@ -3,17 +3,17 @@
 
 package com.rentit.repository;
 
-import com.rentit.Customer;
 import com.rentit.repository.CustomerRepository;
+import com.rentit.security.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;
 
 privileged aspect CustomerRepository_Roo_Jpa_Repository {
     
-    declare parents: CustomerRepository extends JpaRepository<Customer, Long>;
+    declare parents: CustomerRepository extends JpaRepository<Users, Long>;
     
-    declare parents: CustomerRepository extends JpaSpecificationExecutor<Customer>;
+    declare parents: CustomerRepository extends JpaSpecificationExecutor<Users>;
     
     declare @type: CustomerRepository: @Repository;
     

@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +21,7 @@ import com.rentit.assembler.PlantResourceAssembler;
 
 @Controller
 @RequestMapping("/rest/plant")
-public class PlantRESTContraller {
+public class PlantRESTController {
 
 	@Autowired
 	com.rentit.repository.PlantRepository plantRepository;
@@ -27,9 +29,9 @@ public class PlantRESTContraller {
 	@RequestMapping(method = RequestMethod.GET, value = "{id}")
 	public ResponseEntity<PlantResource> getPlantResource(@PathVariable Long id) {
 
-		Plant plant = plantRepository.findPlantByPlantId(id);
+		Plant plant = plantRepository.findOne(id);
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
-
+		
 		return new ResponseEntity<PlantResource>(
 				assembler.toResource(plant), new HttpHeaders(),	HttpStatus.OK);
 	}
@@ -57,7 +59,7 @@ public class PlantRESTContraller {
 	public ResponseEntity<Void> deletePlantResource(@PathVariable Long id) {
 
 		
-		Plant plant = plantRepository.findPlantByPlantId(id);
+		Plant plant = plantRepository.findOne(id);
 		
 		plantRepository.delete(plant);
 

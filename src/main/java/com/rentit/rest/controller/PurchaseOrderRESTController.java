@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -78,8 +81,8 @@ public class PurchaseOrderRESTController {
 		po.setPuchaseId(poResource.getPuchaseId());
 		
 		//TODO: Check if plant and customer exist
-		po.setCustomer(customerRepository.findCustomerByCustomerId(poResource.getCustomerId()));
-		po.setPlant(plantRepository.findPlantByPlantId(poResource.getPlantId()));
+		po.setCustomer(customerRepository.findOne(poResource.getCustomerId()));
+		po.setPlant(plantRepository.findOne(poResource.getPlantId()));
 		po.setStatus(poResource.getStatus());
 		po.setStartDate(poResource.getStartDate());
 		po.setEndDate(poResource.getEndDate());
@@ -100,8 +103,8 @@ public class PurchaseOrderRESTController {
 		PurchaseOrder po = new PurchaseOrder();
 		po.setPuchaseId(poResource.getPuchaseId());
 		//TODO: Check if plant and customer exist
-		po.setCustomer(customerRepository.findCustomerByCustomerId(poResource.getCustomerId()));
-		po.setPlant(plantRepository.findPlantByPlantId(poResource.getPlantId()));
+		po.setCustomer(customerRepository.findOne(poResource.getCustomerId()));
+		po.setPlant(plantRepository.findOne(poResource.getPlantId()));
 		// New request should be panding
 		po.setStatus(PurchaseOrderStatuses.PANDING);
 		po.setStartDate(poResource.getStartDate());

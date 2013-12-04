@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.rentit.AvaliableStatuses;
 import com.rentit.Plant;
-import com.rentit.soap.DateRangeResource;
+import com.rentit.dto.DateRangeResource;
 import com.rentit.soap.PlantResourceAssembler;
 import com.rentit.soap.PlantResourceCollection;
 
@@ -22,12 +23,11 @@ public class PlantSOAPService {
 	@WebMethod
 	public PlantResourceCollection getAvailiblePlants(@RequestBody DateRangeResource reqest){
 
-		List<Plant> listOfAvailiblePlants = plantRepository.getAvailiblePlant(reqest.getStart(), reqest.getEnd());
+		List<Plant> listOfAvailiblePlants = plantRepository.getAvailiblePlants(reqest.getStart(), reqest.getEnd());
 		
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
 		PlantResourceCollection result = assembler.toResource(listOfAvailiblePlants);
 		
 		return result;
-		
 	}
 }
