@@ -1,8 +1,14 @@
 package com.rentit.rest.controller;
 
 import java.net.URI;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.renit.rest.PurchaseOrderResource;
@@ -75,7 +82,7 @@ public class PurchaseOrderRESTController {
 			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
 		}
 
-		if(po.getStatus().equals(PurchaseOrderStatuses.PANDING) || po.getStatus().equals(PurchaseOrderStatuses.ACCEPTED)){
+		if(po.getStartDate().after(new Date()) && (Days.daysBetween(new DateTime(po.getStartDate()), new DateTime()).getDays() > 1 )){
 			po.setStatus(PurchaseOrderStatuses.CANCELED);
 			po.persist();
 		}else{
@@ -92,18 +99,38 @@ public class PurchaseOrderRESTController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="{id}")
-	public ResponseEntity<Void> modifyPurchaseOrderResource(@PathVariable Long id, @RequestBody PurchaseOrderResource poResource) {
+	public ResponseEntity<Void> modifyPurchaseOrderResource(
+			@PathVariable Long id,
+			@RequestParam(required = true, value = "end") String end) {
 		
-		PurchaseOrder po = poRepository.findOne(id);
-		po.setId(poResource.getPuchaseId());
+		// TODO: Send whole resource if status is not INVOICED check avaliability and change
+		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		
-		//TODO: Check if plant and customer exist
-		po.setCustomer(customerRepository.findOne(poResource.getCustomerId()));
-		po.setPlant(plantRepository.findOne(poResource.getPlantId()));
-		po.setStatus(poResource.getStatus());
-		po.setStartDate(poResource.getStartDate());
-		po.setEndDate(poResource.getEndDate());
-		po.persist();
+		PurchaseOrder po = poRepository.getPOSByIdForUser(id, user);
+		
+		if(po == null){
+			return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
+		}
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+			
+			Date endDate = dateFormat.parse(end);
+			
+			if(endDate.after(po.getEndDate())){
+				
+				po.setEndDate(endDate);
+				po.persist();
+				
+			}else{
+				return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
+			}
+			
+		} catch (ParseException e) {
+			return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
+		}
+		
 
 		HttpHeaders headers = new HttpHeaders();
 		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
@@ -115,17 +142,18 @@ public class PurchaseOrderRESTController {
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="")
-	public ResponseEntity<Void> createPurchaseOrderResource(@RequestBody PurchaseOrderResource poResource) {
+	public ResponseEntity<PurchaseOrderResource> createPurchaseOrderResource(@RequestBody PurchaseOrderResource poResource) {
+		
+		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
 		
 		PurchaseOrder po = new PurchaseOrder();
-		po.setId(poResource.getPuchaseId());
-		//TODO: Check if plant and customer exist
-		po.setCustomer(customerRepository.findOne(poResource.getCustomerId()));
+		po.setCustomer(customerRepository.findClientIdByUserName(user));
 		po.setPlant(plantRepository.findOne(poResource.getPlantId()));
-		// New request should be panding
 		po.setStatus(PurchaseOrderStatuses.PANDING);
 		po.setStartDate(poResource.getStartDate());
 		po.setEndDate(poResource.getEndDate());
+		po.setDestination(poResource.getDestination());
 		po.persist();
 
 		HttpHeaders headers = new HttpHeaders();
@@ -133,7 +161,7 @@ public class PurchaseOrderRESTController {
 
 		headers.setLocation(location);
 		
-		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.CREATED);
+		ResponseEntity<PurchaseOrderResource> response = new ResponseEntity<PurchaseOrderResource>(assembler.toResource(po), headers, HttpStatus.CREATED);
 		return response;
 	}
 
