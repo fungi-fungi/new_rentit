@@ -94,7 +94,7 @@ public class PurchaseOrderRESTControllerTest {
 		
 		
 		long purchaseId = 999999;
-		PurchaseOrderStatuses status = PurchaseOrderStatuses.PANDING;
+		PurchaseOrderStatuses status = PurchaseOrderStatuses.ACCEPTED;
 		Calendar startDate = GregorianCalendar.getInstance();
 		startDate.set(2013, 10, 10, 12, 00, 00);
 		Calendar endDate = GregorianCalendar.getInstance();

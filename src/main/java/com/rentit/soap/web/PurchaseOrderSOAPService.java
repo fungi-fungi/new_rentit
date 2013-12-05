@@ -29,7 +29,7 @@ public class PurchaseOrderSOAPService {
 		// TODO: Check if plant and customer exist
 		po.setCustomer(customerRepository.findOne(reqest.getCustomerId()));
 		po.setPlant(plantRepository.findOne(reqest.getPlantId()));
-		po.setStatus(PurchaseOrderStatuses.PANDING);
+		po.setStatus(PurchaseOrderStatuses.ACCEPTED);
 		po.setStartDate(reqest.getStartDate());
 		po.setEndDate(reqest.getEndDate());
 		

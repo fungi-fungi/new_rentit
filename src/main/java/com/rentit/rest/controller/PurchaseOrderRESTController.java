@@ -119,7 +119,6 @@ public class PurchaseOrderRESTController {
 		
 		if(poResource.getEndDate().after(po.getEndDate())){
 			po.setEndDate(poResource.getEndDate());
-			po.setStatus(PurchaseOrderStatuses.PANDING);
 			po.persist();
 		}else{
 			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);

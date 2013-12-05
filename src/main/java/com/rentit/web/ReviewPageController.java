@@ -52,10 +52,11 @@ public class ReviewPageController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String someAction(Map<String, Object> map, HttpServletRequest request) {
 		
-		List<PurchaseOrder> purchaseOrders = poRepository.findPandingPurchaseOrder(PurchaseOrderStatuses.PANDING);
+		//TODO: Maybe move WebResource in normal place
+		
+		List<PurchaseOrder> purchaseOrders = poRepository.findPandingPurchaseOrder(PurchaseOrderStatuses.ACCEPTED);
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
-		List<WebPurchaseOrderResource> po = assembler
-				.toListResource(purchaseOrders);
+		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
 
 		map.put("po", po);
 		map.put("accept", com.rentit.soap.client.Statuses.ACCEPTED);
@@ -72,7 +73,7 @@ public class ReviewPageController {
 		if(data.getStatus().equals(com.rentit.soap.client.Statuses.ACCEPTED)){
 			order.setStatus(PurchaseOrderStatuses.ACCEPTED);
 		}else{
-			order.setStatus(PurchaseOrderStatuses.REJECTED);
+			order.setStatus(PurchaseOrderStatuses.CANCELED);
 		}
 		order.persist();
 		
