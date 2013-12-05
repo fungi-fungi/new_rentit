@@ -12,34 +12,41 @@
 
 	<c:forEach var="po" items="${po}">
 
-		<form:form method="POST" modelAttribute="postatusupdate">
-			<table>
+
+		<table>
+			<tr>
+				<td>Name</td>
+				<td>Customer</td>
+				<td>Start date</td>
+				<td>End date</td>
+
+			</tr>
+			<tr>
+				<td>${po.planName}</td>
+				<td>${po.customer}</td>
+				<td>${po.startDate}</td>
+				<td>${po.endDate}</td>
+			</tr>
+
+
+
+
+
+			<c:forEach var="buttons" items="${po.buttons}">
 				<tr>
-					<td>Name</td>
-					<td>Customer</td>
-					<td>Start date</td>
-					<td>End date</td>
+					<form:form method="POST" modelAttribute="postatusupdate">
+
+						<form:hidden path="purchaseOrderId" value="${po.puchaseId}" />
+						<form:hidden path="status" value="${buttons.status}" />
+						<td><input type="submit" value="${buttons.label}" /></td>
+
+					</form:form>
 
 				</tr>
-				<tr>
-					<td>${po.planName}</td>
-					<td>${po.customer}</td>
-					<td>${po.startDate}</td>
-					<td>${po.endDate}</td>
-				</tr>
-				<tr>
-					<td colspan="4">
-						<form:hidden path="purchaseOrderId"  value="${po.puchaseID}"/>
-						<form:radiobutton path="status" value="${accept}" label="Accept" /><br></br>
-						<form:radiobutton path="status" value="${reject}" label="Reject" /><br></br>
-						<form:textarea path="comment" label="Comment" />
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4"><input type="submit" value="Send" /></td>
-				</tr>
-			</table>
-		</form:form>
+			</c:forEach>
+
+		</table>
+
 
 	</c:forEach>
 

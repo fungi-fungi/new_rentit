@@ -5,12 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.bind.JAXBException;
 
-import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,12 +14,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.rentit.Invoice;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
-import com.rentit.assembler.InvoiceResourceAssembler;
+import com.rentit.dto.ChangeStatusFormAnswer;
 import com.rentit.repository.PurchaseOrderRepository;
-import com.rentit.service.InvoiceService;
 import com.rentit.soap.WebPurchaseOrderAssembler;
 import com.rentit.soap.WebPurchaseOrderResource;
 import com.rentit.soap.client.PoStatusUpdateRequest;
@@ -53,21 +47,19 @@ public class ReviewPageController {
 	public String someAction(Map<String, Object> map, HttpServletRequest request) {
 		
 		//TODO: Maybe move WebResource in normal place
-		
-		List<PurchaseOrder> purchaseOrders = poRepository.findPandingPurchaseOrder(PurchaseOrderStatuses.ACCEPTED);
+		//TODO: Set correct status in query
+		List<PurchaseOrder> purchaseOrders = poRepository.findAll();
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
 		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
 
 		map.put("po", po);
-		map.put("accept", com.rentit.soap.client.Statuses.ACCEPTED);
-		map.put("reject", com.rentit.soap.client.Statuses.REJECTED);
-		map.put("postatusupdate", new PoStatusUpdateRequest());
+		map.put("postatusupdate", new ChangeStatusFormAnswer());
 
 		return "purchaseorders/review/show";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String handlePost(@ModelAttribute("tempsolution") PoStatusUpdateRequest data, Map<String, Object> map, HttpServletRequest request){
+	public String handlePost(@ModelAttribute("tempsolution") ChangeStatusFormAnswer data, Map<String, Object> map, HttpServletRequest request){
 
 		PurchaseOrder order = poRepository.findOne(data.getPurchaseOrderId());
 		if(data.getStatus().equals(com.rentit.soap.client.Statuses.ACCEPTED)){
@@ -78,7 +70,7 @@ public class ReviewPageController {
 		order.persist();
 		
 		// Send SOAR request to BuilIt 
-		poSOAPService.setPoStatus(data);
+	//	poSOAPService.setPoStatus(data);
 
 	    return "purchaseorders/review/index";
 

@@ -3,18 +3,19 @@
 
 package com.rentit.soap;
 
-import com.rentit.PurchaseOrderStatuses;
+import com.rentit.dto.DataForButtons;
 import com.rentit.soap.WebPurchaseOrderResource;
 import java.util.Date;
+import java.util.List;
 
 privileged aspect WebPurchaseOrderResource_Roo_JavaBean {
     
-    public Long WebPurchaseOrderResource.getPuchaseID() {
-        return this.puchaseID;
+    public Long WebPurchaseOrderResource.getPuchaseId() {
+        return this.puchaseId;
     }
     
-    public void WebPurchaseOrderResource.setPuchaseID(Long puchaseID) {
-        this.puchaseID = puchaseID;
+    public void WebPurchaseOrderResource.setPuchaseId(Long puchaseId) {
+        this.puchaseId = puchaseId;
     }
     
     public String WebPurchaseOrderResource.getPlanName() {
@@ -33,22 +34,6 @@ privileged aspect WebPurchaseOrderResource_Roo_JavaBean {
         this.customer = customer;
     }
     
-    public PurchaseOrderStatuses WebPurchaseOrderResource.getStatus() {
-        return this.status;
-    }
-    
-    public void WebPurchaseOrderResource.setStatus(PurchaseOrderStatuses status) {
-        this.status = status;
-    }
-    
-    public Date WebPurchaseOrderResource.getDueDate() {
-        return this.dueDate;
-    }
-    
-    public void WebPurchaseOrderResource.setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
-    
     public Date WebPurchaseOrderResource.getStartDate() {
         return this.startDate;
     }
@@ -63,6 +48,14 @@ privileged aspect WebPurchaseOrderResource_Roo_JavaBean {
     
     public void WebPurchaseOrderResource.setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+    
+    public List<DataForButtons> WebPurchaseOrderResource.getButtons() {
+        return this.buttons;
+    }
+    
+    public void WebPurchaseOrderResource.setButtons(List<DataForButtons> buttons) {
+        this.buttons = buttons;
     }
     
 }
