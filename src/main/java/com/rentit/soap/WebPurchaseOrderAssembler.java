@@ -22,6 +22,7 @@ public class WebPurchaseOrderAssembler {
 
 		poResource.setEndDate(po.getEndDate());
 		poResource.setStartDate(po.getStartDate());
+		poResource.setCurrentStatus(po.getStatus().getHRRepresentation());
 		if(po.getPlant() != null) {
 			poResource.setPlanName(po.getPlant().getName());
 		}

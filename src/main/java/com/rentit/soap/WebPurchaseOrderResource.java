@@ -22,6 +22,8 @@ public class WebPurchaseOrderResource {
 	private String planName;
 	
 	private String customer;
+	
+	private String currentStatus;
 
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)

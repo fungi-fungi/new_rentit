@@ -27,10 +27,9 @@
 				<td>${po.startDate}</td>
 				<td>${po.endDate}</td>
 			</tr>
-
-
-
-
+			<tr>
+				<td colspan="4"><b>Current status: ${po.currentStatus}</b></td>
+			</tr>
 
 			<c:forEach var="buttons" items="${po.buttons}">
 				<tr>

@@ -62,15 +62,10 @@ public class ReviewPageController {
 	public String handlePost(@ModelAttribute("tempsolution") ChangeStatusFormAnswer data, Map<String, Object> map, HttpServletRequest request){
 
 		PurchaseOrder order = poRepository.findOne(data.getPurchaseOrderId());
-		if(data.getStatus().equals(com.rentit.soap.client.Statuses.ACCEPTED)){
-			order.setStatus(PurchaseOrderStatuses.ACCEPTED);
-		}else{
-			order.setStatus(PurchaseOrderStatuses.CANCELED);
+		if(data.getStatus() != null){
+			order.setStatus(data.getStatus());
+			order.persist();
 		}
-		order.persist();
-		
-		// Send SOAR request to BuilIt 
-	//	poSOAPService.setPoStatus(data);
 
 	    return "purchaseorders/review/index";
 
