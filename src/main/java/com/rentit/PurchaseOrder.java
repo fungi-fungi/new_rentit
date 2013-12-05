@@ -1,7 +1,6 @@
 package com.rentit;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;

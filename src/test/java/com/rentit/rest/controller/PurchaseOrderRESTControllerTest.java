@@ -104,7 +104,6 @@ public class PurchaseOrderRESTControllerTest {
 		
 		
 		PurchaseOrderResource poResource = new PurchaseOrderResource();
-		poResource.setCustomerId(customerId);
 		poResource.setEndDate(endDate.getTime());
 		poResource.setPlantId(plantId);
 		poResource.setPuchaseId(purchaseId);
@@ -157,7 +156,6 @@ public class PurchaseOrderRESTControllerTest {
     	assertEquals(poResource.getPuchaseId(), getPoRes().getPuchaseId());
     	assertEquals(poResource.getPlantId(), getPoRes().getPlantId());
     	assertEquals(poResource.getEndDate(), getPoRes().getEndDate() );
-    	assertEquals(poResource.getCustomerId(), getPoRes().getCustomerId());
     }
     
     @Test
@@ -191,7 +189,6 @@ public class PurchaseOrderRESTControllerTest {
 	   	assertEquals(poResource.getPuchaseId(), newPoResource.getPuchaseId());
 	   	assertEquals(poResource.getPlantId(), newPoResource.getPlantId());
 	   	assertEquals(poResource.getEndDate(), newPoResource.getEndDate() );
-	   	assertEquals(poResource.getCustomerId(), newPoResource.getCustomerId());
     }
     
     @Test

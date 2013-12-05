@@ -20,9 +20,6 @@ public class PurchaseOrderAssembler {
 			poResource.setPlantId(po.getPlant().getId());
 		}
 		poResource.setPuchaseId(po.getId());
-		if(po.getCustomer() != null) {
-			poResource.setCustomerId(po.getCustomer().getId());
-		}
 		poResource.setDestination(po.getDestination());
 
 		return poResource;

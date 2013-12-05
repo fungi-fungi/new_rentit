@@ -25,14 +25,6 @@ privileged aspect PurchaseOrderResource_Roo_JavaBean {
         this.status = status;
     }
     
-    public long PurchaseOrderResource.getCustomerId() {
-        return this.customerId;
-    }
-    
-    public void PurchaseOrderResource.setCustomerId(long customerId) {
-        this.customerId = customerId;
-    }
-    
     public long PurchaseOrderResource.getPlantId() {
         return this.plantId;
     }

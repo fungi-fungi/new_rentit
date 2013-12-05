@@ -1,9 +1,6 @@
 package com.rentit.rest.controller;
 
 import java.net.URI;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -20,9 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.renit.rest.InputPurchaseOrderResource;
 import com.renit.rest.PurchaseOrderResource;
 import com.renit.rest.PurchaseOrderResourceList;
 import com.rentit.PurchaseOrder;
@@ -98,51 +95,39 @@ public class PurchaseOrderRESTController {
 		return response;
 	}
 	
-	@RequestMapping(method=RequestMethod.PUT, value="{id}")
-	public ResponseEntity<Void> modifyPurchaseOrderResource(
+	@RequestMapping(method=RequestMethod.PUT, value="/{id}")
+	public ResponseEntity<PurchaseOrderResource> modifyPurchaseOrderResource(
 			@PathVariable Long id,
-			@RequestParam(required = true, value = "end") String end) {
+			@RequestBody InputPurchaseOrderResource poResource) {
 		
-		// TODO: Send whole resource if status is not INVOICED check avaliability and change
 		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
 		
 		PurchaseOrder po = poRepository.getPOSByIdForUser(id, user);
-		
 		if(po == null){
-			return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
 		}
 		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-		try {
-			
-			Date endDate = dateFormat.parse(end);
-			
-			if(endDate.after(po.getEndDate())){
-				
-				po.setEndDate(endDate);
-				po.persist();
-				
-			}else{
-				return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
-			}
-			
-		} catch (ParseException e) {
-			return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
+		if(poResource.getEndDate().after(po.getEndDate())){
+			po.setEndDate(poResource.getEndDate());
+			po.setStatus(PurchaseOrderStatuses.PANDING);
+			po.persist();
+		}else{
+			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
 		}
-		
 
 		HttpHeaders headers = new HttpHeaders();
 		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
 
 		headers.setLocation(location);
 		
-		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.CREATED);
+		ResponseEntity<PurchaseOrderResource> response = new ResponseEntity<PurchaseOrderResource>(assembler.toResource(po), headers, HttpStatus.OK);
 		return response;
 	}
 	
 	@RequestMapping(method=RequestMethod.POST, value="")
-	public ResponseEntity<PurchaseOrderResource> createPurchaseOrderResource(@RequestBody PurchaseOrderResource poResource) {
+	public ResponseEntity<PurchaseOrderResource> createPurchaseOrderResource(
+			@RequestBody InputPurchaseOrderResource poResource) {
 		
 		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();

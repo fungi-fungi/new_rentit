@@ -10,7 +10,7 @@ import com.rentit.security.Users;
 @RooJpaRepository(domainType = Users.class)
 public interface CustomerRepository {
 
-	@Query("SELECT c FROM Users AS cp WHERE c.username = :username)")
+	@Query("SELECT c FROM Users AS c WHERE c.username = :username)")
 	@Transactional(readOnly = true)
 	public Users findClientIdByUserName(@Param("username") String username);
 
