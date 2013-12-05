@@ -12,7 +12,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.renit.rest.PlantResourceList;
 import com.rentit.Plant;
 import com.rentit.assembler.PlantResourceAssembler;
-import com.rentit.dto.DateRangeResource;
 
 @Controller
 @RequestMapping("/rest/plants")
@@ -43,7 +41,16 @@ public class PlantListRESTController {
 			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
 			try {
-				plants = plantRepository.getAvailiblePlants(dateFormat.parse(start), dateFormat.parse(end));
+				
+				Date startDate = dateFormat.parse(start);
+				Date endDate  = dateFormat.parse(start);
+				
+				if(endDate.after(startDate)){
+					plants = plantRepository.getAvailiblePlants(startDate, endDate);
+				}else{
+					return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
+				}
+				
 			} catch (ParseException e) {
 				return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
 			}
@@ -57,8 +64,45 @@ public class PlantListRESTController {
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
 		PlantResourceList resList = assembler.toResource(plants);
 
-		return new ResponseEntity<PlantResourceList>(resList,
-				new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<PlantResourceList>(resList, new HttpHeaders(), HttpStatus.OK);
 	}
+	
+/*	@RequestMapping(method = RequestMethod.GET, value = "")
+	public ResponseEntity<PlantResourceList> getPlantsResourcesList() {
+
+		List<Plant> plants = plantRepository.findAll();
+			
+		PlantResourceAssembler assembler = new PlantResourceAssembler();
+		PlantResourceList resList = assembler.toResource(plants);
+
+		return new ResponseEntity<PlantResourceList>(resList, new HttpHeaders(), HttpStatus.OK);
+	
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "")
+	public ResponseEntity<PlantResourceList> getPlantsResourcesList(
+			@RequestParam(required = true, value = "start") String start,
+			@RequestParam(required = true, value = "end") String end) {
+
+		List<Plant> plants = new ArrayList<Plant>();
+
+		//TODO: Think about custom Exceptions
+		
+		if (end != null && start != null) {
+
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+			try {
+				plants = plantRepository.getAvailiblePlants(dateFormat.parse(start), dateFormat.parse(end));
+			} catch (ParseException e) {
+				return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
+			}
+		}
+			
+		PlantResourceAssembler assembler = new PlantResourceAssembler();
+		PlantResourceList resList = assembler.toResource(plants);
+
+		return new ResponseEntity<PlantResourceList>(resList, new HttpHeaders(), HttpStatus.OK);
+	}*/
 
 }

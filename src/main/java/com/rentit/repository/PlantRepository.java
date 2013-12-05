@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.roo.addon.layers.repository.jpa.RooJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rentit.AvaliableStatuses;
 import com.rentit.Plant;
 
 @RooJpaRepository(domainType = Plant.class)
@@ -31,4 +30,12 @@ public interface PlantRepository {
 	
 	@Transactional(readOnly = true)
 	public List<Plant> getAvailiblePlants(@Param("start") Date start, @Param("end") Date end);
+	
+	
+	@Query("SELECT p FROM Plant AS p WHERE p.id = :id AND :id IN "
+			+ "( SELECT po.plant.id FROM PurchaseOrder AS po "
+			+ "WHERE po.endDate >= :start AND po.startDate <= :end)")
+	
+	@Transactional(readOnly = true)
+	public Plant getIfPlantAvaliable(@Param("id") Long id, @Param("start") Date start, @Param("end") Date end);
 }

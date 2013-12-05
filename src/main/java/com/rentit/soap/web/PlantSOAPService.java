@@ -5,10 +5,8 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.roo.addon.javabean.RooJavaBean;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.rentit.AvaliableStatuses;
 import com.rentit.Plant;
 import com.rentit.dto.DateRangeResource;
 import com.rentit.soap.PlantResourceAssembler;
