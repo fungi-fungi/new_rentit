@@ -104,8 +104,17 @@ public class PurchaseOrderRESTController {
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
 		
 		PurchaseOrder po = poRepository.getPOSByIdForUser(id, user);
+		
 		if(po == null){
 			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
+		}
+		
+		// Get next day after End Date
+		DateTime DayAfterEndDate = new DateTime(po.getEndDate()).plusDays(1);
+		
+		// Check if plant is available for requested period
+		if(plantRepository.getIfPlantAvaliable(poResource.getPlantId(), DayAfterEndDate.toDate(), poResource.getEndDate()) == null){
+			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
 		}
 		
 		if(poResource.getEndDate().after(po.getEndDate())){
@@ -131,15 +140,24 @@ public class PurchaseOrderRESTController {
 		
 		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
-		
 		PurchaseOrder po = new PurchaseOrder();
-		po.setCustomer(customerRepository.findClientIdByUserName(user));
-		po.setPlant(plantRepository.findOne(poResource.getPlantId()));
-		po.setStatus(PurchaseOrderStatuses.PANDING);
-		po.setStartDate(poResource.getStartDate());
-		po.setEndDate(poResource.getEndDate());
-		po.setDestination(poResource.getDestination());
-		po.persist();
+		
+		if(plantRepository.getIfPlantAvaliable(poResource.getPlantId(), poResource.getStartDate(), poResource.getEndDate()) == null){
+			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
+		}
+		
+		if(poResource.getEndDate().after(poResource.getStartDate()) && poResource.getStartDate().after(new Date())){
+			
+			po.setCustomer(customerRepository.findClientIdByUserName(user));
+			po.setPlant(plantRepository.findOne(poResource.getPlantId()));
+			po.setStatus(PurchaseOrderStatuses.ACCEPTED);
+			po.setStartDate(poResource.getStartDate());
+			po.setEndDate(poResource.getEndDate());
+			po.setDestination(poResource.getDestination());
+			po.persist();
+		}else{
+			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
+		}
 
 		HttpHeaders headers = new HttpHeaders();
 		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();

@@ -45,7 +45,7 @@ public class PlantListRESTController {
 				Date startDate = dateFormat.parse(start);
 				Date endDate  = dateFormat.parse(end);
 				
-				if(endDate.after(startDate)){
+				if(endDate.after(startDate) && startDate.after(new Date())){
 					plants = plantRepository.getAvailiblePlants(startDate, endDate);
 				}else{
 					return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);

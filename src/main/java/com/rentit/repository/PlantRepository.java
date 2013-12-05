@@ -22,7 +22,7 @@ public interface PlantRepository {
 	public List<Plant> getAvailiblePlants(@Param("start") Date start, @Param("end") Date end);
 	
 	
-	@Query("SELECT p FROM Plant AS p WHERE p.id = :id AND :id IN "
+	@Query("SELECT p FROM Plant AS p WHERE p.id = :id AND :id NOT IN "
 			+ "( SELECT po.plant.id FROM PurchaseOrder AS po "
 			+ "WHERE po.endDate >= :start AND po.startDate <= :end)")
 	
