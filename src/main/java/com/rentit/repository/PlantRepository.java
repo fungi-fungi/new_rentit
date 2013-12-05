@@ -13,21 +13,11 @@ import com.rentit.Plant;
 @RooJpaRepository(domainType = Plant.class)
 public interface PlantRepository {
 
-/*	@Query("SELECT p FROM Plant AS p WHERE p.plantId = :id")
-	@Transactional(readOnly = true)
-	public Plant findPlantByPlantId(@Param("id") Long id);
-	
-	@Query("SELECT p.id FROM Plant AS p WHERE p.plantId = :id")
-	@Transactional(readOnly = true)
-	public long findIdByPlantId(@Param("id") Long id);*/
+	//TODO: Fix query to filter by Status as well
 	
 	@Query("SELECT p FROM Plant AS p WHERE p.id NOT IN "
 			+ "( SELECT po.plant.id FROM PurchaseOrder AS po "
 			+ "WHERE po.endDate >= :start AND po.startDate <= :end)")
-	
-	
-	//TODO: Fix query to filter by Status as well
-	
 	@Transactional(readOnly = true)
 	public List<Plant> getAvailiblePlants(@Param("start") Date start, @Param("end") Date end);
 	

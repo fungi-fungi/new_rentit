@@ -11,14 +11,6 @@ import java.util.Date;
 
 privileged aspect PurchaseOrder_Roo_JavaBean {
     
-    public Long PurchaseOrder.getPuchaseId() {
-        return this.puchaseId;
-    }
-    
-    public void PurchaseOrder.setPuchaseId(Long puchaseId) {
-        this.puchaseId = puchaseId;
-    }
-    
     public PurchaseOrderStatuses PurchaseOrder.getStatus() {
         return this.status;
     }

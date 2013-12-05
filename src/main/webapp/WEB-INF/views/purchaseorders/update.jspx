@@ -6,7 +6,6 @@
         <field:select field="plant" id="c_com_rentit_PurchaseOrder_plant" itemValue="id" items="${plants}" path="/plants" z="X76KOFzDc0XPNNyKgsZn84o7hrM="/>
         <field:datetime dateTimePattern="${purchaseOrder_startdate_date_format}" field="startDate" id="c_com_rentit_PurchaseOrder_startDate" required="true" z="jSNqum3kJ+pxjMjC6b4iWXejDiQ="/>
         <field:datetime dateTimePattern="${purchaseOrder_enddate_date_format}" field="endDate" id="c_com_rentit_PurchaseOrder_endDate" required="true" z="Q7aBeQ0H9hHXliaNb5K8aX51Emg="/>
-        <field:input field="puchaseId" id="c_com_rentit_PurchaseOrder_puchaseId" required="true" validationMessageCode="field_invalid_integer" z="1NfNuyNLFlYIp+2A1lBYLe3fzPM="/>
         <field:input field="destination" id="c_com_rentit_PurchaseOrder_destination" z="NnbkHArvffpE2fh8mtf7029IyY4="/>
         <field:select field="status" id="c_com_rentit_PurchaseOrder_status" items="${purchaseorderstatuseses}" path="purchaseorderstatuseses" z="0B3HSVu5bJM2f7X+sAYV1Uq+gvE="/>
         <field:select field="customer" id="c_com_rentit_PurchaseOrder_customer" itemValue="id" items="${userses}" path="/security/users/" z="Aq9gQpjVtc0o/BOSb14wr4qb16w="/>

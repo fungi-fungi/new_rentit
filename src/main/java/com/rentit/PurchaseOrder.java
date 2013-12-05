@@ -20,10 +20,6 @@ import com.rentit.security.Users;
 @RooJpaActiveRecord
 public class PurchaseOrder {
 
-	@NotNull
-	@Column(unique=true)
-	private Long puchaseId;
-
     @Enumerated
     private PurchaseOrderStatuses status;
 

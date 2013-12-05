@@ -1,6 +1,10 @@
 package com.rentit.assembler;
 
+import java.util.Iterator;
+import java.util.List;
+
 import com.renit.rest.PurchaseOrderResource;
+import com.renit.rest.PurchaseOrderResourceList;
 import com.rentit.PurchaseOrder;
 
 public class PurchaseOrderAssembler {
@@ -15,13 +19,23 @@ public class PurchaseOrderAssembler {
 		if(po.getPlant() != null) {
 			poResource.setPlantId(po.getPlant().getId());
 		}
-		poResource.setPuchaseId(po.getPuchaseId());
+		poResource.setPuchaseId(po.getId());
 		if(po.getCustomer() != null) {
 			poResource.setCustomerId(po.getCustomer().getId());
 		}
 		poResource.setDestination(po.getDestination());
 
 		return poResource;
+	}
+	
+	public PurchaseOrderResourceList toResource(List<PurchaseOrder> list) {
+		PurchaseOrderResourceList resourcesList = new PurchaseOrderResourceList();
+
+		Iterator<PurchaseOrder> i = list.iterator();
+		while (i.hasNext()) {
+			resourcesList.addPlant(toResource(i.next()));
+		}
+		return resourcesList;
 	}
 
 }

@@ -64,7 +64,7 @@ public class SendInvoiceController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String sendInvoice(@RequestParam("purchaseId") Long value) {
 
-		PurchaseOrder order = poRepository.findPOById(value);
+		PurchaseOrder order = poRepository.findOne(value);
 
 		Invoice invoice = new Invoice();
 		invoice.setPurchaseOrder(order);

@@ -68,7 +68,7 @@ public class ReviewPageController {
 	@RequestMapping(method=RequestMethod.POST)
 	public String handlePost(@ModelAttribute("tempsolution") PoStatusUpdateRequest data, Map<String, Object> map, HttpServletRequest request){
 
-		PurchaseOrder order = poRepository.findPOById(data.getPurchaseOrderId());
+		PurchaseOrder order = poRepository.findOne(data.getPurchaseOrderId());
 		if(data.getStatus().equals(com.rentit.soap.client.Statuses.ACCEPTED)){
 			order.setStatus(PurchaseOrderStatuses.ACCEPTED);
 		}else{

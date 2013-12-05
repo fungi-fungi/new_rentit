@@ -25,7 +25,7 @@ public class PurchaseOrderSOAPService {
 	@WebMethod
 	public void addPurchaseOrder(@RequestBody IncomePurchaseOrderResource reqest) {
 		PurchaseOrder po = new PurchaseOrder();
-		po.setPuchaseId(reqest.getPuchaseID());
+		po.setId(reqest.getPuchaseID());
 		// TODO: Check if plant and customer exist
 		po.setCustomer(customerRepository.findOne(reqest.getCustomerId()));
 		po.setPlant(plantRepository.findOne(reqest.getPlantId()));

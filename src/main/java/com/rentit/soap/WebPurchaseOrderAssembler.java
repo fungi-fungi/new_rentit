@@ -19,7 +19,7 @@ public class WebPurchaseOrderAssembler {
 		if(po.getPlant() != null) {
 			poResource.setPlanName(po.getPlant().getName());
 		}
-		poResource.setPuchaseID(po.getPuchaseId());
+		poResource.setPuchaseID(po.getId());
 		if(po.getCustomer() != null) {
 			poResource.setCustomer(po.getCustomer().getUsername());
 		}

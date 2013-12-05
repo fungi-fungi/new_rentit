@@ -6,10 +6,10 @@
         <table:table data="${purchaseorders}" id="l_com_rentit_PurchaseOrder" path="/purchaseorders" z="6iOacFFjbPrZu2/tke+S4KP1N/g=">
             <table:column id="c_com_rentit_PurchaseOrder_plant" property="plant" z="VWlaW3vB+JNrTNFUo+I9VffGPXA="/>
             <table:column date="true" dateTimePattern="${purchaseOrder_startdate_date_format}" id="c_com_rentit_PurchaseOrder_startDate" property="startDate" z="Z0N2Pb62Agjc6b5GUUN6+UzJdko="/>
-            <table:column id="c_com_rentit_PurchaseOrder_puchaseId" property="puchaseId" z="xWNpKCfxfUQmv68ZHUgf3D+36+Y="/>
             <table:column id="c_com_rentit_PurchaseOrder_destination" property="destination" z="6JsoK1/TIcMRg9W4jU58+2+xg/k="/>
             <table:column id="c_com_rentit_PurchaseOrder_status" property="status" z="1KCUcXweGyjKv+ApVwzPyKTwk4k="/>
             <table:column id="c_com_rentit_PurchaseOrder_customer" property="customer" z="O0VdiGVoXeJztOaaZxn/W+ua0vU="/>
+            <table:column date="true" dateTimePattern="${purchaseOrder_enddate_date_format}" id="c_com_rentit_PurchaseOrder_endDate" property="endDate" z="GcL7JBOI8PO6bT9mncDu7FPnaRk="/>
         </table:table>
     </page:list>
 </div>
