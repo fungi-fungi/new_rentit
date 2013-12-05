@@ -68,14 +68,26 @@ public class PurchaseOrderRESTController {
 	@RequestMapping(method=RequestMethod.DELETE, value="/{id}/cancel")
 	public ResponseEntity<Void> cencelPurchaseOrderResource(@PathVariable Long id) {
 		
-		PurchaseOrder po = poRepository.findOne(id);
-		po.setStatus(PurchaseOrderStatuses.CANCELED);
-		po.persist();
+		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		
+		PurchaseOrder po = poRepository.getPOSByIdForUser(id, user);
+		if(po == null){
+			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
+		}
+
+		if(po.getStatus().equals(PurchaseOrderStatuses.PANDING) || po.getStatus().equals(PurchaseOrderStatuses.ACCEPTED)){
+			po.setStatus(PurchaseOrderStatuses.CANCELED);
+			po.persist();
+		}else{
+			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
+		}
 		
 		HttpHeaders headers = new HttpHeaders();
 		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
 		headers.setLocation(location);
-		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.CREATED);
+		
+		//TODO: Check status
+		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.ACCEPTED);
 		return response;
 	}
 	
