@@ -5,18 +5,9 @@ package com.rentit;
 
 import com.rentit.Invoice;
 import com.rentit.InvoiceStatuses;
-import com.rentit.PurchaseOrder;
 import java.util.Date;
 
 privileged aspect Invoice_Roo_JavaBean {
-    
-    public Date Invoice.getDueDate() {
-        return this.dueDate;
-    }
-    
-    public void Invoice.setDueDate(Date dueDate) {
-        this.dueDate = dueDate;
-    }
     
     public InvoiceStatuses Invoice.getStatus() {
         return this.status;
@@ -26,12 +17,68 @@ privileged aspect Invoice_Roo_JavaBean {
         this.status = status;
     }
     
-    public PurchaseOrder Invoice.getPurchaseOrder() {
+    public float Invoice.getPrice() {
+        return this.price;
+    }
+    
+    public void Invoice.setPrice(float price) {
+        this.price = price;
+    }
+    
+    public String Invoice.getPlantName() {
+        return this.plantName;
+    }
+    
+    public void Invoice.setPlantName(String plantName) {
+        this.plantName = plantName;
+    }
+    
+    public Long Invoice.getPurchaseOrder() {
         return this.purchaseOrder;
     }
     
-    public void Invoice.setPurchaseOrder(PurchaseOrder purchaseOrder) {
+    public void Invoice.setPurchaseOrder(Long purchaseOrder) {
         this.purchaseOrder = purchaseOrder;
+    }
+    
+    public String Invoice.getEmail() {
+        return this.email;
+    }
+    
+    public void Invoice.setEmail(String email) {
+        this.email = email;
+    }
+    
+    public String Invoice.getClientName() {
+        return this.clientName;
+    }
+    
+    public void Invoice.setClientName(String clientName) {
+        this.clientName = clientName;
+    }
+    
+    public Date Invoice.getDueDate() {
+        return this.dueDate;
+    }
+    
+    public void Invoice.setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+    
+    public Date Invoice.getStartDate() {
+        return this.startDate;
+    }
+    
+    public void Invoice.setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+    
+    public Date Invoice.getEndDate() {
+        return this.endDate;
+    }
+    
+    public void Invoice.setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
     
 }

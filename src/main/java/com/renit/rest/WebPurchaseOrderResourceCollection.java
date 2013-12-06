@@ -1,4 +1,4 @@
-package com.rentit.soap;
+package com.renit.rest;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,9 +4,12 @@
     <jsp:output omit-xml-declaration="yes"/>
     <page:list id="pl_com_rentit_Invoice" items="${invoices}" z="gIKL+YSA2uqWG8AU7O2wgtDb5fk=">
         <table:table data="${invoices}" id="l_com_rentit_Invoice" path="/invoices" z="19JmUY0u6N3WJVhAQUvY90Gwxsk=">
-            <table:column date="true" dateTimePattern="${invoice_duedate_date_format}" id="c_com_rentit_Invoice_dueDate" property="dueDate" z="GcqQ/54uNDD6BnkU5A9FJdcy9Q8="/>
             <table:column id="c_com_rentit_Invoice_purchaseOrder" property="purchaseOrder" z="knJWcQTbRtcQkGiwbtS7OquMuko="/>
             <table:column id="c_com_rentit_Invoice_status" property="status" z="7lmlF9SpvE4EyBkEmbDoEqe7iJo="/>
+            <table:column id="c_com_rentit_Invoice_price" property="price" z="bETd/G7RauvKrGhO32vouUOnVVw="/>
+            <table:column id="c_com_rentit_Invoice_plantName" property="plantName" z="tCLpG7YlrLCwTQtdp/hDLs7VnCU="/>
+            <table:column id="c_com_rentit_Invoice_email" property="email" z="STds8jTqpb8gKKff56z2gOtk/j0="/>
+            <table:column id="c_com_rentit_Invoice_clientName" property="clientName" z="PYMIdFyeyx0N3HvERnteqhCQ4Qc="/>
         </table:table>
     </page:list>
 </div>

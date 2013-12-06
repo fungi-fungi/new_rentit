@@ -14,13 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.renit.rest.WebPurchaseOrderResource;
 import com.rentit.PurchaseOrder;
-import com.rentit.PurchaseOrderStatuses;
+import com.rentit.assembler.WebPurchaseOrderAssembler;
 import com.rentit.dto.ChangeStatusFormAnswer;
 import com.rentit.repository.PurchaseOrderRepository;
-import com.rentit.soap.WebPurchaseOrderAssembler;
-import com.rentit.soap.WebPurchaseOrderResource;
-import com.rentit.soap.client.PoStatusUpdateRequest;
 import com.rentit.soap.client.PurchaseOrderSOAPService;
 
 
@@ -44,7 +42,7 @@ public class ReviewPageController {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String someAction(Map<String, Object> map, HttpServletRequest request) {
+	public String showView(Map<String, Object> map, HttpServletRequest request) {
 		
 		//TODO: Maybe move WebResource in normal place
 		//TODO: Set correct status in query
@@ -67,7 +65,7 @@ public class ReviewPageController {
 			order.persist();
 		}
 
-	    return "purchaseorders/review/index";
+	    return showView(map, request);
 
 	} 
 }

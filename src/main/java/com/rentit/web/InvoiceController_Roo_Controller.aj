@@ -5,14 +5,12 @@ package com.rentit.web;
 
 import com.rentit.Invoice;
 import com.rentit.InvoiceStatuses;
-import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.web.InvoiceController;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.joda.time.format.DateTimeFormat;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,9 +22,6 @@ import org.springframework.web.util.UriUtils;
 import org.springframework.web.util.WebUtils;
 
 privileged aspect InvoiceController_Roo_Controller {
-    
-    @Autowired
-    PurchaseOrderRepository InvoiceController.purchaseOrderRepository;
     
     @RequestMapping(method = RequestMethod.POST, produces = "text/html")
     public String InvoiceController.create(@Valid Invoice invoice, BindingResult bindingResult, Model uiModel, HttpServletRequest httpServletRequest) {
@@ -97,13 +92,14 @@ privileged aspect InvoiceController_Roo_Controller {
     
     void InvoiceController.addDateTimeFormatPatterns(Model uiModel) {
         uiModel.addAttribute("invoice_duedate_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
+        uiModel.addAttribute("invoice_startdate_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
+        uiModel.addAttribute("invoice_enddate_date_format", DateTimeFormat.patternForStyle("M-", LocaleContextHolder.getLocale()));
     }
     
     void InvoiceController.populateEditForm(Model uiModel, Invoice invoice) {
         uiModel.addAttribute("invoice", invoice);
         addDateTimeFormatPatterns(uiModel);
         uiModel.addAttribute("invoicestatuseses", Arrays.asList(InvoiceStatuses.values()));
-        uiModel.addAttribute("purchaseorders", purchaseOrderRepository.findAll());
     }
     
     String InvoiceController.encodeUrlPathSegment(String pathSegment, HttpServletRequest httpServletRequest) {

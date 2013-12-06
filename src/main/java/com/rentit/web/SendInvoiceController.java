@@ -17,15 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.renit.rest.InvoiceResource;
+import com.renit.rest.WebPurchaseOrderResource;
 import com.rentit.Invoice;
 import com.rentit.InvoiceStatuses;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.InvoiceResourceAssembler;
+import com.rentit.assembler.WebPurchaseOrderAssembler;
+import com.rentit.repository.InvoiceRepository;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.service.InvoiceService;
-import com.rentit.soap.WebPurchaseOrderAssembler;
-import com.rentit.soap.WebPurchaseOrderResource;
 import com.rentit.soap.client.PoStatusUpdateRequest;
 
 @RequestMapping("/sendinvoice/**")
@@ -33,7 +35,7 @@ import com.rentit.soap.client.PoStatusUpdateRequest;
 public class SendInvoiceController {
 
 	@Autowired
-	PurchaseOrderRepository poRepository;
+	InvoiceRepository invoiceRepository;
 
 	@RequestMapping(method = RequestMethod.POST, value = "{id}")
 	public void post(@PathVariable Long id, ModelMap modelMap,
@@ -49,29 +51,21 @@ public class SendInvoiceController {
 	public String showInvoices(Map<String, Object> map,
 			HttpServletRequest request) {
 
-		List<PurchaseOrder> purchaseOrders = poRepository
-				.findPandingPurchaseOrder(PurchaseOrderStatuses.ACCEPTED);
-		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
-		List<WebPurchaseOrderResource> po = assembler
-				.toListResource(purchaseOrders);
+		List<Invoice> invoices = invoiceRepository.findByStatus(InvoiceStatuses.PANDING);
+		InvoiceResourceAssembler assembler = new InvoiceResourceAssembler();
+		List<InvoiceResource> po = assembler.toResource(invoices);
 
-		map.put("po", po);
+		map.put("invoice", po);
 		map.put("postatusupdate", new PoStatusUpdateRequest());
 
 		return "sendinvoice/show";
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String sendInvoice(@RequestParam("purchaseId") Long value) {
+	public String sendInvoice(@RequestParam("purchaseId") Long invoiceId, Map<String, Object> map, HttpServletRequest request) {
 
-		PurchaseOrder order = poRepository.findOne(value);
-
-		Invoice invoice = new Invoice();
-		invoice.setPurchaseOrder(order);
-		invoice.setStatus(InvoiceStatuses.PANDING);
-		invoice.setDueDate(new Date());
-
-		invoice.persist();
+		Invoice invoice = invoiceRepository.findOne(invoiceId);
+		
 
 		InvoiceResourceAssembler invoiceAssembler = new InvoiceResourceAssembler();
 
@@ -79,11 +73,12 @@ public class SendInvoiceController {
 				"classpath*:/META-INF/spring/applicationContext-InvoiceProcessing.xml");
 
 		InvoiceService invoiceSender = (InvoiceService) context.getBean("mailMail");
+		invoiceSender.setEmailToSend(invoice.getEmail());
+		invoiceSender.setSubject("Invoice from RentIt");
+		
+		invoiceSender.sendInvoice(invoiceAssembler.toEmailResource(invoice));
 
-		invoiceSender.sendInvoice(invoiceAssembler.toResource(invoice));
-		System.out.print("Success");
-
-		return "sendinvoice/show";
+		return showInvoices(map, request);
 
 	}
 }

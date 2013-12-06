@@ -1,10 +1,12 @@
-package com.rentit.soap;
+package com.rentit.assembler;
 
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.renit.rest.WebPurchaseOrderResource;
+import com.renit.rest.WebPurchaseOrderResourceCollection;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
 import com.rentit.dto.DataForButtons;

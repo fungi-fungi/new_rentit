@@ -8,11 +8,11 @@ import javax.jws.WebService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.renit.rest.IncomePurchaseOrderResource;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
 import com.rentit.repository.CustomerRepository;
 import com.rentit.repository.PlantRepository;
-import com.rentit.soap.IncomePurchaseOrderResource;
 
 @WebService
 public class PurchaseOrderSOAPService {

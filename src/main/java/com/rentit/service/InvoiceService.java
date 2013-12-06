@@ -22,37 +22,60 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import com.rentit.Invoice;
-import com.rentit.soap.InvoiceResource;
+import com.renit.rest.InvoiceResource;
+import com.renit.rest.InvoiceToSendResource;
 
 @Component
 public class InvoiceService {
 
 	private JavaMailSender mailSender;
-	private SimpleMailMessage simpleMailMessage;
-
-	public void setSimpleMailMessage(SimpleMailMessage simpleMailMessage) {
-		this.simpleMailMessage = simpleMailMessage;
+	private String emailToSend;
+	private String subject;
+	private String text;
+	
+	public String getEmailToSend() {
+		return emailToSend;
 	}
+
+	public void setEmailToSend(String emailToSend) {
+		this.emailToSend = emailToSend;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 
 	public void setMailSender(JavaMailSender mailSender) {
 		this.mailSender = mailSender;
 	}
+	
+	
 
-	public void sendInvoice(InvoiceResource invoice) {
+	public void sendInvoice(InvoiceToSendResource invoice) {
 
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 
 			message.setFrom(new InternetAddress("rentit02@gmail.com"));
-			message.setRecipient(Message.RecipientType.TO, new InternetAddress(
-					"buildit02@gmail.com"));
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(this.getEmailToSend()));
 			message.setSentDate(new Date());
-			message.setSubject("New invoice");
+			message.setSubject(this.getSubject());
 
 			StringWriter result = new StringWriter();
 			JAXBContext jaxbContext = JAXBContext
@@ -61,21 +84,21 @@ public class InvoiceService {
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			jaxbMarshaller.marshal(invoice, result);
 
-			
-			 File temp = File.createTempFile("invoice", ".xml");
-			 temp.deleteOnExit();
-			 BufferedWriter out = new BufferedWriter(new FileWriter(temp));
-			 out.write(result.toString());
-			 out.close();
-			
+			File temp = File.createTempFile("invoice", ".xml");
+			temp.deleteOnExit();
+			BufferedWriter out = new BufferedWriter(new FileWriter(temp));
+			out.write(result.toString());
+			out.close();
+
 			MimeMultipart multipart = new MimeMultipart("invoice");
 			BodyPart messageBodyPart = new MimeBodyPart();
-		//	messageBodyPart.setText(result.toString());
+
+			// messageBodyPart.setText(result.toString());
+
 			DataSource data = new FileDataSource(temp);
 			messageBodyPart.setFileName("invoice.xml");
 			messageBodyPart.setDataHandler(new DataHandler(data));
 			multipart.addBodyPart(messageBodyPart);
-			
 
 			// put everything together
 			message.setContent(multipart);

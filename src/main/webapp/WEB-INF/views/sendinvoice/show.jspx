@@ -11,24 +11,24 @@
 
 
 	<form:form method="POST" modelAttribute="postatusupdate">
-		<c:forEach var="po" items="${po}">
+		<c:forEach var="invoice" items="${invoice}">
 
 
 			<table>
 				<tr>
 					<td>Send</td>
-					<td>Name</td>
+					<td>Plant name</td>
 					<td>Customer</td>
 					<td>Start date</td>
 					<td>End date</td>
 
 				</tr>
 				<tr>
-					<td><input type="radio" name="purchaseId" value="${po.puchaseID}" /></td>
-					<td>${po.planName}</td>
-					<td>${po.customer}</td>
-					<td>${po.startDate}</td>
-					<td>${po.endDate}</td>
+					<td><input type="radio" name="purchaseId" value="${invoice.id}" /></td>
+					<td>${invoice.planName}</td>
+					<td>${invoice.clientName}</td>
+					<td>${invoice.startDate}</td>
+					<td>${invoice.endDate}</td>
 				</tr>
 
 			</table>

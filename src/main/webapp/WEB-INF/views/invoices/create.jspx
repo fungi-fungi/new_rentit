@@ -4,8 +4,14 @@
     <jsp:output omit-xml-declaration="yes"/>
     <form:create id="fc_com_rentit_Invoice" modelAttribute="invoice" path="/invoices" render="${empty dependencies}" z="cUEY4SEWt+2WDLabx/94uLU2jQ4=">
         <field:datetime dateTimePattern="${invoice_duedate_date_format}" field="dueDate" id="c_com_rentit_Invoice_dueDate" required="true" z="5UGA3cYk0e0QUg1xKPKfAf9KTz8="/>
-        <field:select field="purchaseOrder" id="c_com_rentit_Invoice_purchaseOrder" itemValue="id" items="${purchaseorders}" path="/purchaseorders" z="ovNx/7hBN6uZi0cYqbwdhiv2AkM="/>
+        <field:input field="purchaseOrder" id="c_com_rentit_Invoice_purchaseOrder" validationMessageCode="field_invalid_integer" z="Vj6drHGud5Xs3E+fuRBJyX5v89s="/>
         <field:select field="status" id="c_com_rentit_Invoice_status" items="${invoicestatuseses}" path="invoicestatuseses" z="qo0V/7aW3/qXFOGcTSOGEtrcNak="/>
+        <field:input field="price" id="c_com_rentit_Invoice_price" z="jnXntd8Sn6hu98CJn2rRU+JiPNs="/>
+        <field:input field="plantName" id="c_com_rentit_Invoice_plantName" z="QMh8hRqWu1OMPV5ZV0efbEYbN30="/>
+        <field:input field="email" id="c_com_rentit_Invoice_email" validationMessageCode="field_invalid_email" z="ec5uDLLXGU7w94EKu/A0cmMJDbI="/>
+        <field:input field="clientName" id="c_com_rentit_Invoice_clientName" z="5hXzW9W3ip9sipllUVGJ1uoy3uU="/>
+        <field:datetime dateTimePattern="${invoice_startdate_date_format}" field="startDate" id="c_com_rentit_Invoice_startDate" required="true" z="HSXbRBA4PsbLMuvkyEby2AAaf0k="/>
+        <field:datetime dateTimePattern="${invoice_enddate_date_format}" field="endDate" id="c_com_rentit_Invoice_endDate" required="true" z="t9l+JECmcgYr28LmZQcfThSph50="/>
     </form:create>
     <form:dependency dependencies="${dependencies}" id="d_com_rentit_Invoice" render="${not empty dependencies}" z="Wx6GowVfRE1U/QZFayCwQL7zU3g="/>
 </div>
