@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.renit.rest.InputPurchaseOrderResource;
 import com.renit.rest.PurchaseOrderResource;
-import com.renit.rest.PurchaseOrderResourceList;
+import com.renit.rest.PurchaseOrderResourceCollection;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.PurchaseOrderAssembler;
@@ -41,7 +41,7 @@ public class PurchaseOrderRESTController {
 	PlantRepository plantRepository;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "")
-	public ResponseEntity<PurchaseOrderResourceList> getPurchaseOrders() {	
+	public ResponseEntity<PurchaseOrderResourceCollection> getPurchaseOrders() {	
 		
 		
 		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
@@ -49,7 +49,7 @@ public class PurchaseOrderRESTController {
 		List<PurchaseOrder> po = poRepository.getPOSForUser(user);
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
 		
-		return new ResponseEntity<PurchaseOrderResourceList>(assembler.toResource(po), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<PurchaseOrderResourceCollection>(assembler.toResource(po), new HttpHeaders(), HttpStatus.OK);
 	}	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")

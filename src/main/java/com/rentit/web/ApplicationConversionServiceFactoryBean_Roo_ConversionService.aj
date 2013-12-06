@@ -7,6 +7,7 @@ import com.rentit.Invoice;
 import com.rentit.Plant;
 import com.rentit.PurchaseOrder;
 import com.rentit.repository.CustomerRepository;
+import com.rentit.repository.InvoiceRepository;
 import com.rentit.repository.PlantRepository;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.security.Assignments;
@@ -21,6 +22,9 @@ import org.springframework.format.FormatterRegistry;
 privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService {
     
     declare @type: ApplicationConversionServiceFactoryBean: @Configurable;
+    
+    @Autowired
+    InvoiceRepository ApplicationConversionServiceFactoryBean.invoiceRepository;
     
     @Autowired
     PlantRepository ApplicationConversionServiceFactoryBean.plantRepository;
@@ -42,7 +46,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Long, Invoice> ApplicationConversionServiceFactoryBean.getIdToInvoiceConverter() {
         return new org.springframework.core.convert.converter.Converter<java.lang.Long, com.rentit.Invoice>() {
             public com.rentit.Invoice convert(java.lang.Long id) {
-                return Invoice.findInvoice(id);
+                return invoiceRepository.findOne(id);
             }
         };
     }

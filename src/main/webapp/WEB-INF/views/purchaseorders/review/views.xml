@@ -10,4 +10,7 @@
 	<definition extends="default" name="purchaseorders/review/comments"> 
  		<put-attribute name="body" value="/WEB-INF/views/purchaseorders/review/comments.jspx"/> 
 	</definition> 
+	<definition extends="default" name="purchaseorders/review/error"> 
+ 		<put-attribute name="body" value="/WEB-INF/views/purchaseorders/review/error.jspx"/> 
+	</definition> 
 </tiles-definitions>

@@ -33,8 +33,28 @@ public class InvoiceService {
 
 	private JavaMailSender mailSender;
 	private String emailToSend;
+	private String emailFrom;
 	private String subject;
 	private String text;
+	private String fileName;
+	private String multipartName;
+	
+	
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getMultipartName() {
+		return multipartName;
+	}
+
+	public void setMultipartName(String multipartName) {
+		this.multipartName = multipartName;
+	}	
 	
 	public String getEmailToSend() {
 		return emailToSend;
@@ -65,21 +85,31 @@ public class InvoiceService {
 		this.mailSender = mailSender;
 	}
 	
+	public String getEmailFrom() {
+		return emailFrom;
+	}
+
+	public void setEmailFrom(String emailFrom) {
+		this.emailFrom = emailFrom;
+	}	
 	
+	
+	public static void main(String[] args) throws Exception {
+		
+	}
 
 	public void sendInvoice(InvoiceToSendResource invoice) {
 
 		MimeMessage message = mailSender.createMimeMessage();
 		try {
 
-			message.setFrom(new InternetAddress("rentit02@gmail.com"));
+			message.setFrom(new InternetAddress(this.getEmailFrom()));
 			message.setRecipient(Message.RecipientType.TO, new InternetAddress(this.getEmailToSend()));
 			message.setSentDate(new Date());
 			message.setSubject(this.getSubject());
 
 			StringWriter result = new StringWriter();
-			JAXBContext jaxbContext = JAXBContext
-					.newInstance(InvoiceResource.class);
+			JAXBContext jaxbContext = JAXBContext.newInstance(InvoiceToSendResource.class);
 			Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
 			jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 			jaxbMarshaller.marshal(invoice, result);
@@ -90,13 +120,13 @@ public class InvoiceService {
 			out.write(result.toString());
 			out.close();
 
-			MimeMultipart multipart = new MimeMultipart("invoice");
+			MimeMultipart multipart = new MimeMultipart(this.getMultipartName());
 			BodyPart messageBodyPart = new MimeBodyPart();
 
 			// messageBodyPart.setText(result.toString());
 
 			DataSource data = new FileDataSource(temp);
-			messageBodyPart.setFileName("invoice.xml");
+			messageBodyPart.setFileName(this.getFileName());
 			messageBodyPart.setDataHandler(new DataHandler(data));
 			multipart.addBodyPart(messageBodyPart);
 

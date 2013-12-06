@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "pos")
-public class PurchaseOrderResourceList {
+public class PurchaseOrderResourceCollection {
 
 	// To change representation of object in XML you need to annotait getter.
 	private List<PurchaseOrderResource> listOfPlants;
@@ -25,11 +25,11 @@ public class PurchaseOrderResourceList {
 		this.listOfPlants.add(plant);
 	}
 
-	public PurchaseOrderResourceList() {
+	public PurchaseOrderResourceCollection() {
 		listOfPlants = new ArrayList<PurchaseOrderResource>();
 	}
 
-	public PurchaseOrderResourceList(List<PurchaseOrderResource> listOfResourses) {
+	public PurchaseOrderResourceCollection(List<PurchaseOrderResource> listOfResourses) {
 		this.listOfPlants = new ArrayList<PurchaseOrderResource>(
 				listOfResourses);
 	}

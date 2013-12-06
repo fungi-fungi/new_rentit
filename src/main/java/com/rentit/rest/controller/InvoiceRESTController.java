@@ -17,7 +17,7 @@ import com.rentit.InvoiceStatuses;
 
 
 @Controller
-@RequestMapping("/rest/invoices/")
+@RequestMapping("/rest/invoices")
 public class InvoiceRESTController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="")
@@ -25,10 +25,8 @@ public class InvoiceRESTController {
 		
 		
 		Invoice invoice = new Invoice();
-		
+	
 		HttpHeaders headers = new HttpHeaders();
-		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(invoice.getId().toString()).build().toUri();
-		headers.setLocation(location);
 		
 		try{
 			
@@ -42,7 +40,10 @@ public class InvoiceRESTController {
 			invoice.setStartDate(invoiceResource.getStartDate());
 			invoice.setStatus(InvoiceStatuses.PANDING);
 			
-			invoice.persist();
+			invoice.persist();			
+			
+			URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(invoice.getId().toString()).build().toUri();
+			headers.setLocation(location);
 			
 		}catch(Exception e){
 			return new ResponseEntity<Void>(headers, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -4,18 +4,9 @@
 package com.renit.rest;
 
 import com.renit.rest.InvoiceResource;
-import com.rentit.InvoiceStatuses;
 import java.util.Date;
 
 privileged aspect InvoiceResource_Roo_JavaBean {
-    
-    public InvoiceStatuses InvoiceResource.getStatus() {
-        return this.status;
-    }
-    
-    public void InvoiceResource.setStatus(InvoiceStatuses status) {
-        this.status = status;
-    }
     
     public float InvoiceResource.getPrice() {
         return this.price;

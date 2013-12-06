@@ -1,6 +1,5 @@
 package com.rentit.web;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.xbean.spring.context.ClassPathXmlApplicationContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,15 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.renit.rest.InvoiceResource;
-import com.renit.rest.WebPurchaseOrderResource;
+import com.renit.rest.WebInvoiceResource;
 import com.rentit.Invoice;
 import com.rentit.InvoiceStatuses;
-import com.rentit.PurchaseOrder;
-import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.InvoiceResourceAssembler;
-import com.rentit.assembler.WebPurchaseOrderAssembler;
 import com.rentit.repository.InvoiceRepository;
-import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.service.InvoiceService;
 import com.rentit.soap.client.PoStatusUpdateRequest;
 
@@ -53,7 +49,7 @@ public class SendInvoiceController {
 
 		List<Invoice> invoices = invoiceRepository.findByStatus(InvoiceStatuses.PANDING);
 		InvoiceResourceAssembler assembler = new InvoiceResourceAssembler();
-		List<InvoiceResource> po = assembler.toResource(invoices);
+		List<WebInvoiceResource> po = assembler.toWebResource(invoices);
 
 		map.put("invoice", po);
 		map.put("postatusupdate", new PoStatusUpdateRequest());
@@ -75,9 +71,17 @@ public class SendInvoiceController {
 		InvoiceService invoiceSender = (InvoiceService) context.getBean("mailMail");
 		invoiceSender.setEmailToSend(invoice.getEmail());
 		invoiceSender.setSubject("Invoice from RentIt");
+		invoiceSender.setFileName("invoice.xml");
+		invoiceSender.setMultipartName("invoice");
+		invoiceSender.setEmailFrom("rentit02@gmail.com");
 		
 		invoiceSender.sendInvoice(invoiceAssembler.toEmailResource(invoice));
 
+		((ConfigurableApplicationContext)context).close();
+		
+		invoice.setStatus(InvoiceStatuses.INVOICED);
+		invoice.persist();
+		
 		return showInvoices(map, request);
 
 	}

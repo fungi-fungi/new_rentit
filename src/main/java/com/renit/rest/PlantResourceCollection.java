@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 //@RooJavaBean
 @XmlRootElement(name = "plants")
-public class PlantResourceList {
+public class PlantResourceCollection {
 
 	// To change representation of object in XML you need to annotait getter.
 	private List<PlantResource> listOfPlants;
@@ -26,11 +26,11 @@ public class PlantResourceList {
 		this.listOfPlants.add(plant);
 	}
 
-	public PlantResourceList() {
+	public PlantResourceCollection() {
 		listOfPlants = new ArrayList<PlantResource>();
 	}
 
-	public PlantResourceList(List<PlantResource> listOfResourses) {
+	public PlantResourceCollection(List<PlantResource> listOfResourses) {
 		this.listOfPlants = new ArrayList<PlantResource>(listOfResourses);
 	}
 }

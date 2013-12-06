@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.renit.rest.PlantResourceList;
+import com.renit.rest.PlantResourceCollection;
 import com.rentit.Plant;
 import com.rentit.assembler.PlantResourceAssembler;
 
@@ -28,7 +28,7 @@ public class PlantListRESTController {
 	com.rentit.repository.PlantRepository plantRepository;
 
 	@RequestMapping(method = RequestMethod.GET, value = "")
-	public ResponseEntity<PlantResourceList> getPlantsResourcesList(
+	public ResponseEntity<PlantResourceCollection> getPlantsResourcesList(
 			@RequestParam(required = false, value = "start") String start,
 			@RequestParam(required = false, value = "end") String end) {
 
@@ -62,9 +62,9 @@ public class PlantListRESTController {
 		}
 
 		PlantResourceAssembler assembler = new PlantResourceAssembler();
-		PlantResourceList resList = assembler.toResource(plants);
+		PlantResourceCollection resList = assembler.toResource(plants);
 
-		return new ResponseEntity<PlantResourceList>(resList, new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<PlantResourceCollection>(resList, new HttpHeaders(), HttpStatus.OK);
 	}
 	
 /*	@RequestMapping(method = RequestMethod.GET, value = "")

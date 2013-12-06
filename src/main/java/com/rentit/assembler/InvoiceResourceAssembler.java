@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.renit.rest.InvoiceResource;
 import com.renit.rest.InvoiceToSendResource;
+import com.renit.rest.WebInvoiceResource;
 import com.renit.rest.WebPurchaseOrderResource;
 import com.rentit.Invoice;
 import com.rentit.PurchaseOrder;
@@ -24,7 +25,6 @@ public class InvoiceResourceAssembler {
 		invoiceResource.setPrice(invoice.getPrice());
 		invoiceResource.setPurchaseOrder(invoice.getPurchaseOrder());
 		invoiceResource.setStartDate(invoice.getStartDate());
-		invoiceResource.setStatus(invoice.getStatus());
 		
 		return invoiceResource;
 	}
@@ -44,12 +44,30 @@ public class InvoiceResourceAssembler {
 		return invoiceResource;
 	}
 	
-	public List<InvoiceResource> toResource(List<Invoice> list) {
-		List<InvoiceResource> resourcesList = new ArrayList<InvoiceResource>();
+	
+	public WebInvoiceResource toWebResource(Invoice invoice) {
+
+		WebInvoiceResource invoiceResource = new WebInvoiceResource();
+		
+		invoiceResource.setId(invoice.getId());
+		invoiceResource.setClientName(invoice.getClientName());
+		invoiceResource.setDueDate(invoice.getDueDate());
+		invoiceResource.setEmail(invoice.getEmail());
+		invoiceResource.setEndDate(invoice.getEndDate());
+		invoiceResource.setPlantName(invoice.getPlantName());
+		invoiceResource.setPrice(invoice.getPrice());
+		invoiceResource.setPurchaseOrder(invoice.getPurchaseOrder());
+		invoiceResource.setStartDate(invoice.getStartDate());
+		
+		return invoiceResource;
+	}
+	
+	public List<WebInvoiceResource> toWebResource(List<Invoice> list) {
+		List<WebInvoiceResource> resourcesList = new ArrayList<WebInvoiceResource>();
 
 		Iterator<Invoice> i = list.iterator();
 		while (i.hasNext()) {
-			resourcesList.add(toResource(i.next()));
+			resourcesList.add(toWebResource(i.next()));
 		}
 		return resourcesList;
 	}

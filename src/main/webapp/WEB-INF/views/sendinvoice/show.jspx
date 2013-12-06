@@ -25,7 +25,7 @@
 				</tr>
 				<tr>
 					<td><input type="radio" name="purchaseId" value="${invoice.id}" /></td>
-					<td>${invoice.planName}</td>
+					<td>${invoice.plantName}</td>
 					<td>${invoice.clientName}</td>
 					<td>${invoice.startDate}</td>
 					<td>${invoice.endDate}</td>
