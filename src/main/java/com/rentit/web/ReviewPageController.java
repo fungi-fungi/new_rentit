@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.renit.rest.InvoiceResource;
-import com.renit.rest.PurchaseOrderResource;
 import com.renit.rest.WebPurchaseOrderResource;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;

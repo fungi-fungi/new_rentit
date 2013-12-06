@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:form="http://www.springframework.org/tags/form"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<h3>Purchase order to deliver</h3>
+
+	<h3>Delivery:</h3>
+
+	<table>
+		<c:forEach var="po" items="${po}">
+			<tr>
+				<td>Name</td>
+				<td>Customer</td>
+				<td>Destination</td>
+				<td>Start date</td>
+				<td>End date</td>
+				<td>Status</td>
+
+			</tr>
+			<tr>
+				<td>${po.planName}</td>
+				<td>${po.destination}</td>
+				<td>${po.customer}</td>
+				<td>${po.startDate}</td>
+				<td>${po.endDate}</td>
+				<td>${po.currentStatus}</td>
+			</tr>
+
+		</c:forEach>
+		<tr>
+			<!-- <form:form method="POST" modelAttribute="postatusupdate">
+
+
+				<field:datetime field="startDate" label="Date"
+					dateTimePattern="yyyy/mm/dd" id="asdasdasd" />
+				<input type="submit" value="Submit" />
+
+
+			</form:form> -->
+
+		</tr>
+
+	</table>
+</div>

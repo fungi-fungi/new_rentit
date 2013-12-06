@@ -1,14 +1,13 @@
 package com.rentit.repository;
 import java.util.List;
 
-import com.rentit.Invoice;
-import com.rentit.InvoiceStatuses;
-import com.rentit.security.Users;
-
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.roo.addon.layers.repository.jpa.RooJpaRepository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.rentit.Invoice;
+import com.rentit.InvoiceStatuses;
 
 @RooJpaRepository(domainType = Invoice.class)
 public interface InvoiceRepository {

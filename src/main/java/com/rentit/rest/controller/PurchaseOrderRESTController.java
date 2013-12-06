@@ -46,7 +46,7 @@ public class PurchaseOrderRESTController {
 		
 		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		
-		List<PurchaseOrder> po = poRepository.getPOSForUser(user);
+		List<PurchaseOrder> po = poRepository.findPOSForUser(user);
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
 		
 		return new ResponseEntity<PurchaseOrderResourceCollection>(assembler.toResource(po), new HttpHeaders(), HttpStatus.OK);
@@ -57,7 +57,7 @@ public class PurchaseOrderRESTController {
 		
 		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		
-		PurchaseOrder po = poRepository.getPOSByIdForUser(id, user);
+		PurchaseOrder po = poRepository.findPOSByIdForUser(id, user);
 		
 		if(po == null){
 			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
@@ -74,7 +74,7 @@ public class PurchaseOrderRESTController {
 		
 		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		
-		PurchaseOrder po = poRepository.getPOSByIdForUser(id, user);
+		PurchaseOrder po = poRepository.findPOSByIdForUser(id, user);
 		if(po == null){
 			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
 		}
@@ -103,7 +103,7 @@ public class PurchaseOrderRESTController {
 		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
 		
-		PurchaseOrder po = poRepository.getPOSByIdForUser(id, user);
+		PurchaseOrder po = poRepository.findPOSByIdForUser(id, user);
 		
 		if(po == null){
 			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
@@ -113,7 +113,7 @@ public class PurchaseOrderRESTController {
 		DateTime DayAfterEndDate = new DateTime(po.getEndDate()).plusDays(1);
 		
 		// Check if plant is available for requested period
-		if(plantRepository.getIfPlantAvaliable(poResource.getPlantId(), DayAfterEndDate.toDate(), poResource.getEndDate()) == null){
+		if(plantRepository.findIfPlantAvaliable(poResource.getPlantId(), DayAfterEndDate.toDate(), poResource.getEndDate()) == null){
 			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
 		}
 		
@@ -141,7 +141,7 @@ public class PurchaseOrderRESTController {
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
 		PurchaseOrder po = new PurchaseOrder();
 		
-		if(plantRepository.getIfPlantAvaliable(poResource.getPlantId(), poResource.getStartDate(), poResource.getEndDate()) == null){
+		if(plantRepository.findIfPlantAvaliable(poResource.getPlantId(), poResource.getStartDate(), poResource.getEndDate()) == null){
 			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
 		}
 		

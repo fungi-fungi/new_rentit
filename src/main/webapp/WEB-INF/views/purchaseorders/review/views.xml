@@ -12,5 +12,5 @@
 	</definition> 
 	<definition extends="default" name="purchaseorders/review/error"> 
  		<put-attribute name="body" value="/WEB-INF/views/purchaseorders/review/error.jspx"/> 
-	</definition> 
+	</definition>  
 </tiles-definitions>

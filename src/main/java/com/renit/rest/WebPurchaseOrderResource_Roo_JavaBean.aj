@@ -34,6 +34,14 @@ privileged aspect WebPurchaseOrderResource_Roo_JavaBean {
         this.customer = customer;
     }
     
+    public String WebPurchaseOrderResource.getDestination() {
+        return this.destination;
+    }
+    
+    public void WebPurchaseOrderResource.setDestination(String destination) {
+        this.destination = destination;
+    }
+    
     public String WebPurchaseOrderResource.getCurrentStatus() {
         return this.currentStatus;
     }

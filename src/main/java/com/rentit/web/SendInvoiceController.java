@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.renit.rest.InvoiceResource;
 import com.renit.rest.WebInvoiceResource;
 import com.rentit.Invoice;
 import com.rentit.InvoiceStatuses;

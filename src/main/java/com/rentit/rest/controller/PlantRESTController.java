@@ -50,7 +50,7 @@ public class PlantRESTController {
 					Date endDate = dateFormat.parse(end);
 
 					if (endDate.after(startDate)) {
-						plant = plantRepository.getIfPlantAvaliable(id,	startDate, endDate);
+						plant = plantRepository.findIfPlantAvaliable(id,	startDate, endDate);
 					} else {
 						return new ResponseEntity<>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
 					}

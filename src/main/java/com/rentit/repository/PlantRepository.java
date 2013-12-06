@@ -19,7 +19,7 @@ public interface PlantRepository {
 			+ "( SELECT po.plant.id FROM PurchaseOrder AS po "
 			+ "WHERE po.endDate >= :start AND po.startDate <= :end)")
 	@Transactional(readOnly = true)
-	public List<Plant> getAvailiblePlants(@Param("start") Date start, @Param("end") Date end);
+	public List<Plant> findAvailiblePlants(@Param("start") Date start, @Param("end") Date end);
 	
 	
 	@Query("SELECT p FROM Plant AS p WHERE p.id = :id AND :id NOT IN "
@@ -27,5 +27,5 @@ public interface PlantRepository {
 			+ "WHERE po.endDate >= :start AND po.startDate <= :end)")
 	
 	@Transactional(readOnly = true)
-	public Plant getIfPlantAvaliable(@Param("id") Long id, @Param("start") Date start, @Param("end") Date end);
+	public Plant findIfPlantAvaliable(@Param("id") Long id, @Param("start") Date start, @Param("end") Date end);
 }

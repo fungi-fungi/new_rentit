@@ -23,6 +23,7 @@
             <menu:category id="c_controller" z="nj8Dm3hojIyIEyPkwE1UMDIs+K8=">
                 <menu:item id="i_controller__purchaseorders_reviewindex_id" messageCode="global_generic" url="/purchaseorders/review/index" z="BOj0sHxnDor0b5q2WvRvUdrhRhI="/>
                 <menu:item id="i_controller__sendinvoiceindex_id" messageCode="global_generic" url="/sendinvoice/index" z="GhFOsCXeOrIocalYs2FNgVfHhHY="/>
+                <menu:item id="i_controller__deliveryindex_id" messageCode="global_generic" url="/delivery/index" z="k0W9F8eA08CwqErlPiu2wVHT1vY="/>
             </menu:category>
         </sec:authorize>
         <sec:authorize ifAllGranted="ROLE_ADMIN">

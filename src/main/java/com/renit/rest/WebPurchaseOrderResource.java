@@ -23,6 +23,8 @@ public class WebPurchaseOrderResource {
 	
 	private String customer;
 	
+	private String destination;
+	
 	private String currentStatus;
 
 	@NotNull

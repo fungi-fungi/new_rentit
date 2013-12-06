@@ -25,7 +25,6 @@ import javax.xml.bind.Marshaller;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
-import com.renit.rest.InvoiceResource;
 import com.renit.rest.InvoiceToSendResource;
 
 @Component
