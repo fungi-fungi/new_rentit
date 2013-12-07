@@ -13,10 +13,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
 import com.rentit.PurchaseOrderStatuses;
+import com.rentit.util.ResourceSupport;
 
 @RooJavaBean
 @XmlRootElement(name = "po")
-public class PurchaseOrderResource {
+public class PurchaseOrderResource extends ResourceSupport {
 
 	private Long puchaseId;
 

@@ -1,17 +1,12 @@
 package com.rentit.rest.controller;
 
 import java.net.URI;
-import java.util.Date;
 import java.util.List;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,69 +18,43 @@ import com.renit.rest.InputPurchaseOrderResource;
 import com.renit.rest.PurchaseOrderResource;
 import com.renit.rest.PurchaseOrderResourceCollection;
 import com.rentit.PurchaseOrder;
-import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.PurchaseOrderAssembler;
-import com.rentit.repository.CustomerRepository;
-import com.rentit.repository.PlantRepository;
-import com.rentit.repository.PurchaseOrderRepository;
+import com.rentit.exception.InvalidHirePeriodException;
+import com.rentit.exception.NotAcceptableException;
+import com.rentit.exception.NotFoundException;
+import com.rentit.exception.PlantUnavailableException;
+import com.rentit.service.PurchaseOrderService;
 
 @Controller
 @RequestMapping("/rest/pos")
 public class PurchaseOrderRESTController {
-	
-	@Autowired 
-	PurchaseOrderRepository poRepository;
+
 	@Autowired
-	CustomerRepository customerRepository;
-	@Autowired
-	PlantRepository plantRepository;
+	PurchaseOrderService poService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "")
 	public ResponseEntity<PurchaseOrderResourceCollection> getPurchaseOrders() {	
-		
-		
-		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-		
-		List<PurchaseOrder> po = poRepository.findPOSForUser(user);
+	
+		List<PurchaseOrder> po = poService.getAllPO();
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
 		
 		return new ResponseEntity<PurchaseOrderResourceCollection>(assembler.toResource(po), new HttpHeaders(), HttpStatus.OK);
 	}	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public ResponseEntity<PurchaseOrderResource> getPurchaseOrder(@PathVariable Long id) {	
+	public ResponseEntity<PurchaseOrderResource> getPurchaseOrder(@PathVariable Long id) throws NoSuchMethodException, SecurityException, NotFoundException {	
 		
-		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-		
-		PurchaseOrder po = poRepository.findPOSByIdForUser(id, user);
-		
-		if(po == null){
-			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
-		}
-		
+		PurchaseOrder po = poService.getPO(id);
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
+		PurchaseOrderResource resource = assembler.toResource(po);
 		
-		return new ResponseEntity<PurchaseOrderResource>(
-				assembler.toResource(po), new HttpHeaders(), HttpStatus.OK);
+		return new ResponseEntity<PurchaseOrderResource>(resource, new HttpHeaders(), HttpStatus.OK);
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE, value="/{id}/cancel")
-	public ResponseEntity<Void> cencelPurchaseOrderResource(@PathVariable Long id) {
+	public ResponseEntity<Void> cancelPO(@PathVariable Long id) throws NotFoundException, NotAcceptableException {
 		
-		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-		
-		PurchaseOrder po = poRepository.findPOSByIdForUser(id, user);
-		if(po == null){
-			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
-		}
-
-		if(po.getStartDate().after(new Date()) && (Days.daysBetween(new DateTime(po.getStartDate()), new DateTime()).getDays() > 1 )){
-			po.setStatus(PurchaseOrderStatuses.CANCELED);
-			po.persist();
-		}else{
-			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
-		}
-		
+		PurchaseOrder po = poService.cancelPO(id);
 		HttpHeaders headers = new HttpHeaders();
 		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
 		headers.setLocation(location);
@@ -96,34 +65,12 @@ public class PurchaseOrderRESTController {
 	}
 	
 	@RequestMapping(method=RequestMethod.PUT, value="/{id}")
-	public ResponseEntity<PurchaseOrderResource> modifyPurchaseOrderResource(
+	public ResponseEntity<PurchaseOrderResource> extendPO(
 			@PathVariable Long id,
-			@RequestBody InputPurchaseOrderResource poResource) {
+			@RequestBody InputPurchaseOrderResource poResource) throws PlantUnavailableException, InvalidHirePeriodException, NotFoundException {
 		
-		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		PurchaseOrder po = poService.extendPO(poResource, id);
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
-		
-		PurchaseOrder po = poRepository.findPOSByIdForUser(id, user);
-		
-		if(po == null){
-			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
-		}
-		
-		// Get next day after End Date
-		DateTime DayAfterEndDate = new DateTime(po.getEndDate()).plusDays(1);
-		
-		// Check if plant is available for requested period
-		if(plantRepository.findIfPlantAvaliable(poResource.getPlantId(), DayAfterEndDate.toDate(), poResource.getEndDate()) == null){
-			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
-		}
-		
-		if(poResource.getEndDate().after(po.getEndDate())){
-			po.setEndDate(poResource.getEndDate());
-			po.persist();
-		}else{
-			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
-		}
-
 		HttpHeaders headers = new HttpHeaders();
 		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
 
@@ -135,29 +82,11 @@ public class PurchaseOrderRESTController {
 	
 	@RequestMapping(method=RequestMethod.POST, value="")
 	public ResponseEntity<PurchaseOrderResource> createPurchaseOrderResource(
-			@RequestBody InputPurchaseOrderResource poResource) {
+			@RequestBody InputPurchaseOrderResource poResource) throws PlantUnavailableException, InvalidHirePeriodException {
 		
-		String user =  ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+		
+		PurchaseOrder po = poService.createPO(poResource);		
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
-		PurchaseOrder po = new PurchaseOrder();
-		
-		if(plantRepository.findIfPlantAvaliable(poResource.getPlantId(), poResource.getStartDate(), poResource.getEndDate()) == null){
-			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.NOT_ACCEPTABLE);
-		}
-		
-		if(poResource.getEndDate().after(poResource.getStartDate()) && poResource.getStartDate().after(new Date())){
-			
-			po.setCustomer(customerRepository.findClientIdByUserName(user));
-			po.setPlant(plantRepository.findOne(poResource.getPlantId()));
-			po.setStatus(PurchaseOrderStatuses.ACCEPTED);
-			po.setStartDate(poResource.getStartDate());
-			po.setEndDate(poResource.getEndDate());
-			po.setDestination(poResource.getDestination());
-			po.persist();
-		}else{
-			return new ResponseEntity<>(new HttpHeaders(),HttpStatus.BAD_REQUEST);
-		}
-
 		HttpHeaders headers = new HttpHeaders();
 		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
 
