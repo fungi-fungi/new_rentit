@@ -31,6 +31,10 @@ import com.rentit.soap.client.PurchaseOrderSOAPService;
 @RequestMapping("/purchaseorders/review/**")
 @Controller
 public class ReviewPageController {
+	
+	private static final String INVOICE_CREATION_URL = "http://localhost:8080/RentIt/rest/invoices";
+	private static final String ADMIN_USERNAME = "admin";
+    private static final String ADMIN_PASSWORD = "admin";
 
 	@Autowired
 	PurchaseOrderRepository poRepository;
@@ -92,9 +96,9 @@ public class ReviewPageController {
 					String bydy = result.toString();
 
 					RESTRequestsService post = new RESTRequestsService();
-					post.setPassword("admin");
-					post.setUserName("admin");
-					post.setUrl("http://localhost:8080/RentIt/rest/invoices");
+					post.setPassword(ADMIN_PASSWORD);
+					post.setUserName(ADMIN_USERNAME);
+					post.setUrl(INVOICE_CREATION_URL);
 					post.setBody(bydy);
 
 					if (post.sendPost() != 201) {

@@ -9,7 +9,7 @@
 	<jsp:output omit-xml-declaration="yes" />
 	<h3>Purchase order to deliver</h3>
 
-	<h3>Delivery:</h3>
+	<h3>Delivery for: ${today}</h3>
 
 	<table>
 		<c:forEach var="po" items="${po}">
@@ -32,16 +32,15 @@
 			</tr>
 
 		</c:forEach>
-		<tr>
-			<!-- <form:form method="POST" modelAttribute="postatusupdate">
+		<tr colspan="4">
+			<form:form method="POST" modelAttribute="querydate">
+
+				<td><field:datetime dateTimePattern = "${plantDelivery_date_format}" field="date" label="Date" id="c_renit_dto_OneDate_Date" /> </td>
+
+				<td><input type="submit" value="Submit" /></td>
 
 
-				<field:datetime field="startDate" label="Date"
-					dateTimePattern="yyyy/mm/dd" id="asdasdasd" />
-				<input type="submit" value="Submit" />
-
-
-			</form:form> -->
+			</form:form>
 
 		</tr>
 

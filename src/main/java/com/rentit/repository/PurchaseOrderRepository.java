@@ -25,7 +25,8 @@ public interface PurchaseOrderRepository {
 	@Transactional(readOnly = true)
 	List<PurchaseOrder> findPOSForUser(@Param("username") String username);
 
-	@Query("SELECT po FROM PurchaseOrder AS po WHERE po.startDate = :date )")
+
+	@Query("SELECT po FROM PurchaseOrder AS po WHERE DATE_PART('day', po.startDate - :date ) = 0")
 	@Transactional(readOnly = true)
 	List<PurchaseOrder> findPOSByDate(@Param("date") Date date);
 
