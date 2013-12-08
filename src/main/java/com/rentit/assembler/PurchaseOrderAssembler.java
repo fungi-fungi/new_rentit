@@ -3,6 +3,7 @@ package com.rentit.assembler;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.joda.time.Days;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 
 import com.rentit.PurchaseOrder;
+import com.rentit.PurchaseOrderStatuses;
 import com.rentit.rest.InputPurchaseOrderResource;
 import com.rentit.rest.InvoiceResource;
 import com.rentit.rest.PurchaseOrderResource;
@@ -53,11 +55,20 @@ public class PurchaseOrderAssembler extends ResourceAssemblerSupport<PurchaseOrd
 		} 
 		 
 
-		String cancelPOLink = linkTo(_cancelPO, po.getId()).toUri().toString(); 
-		poResource.add(new ExtendedLink(cancelPOLink, "cancelPO", "DELETE")); 
-		 
-		String extendPOLink = linkTo(_extendPO, po.getId()).toUri().toString(); 
-		poResource.add(new ExtendedLink(extendPOLink, "extendPO", "PUT"));
+		if(po.getStatus().equals(PurchaseOrderStatuses.ACCEPTED)){
+			String cancelPOLink = linkTo(_cancelPO, po.getId()).toUri().toString(); 
+			poResource.add(new ExtendedLink(cancelPOLink, "cancelPO", "DELETE"));
+		}
+		
+		PurchaseOrderStatuses[] statusesForExtansion = new
+				PurchaseOrderStatuses[]{PurchaseOrderStatuses.ACCEPTED,
+				PurchaseOrderStatuses.DELIVERED, PurchaseOrderStatuses.DESPATCHED};
+		
+	
+		if(Arrays.asList(statusesForExtansion).contains(po.getStatus())){
+			String extendPOLink = linkTo(_extendPO, po.getId()).toUri().toString(); 
+			poResource.add(new ExtendedLink(extendPOLink, "extendPO", "PUT"));
+		}
 		
 		return poResource;
 	}

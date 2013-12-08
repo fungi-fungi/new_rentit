@@ -56,7 +56,7 @@ public class PlantRESTController {
 	}
 	
 	@ExceptionHandler(InvalidHirePeriodException.class)
-	public ResponseEntity<ErrorResource> handleInvalidDatePeriod(ResourceNotFoundException ex) {
+	public ResponseEntity<ErrorResource> handleInvalidDatePeriod(InvalidHirePeriodException ex) {
 		
 		ErrorResource error = new ErrorResource();
 		error.setMessage(ex.getMessage());

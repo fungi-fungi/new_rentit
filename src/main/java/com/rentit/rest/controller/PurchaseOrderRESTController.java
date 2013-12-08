@@ -68,7 +68,8 @@ public class PurchaseOrderRESTController {
 	@RequestMapping(method=RequestMethod.PUT, value="/{id}")
 	public ResponseEntity<PurchaseOrderResource> extendPO(
 			@PathVariable Long id,
-			@RequestBody InputPurchaseOrderResource poResource) throws PlantUnavailableException, InvalidHirePeriodException, ResourceNotFoundException {
+			@RequestBody InputPurchaseOrderResource poResource) 
+					throws PlantUnavailableException, InvalidHirePeriodException, ResourceNotFoundException {
 		
 		PurchaseOrder po = poService.extendPO(poResource, id);
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
@@ -108,7 +109,7 @@ public class PurchaseOrderRESTController {
 	}
 	
 	@ExceptionHandler(InvalidHirePeriodException.class)
-	public ResponseEntity<ErrorResource> handleInvalidDatePeriod(ResourceNotFoundException ex) {
+	public ResponseEntity<ErrorResource> handleInvalidDatePeriod(InvalidHirePeriodException ex) {
 		
 		ErrorResource error = new ErrorResource();
 		error.setMessage(ex.getMessage());

@@ -76,6 +76,11 @@ public class PlantHelperService {
 
 					if (endDate.after(startDate)) {
 						plant = plantRepository.findIfPlantAvaliable(id, startDate, endDate);
+						
+						if (plant == null) {
+							throw new PlantUnavailableException("Resource not avalible for this interval");
+						}
+						
 					} else {
 						throw new InvalidHirePeriodException("Wrong date interval");
 					}
