@@ -1,4 +1,4 @@
-package com.renit.rest;
+package com.rentit.rest;
 
 import java.util.Date;
 
@@ -12,8 +12,10 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 
 @RooJavaBean
 @XmlRootElement(name = "invoice")
-public class InvoiceResource {
-   
+public class WebInvoiceResource {
+	
+	private long id;
+	
     private float price;
     
     private String plantName;
@@ -38,4 +40,5 @@ public class InvoiceResource {
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "M-")
     private Date endDate;
+
 }

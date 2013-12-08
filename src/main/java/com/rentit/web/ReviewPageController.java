@@ -17,14 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.renit.rest.InvoiceResource;
-import com.renit.rest.WebPurchaseOrderResource;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.PurchaseOrderAssembler;
 import com.rentit.assembler.WebPurchaseOrderAssembler;
 import com.rentit.dto.ChangeStatusFormAnswer;
 import com.rentit.repository.PurchaseOrderRepository;
+import com.rentit.rest.InvoiceResource;
+import com.rentit.rest.WebPurchaseOrderResource;
 import com.rentit.service.RESTRequestsService;
 import com.rentit.soap.client.PurchaseOrderSOAPService;
 

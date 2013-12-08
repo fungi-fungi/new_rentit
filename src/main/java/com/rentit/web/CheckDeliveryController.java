@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.renit.rest.WebPurchaseOrderResource;
 import com.rentit.PurchaseOrder;
 import com.rentit.assembler.WebPurchaseOrderAssembler;
 import com.rentit.dto.OneDate;
 import com.rentit.repository.PurchaseOrderRepository;
+import com.rentit.rest.WebPurchaseOrderResource;
 
 @RequestMapping("/delivery/**")
 @Controller

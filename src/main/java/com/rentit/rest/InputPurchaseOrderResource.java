@@ -1,4 +1,4 @@
-package com.renit.rest;
+package com.rentit.rest;
 
 import java.util.Date;
 
@@ -13,32 +13,21 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 
 @RooJavaBean
 @XmlRootElement(name = "po")
-public class IncomePurchaseOrderResource {
-	/**
-	 */
-	private Long puchaseID;
+public class InputPurchaseOrderResource {
 
-	/**
-     */
 	@OneToOne
-	private long customerId;
+	private long plantId;	
 
-	/**
-     */
-	@OneToOne
-	private long plantId;
+	private String destination;
 
-	/**
-     */
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(style = "M-")
 	private Date startDate;
 
-	/**
-     */
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(style = "M-")
 	private Date endDate;
+
 }

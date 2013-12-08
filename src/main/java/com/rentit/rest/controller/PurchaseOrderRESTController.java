@@ -15,15 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.renit.rest.InputPurchaseOrderResource;
-import com.renit.rest.PurchaseOrderResource;
-import com.renit.rest.PurchaseOrderResourceCollection;
 import com.rentit.PurchaseOrder;
 import com.rentit.assembler.PurchaseOrderAssembler;
+import com.rentit.dto.ErrorResource;
 import com.rentit.exception.InvalidHirePeriodException;
 import com.rentit.exception.NotAcceptableException;
 import com.rentit.exception.ResourceNotFoundException;
 import com.rentit.exception.PlantUnavailableException;
+import com.rentit.rest.InputPurchaseOrderResource;
+import com.rentit.rest.PurchaseOrderResource;
+import com.rentit.rest.PurchaseOrderResourceCollection;
 import com.rentit.service.PurchaseOrderService;
 
 @Controller
@@ -97,27 +98,43 @@ public class PurchaseOrderRESTController {
 	}
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
-	public ResponseEntity<Void> handleResoiurceNotFound(ResourceNotFoundException ex) {
+	public ResponseEntity<ErrorResource> handleResoiurceNotFound(ResourceNotFoundException ex) {
 
-		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NOT_FOUND);
+		ErrorResource error = new ErrorResource();
+		error.setMessage(ex.getMessage());
+		error.setStatus(HttpStatus.NOT_FOUND.value());
+		
+		return new ResponseEntity<ErrorResource>(error, new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(InvalidHirePeriodException.class)
-	public ResponseEntity<Void> handleInvalidDatePeriod(ResourceNotFoundException ex) {
+	public ResponseEntity<ErrorResource> handleInvalidDatePeriod(ResourceNotFoundException ex) {
+		
+		ErrorResource error = new ErrorResource();
+		error.setMessage(ex.getMessage());
+		error.setStatus(HttpStatus.BAD_REQUEST.value());
 
-		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<ErrorResource>(error, new HttpHeaders(), HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(NotAcceptableException.class)
-	public ResponseEntity<Void> handleNotAcceptable(NotAcceptableException ex) {
+	public ResponseEntity<ErrorResource> handleNotAcceptable(NotAcceptableException ex) {
+		
+		ErrorResource error = new ErrorResource();
+		error.setMessage(ex.getMessage());
+		error.setStatus(HttpStatus.NOT_FOUND.value());
 
-		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
+		return new ResponseEntity<ErrorResource>(error, new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler(PlantUnavailableException.class)
-	public ResponseEntity<Void> handlePlantUnavailable(PlantUnavailableException ex) {
+	public ResponseEntity<ErrorResource> handlePlantUnavailable(PlantUnavailableException ex) {
+		
+		ErrorResource error = new ErrorResource();
+		error.setMessage(ex.getMessage());
+		error.setStatus(HttpStatus.NOT_FOUND.value());
 
-		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
+		return new ResponseEntity<ErrorResource>(error, new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
 
 }

@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.renit.rest.WebPurchaseOrderResource;
-import com.renit.rest.WebPurchaseOrderResourceCollection;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
 import com.rentit.dto.DataForButtons;
+import com.rentit.rest.WebPurchaseOrderResource;
+import com.rentit.rest.WebPurchaseOrderResourceCollection;
 
 public class WebPurchaseOrderAssembler {
 	

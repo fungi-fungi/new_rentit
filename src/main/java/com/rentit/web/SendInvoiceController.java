@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.renit.rest.WebInvoiceResource;
 import com.rentit.Invoice;
 import com.rentit.InvoiceStatuses;
 import com.rentit.assembler.InvoiceResourceAssembler;
 import com.rentit.repository.InvoiceRepository;
+import com.rentit.rest.WebInvoiceResource;
 import com.rentit.service.InvoiceService;
 import com.rentit.soap.client.PoStatusUpdateRequest;
 

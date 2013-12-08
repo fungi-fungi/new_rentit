@@ -1,4 +1,4 @@
-package com.renit.rest;
+package com.rentit.rest;
 
 import java.util.ArrayList;
 import java.util.List;

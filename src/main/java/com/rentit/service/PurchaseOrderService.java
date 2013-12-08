@@ -10,7 +10,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Service;
 
-import com.renit.rest.InputPurchaseOrderResource;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
 import com.rentit.exception.InvalidHirePeriodException;
@@ -20,6 +19,7 @@ import com.rentit.exception.PlantUnavailableException;
 import com.rentit.repository.CustomerRepository;
 import com.rentit.repository.PlantRepository;
 import com.rentit.repository.PurchaseOrderRepository;
+import com.rentit.rest.InputPurchaseOrderResource;
 
 @Service
 public class PurchaseOrderService {
@@ -71,7 +71,7 @@ public class PurchaseOrderService {
 		PurchaseOrder po = poRepository.findPOSByIdForUser(id, user);
 
 		if (po == null) {
-			throw new ResourceNotFoundException("Not found");
+			throw new ResourceNotFoundException("Resource not found");
 		}
 
 		// Get next day after End Date
@@ -103,7 +103,7 @@ public class PurchaseOrderService {
 
 		PurchaseOrder po = poRepository.findPOSByIdForUser(id, user);
 		if (po == null) {
-			throw new ResourceNotFoundException("Not found");
+			throw new ResourceNotFoundException("Resource not found");
 		}
 
 		if (po.getStartDate().after(new Date())
@@ -112,7 +112,7 @@ public class PurchaseOrderService {
 			po.setStatus(PurchaseOrderStatuses.CANCELED);
 			po.persist();
 		} else {
-			throw new NotAcceptableException("Too late");
+			throw new NotAcceptableException("Plant has been already dispatched");
 		}
 
 		return po;
@@ -124,7 +124,7 @@ public class PurchaseOrderService {
 		String user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
 		PurchaseOrder po = poRepository.findPOSByIdForUser(id, user);
 		if (po == null) {
-			throw new ResourceNotFoundException("Not found");
+			throw new ResourceNotFoundException("Resource not found");
 		}
 
 		return po;

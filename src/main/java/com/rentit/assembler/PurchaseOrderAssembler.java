@@ -10,11 +10,11 @@ import org.joda.time.DateTime;
 import org.joda.time.Days;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 
-import com.renit.rest.InputPurchaseOrderResource;
-import com.renit.rest.InvoiceResource;
-import com.renit.rest.PurchaseOrderResource;
-import com.renit.rest.PurchaseOrderResourceCollection;
 import com.rentit.PurchaseOrder;
+import com.rentit.rest.InputPurchaseOrderResource;
+import com.rentit.rest.InvoiceResource;
+import com.rentit.rest.PurchaseOrderResource;
+import com.rentit.rest.PurchaseOrderResourceCollection;
 import com.rentit.rest.controller.PurchaseOrderRESTController;
 import com.rentit.util.ExtendedLink;
 

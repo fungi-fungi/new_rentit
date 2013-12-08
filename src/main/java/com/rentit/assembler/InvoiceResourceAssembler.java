@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.renit.rest.InvoiceResource;
-import com.renit.rest.InvoiceToSendResource;
-import com.renit.rest.WebInvoiceResource;
-import com.renit.rest.WebPurchaseOrderResource;
 import com.rentit.Invoice;
-import com.rentit.PurchaseOrder;
+import com.rentit.rest.InvoiceResource;
+import com.rentit.rest.InvoiceToSendResource;
+import com.rentit.rest.WebInvoiceResource;
 
 public class InvoiceResourceAssembler {
 

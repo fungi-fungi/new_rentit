@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.renit.rest.InvoiceResource;
 import com.rentit.Invoice;
 import com.rentit.InvoiceStatuses;
+import com.rentit.rest.InvoiceResource;
 
 
 @Controller

@@ -11,9 +11,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.renit.rest.PlantResource;
-import com.renit.rest.PurchaseOrderResource;
 import com.rentit.PurchaseOrderStatuses;
+import com.rentit.rest.PlantResource;
+import com.rentit.rest.PurchaseOrderResource;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;

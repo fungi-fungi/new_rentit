@@ -1,12 +1,14 @@
-package com.renit.rest;
+package com.rentit.rest;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
+import com.rentit.util.ResourceSupport;
+
 @RooJavaBean
 @XmlRootElement(name = "plant")
-public class PlantResource {
+public class PlantResource extends ResourceSupport {
 	
 	Long plantId;
 
