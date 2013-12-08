@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +22,7 @@ import com.rentit.PurchaseOrder;
 import com.rentit.assembler.PurchaseOrderAssembler;
 import com.rentit.exception.InvalidHirePeriodException;
 import com.rentit.exception.NotAcceptableException;
-import com.rentit.exception.NotFoundException;
+import com.rentit.exception.ResourceNotFoundException;
 import com.rentit.exception.PlantUnavailableException;
 import com.rentit.service.PurchaseOrderService;
 
@@ -42,7 +43,7 @@ public class PurchaseOrderRESTController {
 	}	
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/{id}")
-	public ResponseEntity<PurchaseOrderResource> getPurchaseOrder(@PathVariable Long id) throws NoSuchMethodException, SecurityException, NotFoundException {	
+	public ResponseEntity<PurchaseOrderResource> getPurchaseOrder(@PathVariable Long id) throws NoSuchMethodException, SecurityException, ResourceNotFoundException {	
 		
 		PurchaseOrder po = poService.getPO(id);
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
@@ -52,14 +53,13 @@ public class PurchaseOrderRESTController {
 	}
 	
 	@RequestMapping(method=RequestMethod.DELETE, value="/{id}/cancel")
-	public ResponseEntity<Void> cancelPO(@PathVariable Long id) throws NotFoundException, NotAcceptableException {
+	public ResponseEntity<Void> cancelPO(@PathVariable Long id) throws ResourceNotFoundException, NotAcceptableException {
 		
 		PurchaseOrder po = poService.cancelPO(id);
 		HttpHeaders headers = new HttpHeaders();
 		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
 		headers.setLocation(location);
 		
-		//TODO: Check status
 		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.ACCEPTED);
 		return response;
 	}
@@ -67,7 +67,7 @@ public class PurchaseOrderRESTController {
 	@RequestMapping(method=RequestMethod.PUT, value="/{id}")
 	public ResponseEntity<PurchaseOrderResource> extendPO(
 			@PathVariable Long id,
-			@RequestBody InputPurchaseOrderResource poResource) throws PlantUnavailableException, InvalidHirePeriodException, NotFoundException {
+			@RequestBody InputPurchaseOrderResource poResource) throws PlantUnavailableException, InvalidHirePeriodException, ResourceNotFoundException {
 		
 		PurchaseOrder po = poService.extendPO(poResource, id);
 		PurchaseOrderAssembler assembler = new PurchaseOrderAssembler();
@@ -94,6 +94,30 @@ public class PurchaseOrderRESTController {
 		
 		ResponseEntity<PurchaseOrderResource> response = new ResponseEntity<PurchaseOrderResource>(assembler.toResource(po), headers, HttpStatus.CREATED);
 		return response;
+	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<Void> handleResoiurceNotFound(ResourceNotFoundException ex) {
+
+		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(InvalidHirePeriodException.class)
+	public ResponseEntity<Void> handleInvalidDatePeriod(ResourceNotFoundException ex) {
+
+		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(NotAcceptableException.class)
+	public ResponseEntity<Void> handleNotAcceptable(NotAcceptableException ex) {
+
+		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
+	}
+	
+	@ExceptionHandler(PlantUnavailableException.class)
+	public ResponseEntity<Void> handlePlantUnavailable(PlantUnavailableException ex) {
+
+		return new ResponseEntity<Void>(new HttpHeaders(), HttpStatus.NOT_ACCEPTABLE);
 	}
 
 }
