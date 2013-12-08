@@ -1,5 +1,6 @@
 package com.rentit.web;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -13,11 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.rentit.PurchaseOrder;
+import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.WebPurchaseOrderAssembler;
 import com.rentit.dto.OneDate;
 import com.rentit.repository.PurchaseOrderRepository;
@@ -43,14 +48,14 @@ public class CheckDeliveryController {
 	void addDateTimeFormatPatterns(ModelMap modelMap) {
 		modelMap.put(
 				"plantDelivery_date_format",
-				DateTimeFormat.patternForStyle("M-",
+				DateTimeFormat.patternForStyle("MM",
 						LocaleContextHolder.getLocale()));
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String showView(ModelMap map, HttpServletRequest request) {
+	public String showView(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
 
-		List<PurchaseOrder> purchaseOrders = poRepository.findPOSByDate(new Date());
+		List<PurchaseOrder> purchaseOrders = poRepository.findPOSByDate(new Date(), PurchaseOrderStatuses.ACCEPTED);
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
 		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
 
@@ -65,9 +70,9 @@ public class CheckDeliveryController {
 
 	// TODO: fix POST
 	@RequestMapping(method = RequestMethod.POST)
-	public String handlePost(@Valid OneDate date, ModelMap map,	HttpServletRequest request) {
+	public String handlePost(@Valid OneDate date, ModelMap map, HttpServletRequest request) {
 		
-		List<PurchaseOrder> purchaseOrders = poRepository.findPOSByDate(date.getDate().getTime());
+		List<PurchaseOrder> purchaseOrders = poRepository.findPOSByDate(date.getDate().getTime(), PurchaseOrderStatuses.ACCEPTED);
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
 		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
 

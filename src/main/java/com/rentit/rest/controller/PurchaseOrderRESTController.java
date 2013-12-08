@@ -137,5 +137,15 @@ public class PurchaseOrderRESTController {
 
 		return new ResponseEntity<ErrorResource>(error, new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorResource> handleException(Exception ex) {
+		
+		ErrorResource error = new ErrorResource();
+		error.setMessage("Internal server error");
+		error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+
+		return new ResponseEntity<ErrorResource>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 
 }

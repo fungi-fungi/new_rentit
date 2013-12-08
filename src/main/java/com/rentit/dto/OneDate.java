@@ -12,7 +12,7 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 @RooJavaBean
 public class OneDate {
 	
-	@DateTimeFormat(style = "M-")
+	@DateTimeFormat(style = "MM")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Calendar date;
 

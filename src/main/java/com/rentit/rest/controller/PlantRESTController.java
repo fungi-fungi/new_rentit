@@ -18,7 +18,6 @@ import com.rentit.assembler.PlantResourceAssembler;
 import com.rentit.dto.ErrorResource;
 import com.rentit.exception.InvalidHirePeriodException;
 import com.rentit.exception.PlantUnavailableException;
-import com.rentit.exception.ResourceNotFoundException;
 import com.rentit.rest.PlantResource;
 import com.rentit.rest.PlantResourceCollection;
 import com.rentit.service.PlantHelperService;
@@ -75,4 +74,13 @@ public class PlantRESTController {
 		return new ResponseEntity<ErrorResource>(error, new HttpHeaders(), HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorResource> handleException(Exception ex) {
+		
+		ErrorResource error = new ErrorResource();
+		error.setMessage("Internal server error");
+		error.setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value());
+
+		return new ResponseEntity<ErrorResource>(error, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }
