@@ -25,14 +25,14 @@ import com.rentit.exception.PlantUnavailableException;
 import com.rentit.rest.InputPurchaseOrderResource;
 import com.rentit.rest.PurchaseOrderResource;
 import com.rentit.rest.PurchaseOrderResourceCollection;
-import com.rentit.service.PurchaseOrderService;
+import com.rentit.service.PurchaseOrderHelperService;
 
 @Controller
 @RequestMapping("/rest/pos")
 public class PurchaseOrderRESTController {
 
 	@Autowired
-	PurchaseOrderService poService;
+	PurchaseOrderHelperService poService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "")
 	public ResponseEntity<PurchaseOrderResourceCollection> getPurchaseOrders() {	

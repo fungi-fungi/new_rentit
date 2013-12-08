@@ -22,7 +22,7 @@ import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.rest.InputPurchaseOrderResource;
 
 @Service
-public class PurchaseOrderService {
+public class PurchaseOrderHelperService {
 
 	@Autowired
 	PurchaseOrderRepository poRepository;
