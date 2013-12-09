@@ -106,9 +106,8 @@ public class PurchaseOrderHelperService {
 			throw new ResourceNotFoundException("Resource not found");
 		}
 
-		if (po.getStartDate().after(new Date())
-				&& (Days.daysBetween(new DateTime(po.getStartDate()),
-						new DateTime()).getDays() > 1)) {
+		if (po.getStartDate().after(new Date())	&& 
+				(Days.daysBetween(new DateTime(), new DateTime(po.getStartDate())).getDays() >= 1)) {
 			po.setStatus(PurchaseOrderStatuses.CANCELED);
 			po.persist();
 		} else {

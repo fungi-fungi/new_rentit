@@ -61,7 +61,7 @@ public class PurchaseOrderRESTController {
 		URI location = ServletUriComponentsBuilder.fromCurrentRequestUri().pathSegment(po.getId().toString()).build().toUri();
 		headers.setLocation(location);
 		
-		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.ACCEPTED);
+		ResponseEntity<Void> response = new ResponseEntity<>(headers, HttpStatus.OK);
 		return response;
 	}
 	
