@@ -36,9 +36,6 @@
 				<user name="admin"
 					password="81b821b680fb4badc82a11b4869b1dae87cbd991a4a1d6c018b436f1d87339da"
 					authorities="ROLE_ADMIN" />
-				<user name="user"
-					password="04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb"
-					authorities="ROLE_USER" />
 			</user-service>
 		</authentication-provider>
 		<authentication-provider>
