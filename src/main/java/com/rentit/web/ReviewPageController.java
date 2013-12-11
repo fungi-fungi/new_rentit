@@ -32,7 +32,7 @@ import com.rentit.soap.client.PurchaseOrderSOAPService;
 @Controller
 public class ReviewPageController {
 	
-	private static final String INVOICE_CREATION_URL = "http://localhost:8080/RentIt/rest/invoices";
+	private static final String INVOICE_CREATION_URL = "http://rentit-2.herokuapp.com/rest/invoices/";
 	private static final String ADMIN_USERNAME = "admin";
     private static final String ADMIN_PASSWORD = "1admin";
 
