@@ -32,6 +32,7 @@ public class InvoiceResourceAssembler {
 
 		InvoiceToSendResource invoiceResource = new InvoiceToSendResource();
 		
+		invoiceResource.setInvoiceId(invoice.getId());
 		invoiceResource.setDueDate(invoice.getDueDate());
 		invoiceResource.setEndDate(invoice.getEndDate());
 		invoiceResource.setPlantName(invoice.getPlantName());

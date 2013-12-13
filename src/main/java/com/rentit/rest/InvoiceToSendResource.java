@@ -14,6 +14,8 @@ import org.springframework.roo.addon.javabean.RooJavaBean;
 @XmlRootElement(name = "invoice")
 public class InvoiceToSendResource {
     
+	private Long invoiceId;
+	
     private float price;
     
     private String plantName;

@@ -8,6 +8,14 @@ import java.util.Date;
 
 privileged aspect InvoiceToSendResource_Roo_JavaBean {
     
+    public Long InvoiceToSendResource.getInvoiceId() {
+        return this.invoiceId;
+    }
+    
+    public void InvoiceToSendResource.setInvoiceId(Long invoiceId) {
+        this.invoiceId = invoiceId;
+    }
+    
     public float InvoiceToSendResource.getPrice() {
         return this.price;
     }
