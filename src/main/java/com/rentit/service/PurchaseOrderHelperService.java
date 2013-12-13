@@ -52,6 +52,7 @@ public class PurchaseOrderHelperService {
 			po.setStartDate(poResource.getStartDate());
 			po.setEndDate(poResource.getEndDate());
 			po.setDestination(poResource.getDestination());
+			po.setPoRejectionlink(poResource.getPoRejectionlink());
 			po.persist();
 		} else {
 			throw new InvalidHirePeriodException("Wrong date period");

@@ -30,4 +30,5 @@ public class InputPurchaseOrderResource {
 	@DateTimeFormat(style = "M-")
 	private Date endDate;
 
+	private String PoRejectionlink;	
 }

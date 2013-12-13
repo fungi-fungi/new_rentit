@@ -40,4 +40,12 @@ privileged aspect InputPurchaseOrderResource_Roo_JavaBean {
         this.endDate = endDate;
     }
     
+    public String InputPurchaseOrderResource.getPoRejectionlink() {
+        return this.PoRejectionlink;
+    }
+    
+    public void InputPurchaseOrderResource.setPoRejectionlink(String PoRejectionlink) {
+        this.PoRejectionlink = PoRejectionlink;
+    }
+    
 }

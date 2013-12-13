@@ -10,6 +10,7 @@ public enum PurchaseOrderStatuses {
 	
 
     ACCEPTED(1, "Accepted"),
+    REJECT(1, "Rejected"),
     DESPATCHED(2, "Has beed despatched"),
     DELIVERED(3, "Has been delivered"),
     REJECTED_BY_CUSTOMER(0, "Rejected by customer"),

@@ -9,5 +9,6 @@
         <field:input field="destination" id="c_com_rentit_PurchaseOrder_destination" z="NnbkHArvffpE2fh8mtf7029IyY4="/>
         <field:select field="status" id="c_com_rentit_PurchaseOrder_status" items="${purchaseorderstatuseses}" path="purchaseorderstatuseses" z="0B3HSVu5bJM2f7X+sAYV1Uq+gvE="/>
         <field:select field="customer" id="c_com_rentit_PurchaseOrder_customer" itemValue="id" items="${userses}" path="/security/users/" z="Aq9gQpjVtc0o/BOSb14wr4qb16w="/>
+        <field:input field="PoRejectionlink" id="c_com_rentit_PurchaseOrder_PoRejectionlink" z="rm98wAL15p+VXjFamf9VetgPx3c="/>
     </form:update>
 </div>

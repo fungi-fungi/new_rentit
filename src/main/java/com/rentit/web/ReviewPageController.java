@@ -22,6 +22,7 @@ import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.PurchaseOrderAssembler;
 import com.rentit.assembler.WebPurchaseOrderAssembler;
 import com.rentit.dto.ChangeStatusFormAnswer;
+import com.rentit.dto.RejectResource;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.rest.InvoiceResource;
 import com.rentit.rest.WebPurchaseOrderResource;
@@ -35,6 +36,9 @@ public class ReviewPageController {
 	private static final String INVOICE_CREATION_URL = "http://rentit-2.herokuapp.com/rest/invoices/";
 	private static final String ADMIN_USERNAME = "admin";
     private static final String ADMIN_PASSWORD = "1admin";
+    
+    private static final String CUSTOMER_USERNAME = "customer";
+    private static final String CUSTOMER_PASSWORD = "customer";
 
 	@Autowired
 	PurchaseOrderRepository poRepository;
@@ -106,6 +110,36 @@ public class ReviewPageController {
 					}
 
 				}
+				
+				if (data.getStatus().equals(PurchaseOrderStatuses.REJECT)) {
+					
+					PurchaseOrder po = poRepository.findOne(data.getPurchaseOrderId());
+					
+					RejectResource res = new RejectResource();
+					res.setPoid(po.getId());
+					res.setCommentt("Comment");
+
+					StringWriter result = new StringWriter();
+
+					JAXBContext jaxbContext = JAXBContext
+							.newInstance(RejectResource.class);
+					Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+					jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+					jaxbMarshaller.marshal(res, result);
+
+					String bydy = result.toString();
+
+					RESTRequestsService post = new RESTRequestsService();
+					post.setPassword(CUSTOMER_PASSWORD);
+					post.setUserName(CUSTOMER_USERNAME);
+					post.setUrl(po.getPoRejectionlink());
+					post.setBody(bydy);
+
+					if (post.sendPost() != 200) {
+						throw new Exception();
+					}
+				}
+
 			}
 
 		} catch (Exception e) {

@@ -14,6 +14,7 @@ import com.rentit.rest.WebPurchaseOrderResourceCollection;
 public class WebPurchaseOrderAssembler {
 	
 	final static private String LABEL_FOR_DESPATCH = "Mark as despatched"; 
+	final static private String LABEL_FOR_REJECTED = "Mark as rejected";
 	final static private String LABEL_FOR_DELIVERED = "Mark as delivered"; 
 	final static private String LABEL_FOR_REJECTED_BY_CLIENT = "Mark as rejected by user"; 
 	final static private String LABEL_FOR_RETURNED = "Mark as returned";
@@ -38,8 +39,15 @@ public class WebPurchaseOrderAssembler {
 			DataForButtons button =  new DataForButtons();
 			button.setLabel(LABEL_FOR_DESPATCH);
 			button.setStatus(PurchaseOrderStatuses.DESPATCHED);
+			
+			
+			DataForButtons button1 =  new DataForButtons();
+			button.setLabel(LABEL_FOR_REJECTED);
+			button.setStatus(PurchaseOrderStatuses.REJECT);
+			
 			List<DataForButtons> listOfButtons = new ArrayList<DataForButtons>();
 			listOfButtons.add(button);
+			listOfButtons.add(button1);
 			poResource.setButtons(listOfButtons);
 		}
 		

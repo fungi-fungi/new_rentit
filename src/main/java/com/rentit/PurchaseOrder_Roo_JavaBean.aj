@@ -59,4 +59,12 @@ privileged aspect PurchaseOrder_Roo_JavaBean {
         this.endDate = endDate;
     }
     
+    public String PurchaseOrder.getPoRejectionlink() {
+        return this.PoRejectionlink;
+    }
+    
+    public void PurchaseOrder.setPoRejectionlink(String PoRejectionlink) {
+        this.PoRejectionlink = PoRejectionlink;
+    }
+    
 }

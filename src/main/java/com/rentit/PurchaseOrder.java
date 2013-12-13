@@ -39,4 +39,6 @@ public class PurchaseOrder {
     @Temporal(TemporalType.TIMESTAMP)
     @DateTimeFormat(style = "M-")
     private Date endDate;
+    
+    private String PoRejectionlink;
 }

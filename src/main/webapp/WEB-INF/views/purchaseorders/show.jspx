@@ -9,5 +9,6 @@
         <field:display field="destination" id="s_com_rentit_PurchaseOrder_destination" object="${purchaseorder}" z="3LjsXuo3tOXehMWpKz4JclCgx4M="/>
         <field:display field="status" id="s_com_rentit_PurchaseOrder_status" object="${purchaseorder}" z="eaCM9QjgMuCcmNy/ckDwetmoEK8="/>
         <field:display field="customer" id="s_com_rentit_PurchaseOrder_customer" object="${purchaseorder}" z="vDxG2Gb/m/9LG6s1EBLiCD2Y28M="/>
+        <field:display field="poRejectionlink" id="s_com_rentit_PurchaseOrder_PoRejectionlink" object="${purchaseorder}" z="nh8XHJ5M9EGmh/Si+pP2F/0sea8="/>
     </page:show>
 </div>
