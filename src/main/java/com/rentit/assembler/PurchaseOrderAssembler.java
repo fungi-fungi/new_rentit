@@ -88,7 +88,8 @@ public class PurchaseOrderAssembler extends ResourceAssemblerSupport<PurchaseOrd
 		invoice.setStartDate(po.getStartDate());
 		
 		// TODO: Not best place for price calculation
-		invoice.setPrice(Days.daysBetween(new DateTime(po.getStartDate()), new DateTime(po.getEndDate())).getDays() * po.getPlant().getPrice());
+		invoice.setPrice((Days.daysBetween(new DateTime(po.getStartDate()),
+				new DateTime(po.getEndDate())).getDays() + 1) * po.getPlant().getPrice());
 		invoice.setPurchaseOrder(po.getId());		
 		
 		return invoice;
