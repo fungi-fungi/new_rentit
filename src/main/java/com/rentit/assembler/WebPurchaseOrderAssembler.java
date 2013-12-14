@@ -36,14 +36,15 @@ public class WebPurchaseOrderAssembler {
 		}
 		
 		if(po.getStatus().equals(PurchaseOrderStatuses.ACCEPTED)){
+			
 			DataForButtons button =  new DataForButtons();
 			button.setLabel(LABEL_FOR_DESPATCH);
 			button.setStatus(PurchaseOrderStatuses.DESPATCHED);
 			
 			
 			DataForButtons button1 =  new DataForButtons();
-			button.setLabel(LABEL_FOR_REJECTED);
-			button.setStatus(PurchaseOrderStatuses.REJECT);
+			button1.setLabel(LABEL_FOR_REJECTED);
+			button1.setStatus(PurchaseOrderStatuses.REJECT);
 			
 			List<DataForButtons> listOfButtons = new ArrayList<DataForButtons>();
 			listOfButtons.add(button);
