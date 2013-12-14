@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -69,7 +70,7 @@ public class CheckDeliveryController {
 
 	// TODO: fix POST
 	@RequestMapping(method = RequestMethod.POST)
-	public String handlePost(OneDate date, ModelMap map, HttpServletRequest request) {
+	public String handlePost(@Valid OneDate date, ModelMap map, HttpServletRequest request) {
 		
 		List<PurchaseOrder> purchaseOrders = poRepository.findPOSByDate(new Date(date.getDate().getTime()), PurchaseOrderStatuses.ACCEPTED);
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();

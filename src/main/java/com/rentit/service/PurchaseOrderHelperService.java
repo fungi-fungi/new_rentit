@@ -80,7 +80,7 @@ public class PurchaseOrderHelperService {
 
 		// Check if plant is available for requested period
 		if (plantRepository.findIfPlantAvaliable(poResource.getPlantId(),
-				DayAfterEndDate.toDate(), poResource.getEndDate()) == null) {
+				DayAfterEndDate.toDate(), poResource.getEndDate()) != null) {
 			throw new PlantUnavailableException(
 					"Plant is unavalible for given period");
 		}
