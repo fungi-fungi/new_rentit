@@ -1,12 +1,10 @@
 package com.rentit.web;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
@@ -14,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +43,7 @@ public class CheckDeliveryController {
 	void addDateTimeFormatPatterns(ModelMap modelMap) {
 		modelMap.put(
 				"plantDelivery_date_format",
-				DateTimeFormat.patternForStyle("MM",
+				DateTimeFormat.patternForStyle("M-",
 						LocaleContextHolder.getLocale()));
 	}
 
@@ -59,26 +54,30 @@ public class CheckDeliveryController {
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
 		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
 
-		addDateTimeFormatPatterns(map);
+		
 
+		OneDate date = new OneDate();
+		
 		map.put("today", new DateTime().toString("dd-MM-yyyy"));
 		map.put("po", po);
-		map.put("querydate", new OneDate());
+		map.put("querydate", date);
+		
+		addDateTimeFormatPatterns(map);
 
 		return "delivery/show";
 	}
 
 	// TODO: fix POST
 	@RequestMapping(method = RequestMethod.POST)
-	public String handlePost(@Valid OneDate date, ModelMap map, HttpServletRequest request) {
+	public String handlePost(OneDate date, ModelMap map, HttpServletRequest request) {
 		
-		List<PurchaseOrder> purchaseOrders = poRepository.findPOSByDate(date.getDate().getTime(), PurchaseOrderStatuses.ACCEPTED);
+		List<PurchaseOrder> purchaseOrders = poRepository.findPOSByDate(new Date(date.getDate().getTime()), PurchaseOrderStatuses.ACCEPTED);
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
 		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
 
 		addDateTimeFormatPatterns(map);
 
-		map.put("today", new DateTime(date.getDate().getTime()).toString("dd-MM-yyyy"));
+		map.put("today", new DateTime(date).toString("dd-MM-yyyy"));
 		map.put("po", po);
 		map.put("querydate", new OneDate());
 

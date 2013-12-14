@@ -1,4 +1,5 @@
 package com.rentit.repository;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +16,9 @@ public interface InvoiceRepository {
 	@Query("SELECT i FROM Invoice AS i WHERE i.status = :status)")
 	@Transactional(readOnly = true)
 	public List<Invoice> findByStatus(@Param("status") InvoiceStatuses status);
+	
+	@Query("SELECT i FROM Invoice AS i WHERE i.dueDate <= :date AND i.status = :status)")
+	@Transactional(readOnly = true)
+	public List<Invoice> findLate(@Param("date") Date date, @Param("status") InvoiceStatuses status);
+	
 }

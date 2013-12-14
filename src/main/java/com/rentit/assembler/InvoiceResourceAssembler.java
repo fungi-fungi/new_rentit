@@ -48,6 +48,7 @@ public class InvoiceResourceAssembler {
 
 		WebInvoiceResource invoiceResource = new WebInvoiceResource();
 		
+		invoiceResource.setStatus(invoice.getStatus());
 		invoiceResource.setId(invoice.getId());
 		invoiceResource.setClientName(invoice.getClientName());
 		invoiceResource.setDueDate(invoice.getDueDate());

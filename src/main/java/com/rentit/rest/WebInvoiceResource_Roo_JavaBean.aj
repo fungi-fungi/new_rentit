@@ -3,6 +3,7 @@
 
 package com.rentit.rest;
 
+import com.rentit.InvoiceStatuses;
 import com.rentit.rest.WebInvoiceResource;
 import java.util.Date;
 
@@ -14,6 +15,14 @@ privileged aspect WebInvoiceResource_Roo_JavaBean {
     
     public void WebInvoiceResource.setId(long id) {
         this.id = id;
+    }
+    
+    public InvoiceStatuses WebInvoiceResource.getStatus() {
+        return this.status;
+    }
+    
+    public void WebInvoiceResource.setStatus(InvoiceStatuses status) {
+        this.status = status;
     }
     
     public float WebInvoiceResource.getPrice() {

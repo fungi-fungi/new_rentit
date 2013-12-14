@@ -4,15 +4,15 @@
 package com.rentit.dto;
 
 import com.rentit.dto.OneDate;
-import java.util.Calendar;
+import java.util.Date;
 
 privileged aspect OneDate_Roo_JavaBean {
     
-    public Calendar OneDate.getDate() {
+    public Date OneDate.getDate() {
         return this.date;
     }
     
-    public void OneDate.setDate(Calendar date) {
+    public void OneDate.setDate(Date date) {
         this.date = date;
     }
     

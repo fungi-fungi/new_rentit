@@ -1,6 +1,6 @@
 package com.rentit.dto;
 
-import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,6 +14,6 @@ public class OneDate {
 	
 	@DateTimeFormat(style = "MM")
 	@Temporal(TemporalType.TIMESTAMP)
-	private Calendar date;
+	private Date date;
 
 }

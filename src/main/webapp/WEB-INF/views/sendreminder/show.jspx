@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:util="urn:jsptagdir:/WEB-INF/tags/util"
+	xmlns:form="http://www.springframework.org/tags/form"
+	xmlns:field="urn:jsptagdir:/WEB-INF/tags/form/fields" version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+	<h3>Send remainder</h3>
+
+	<form:form method="POST" modelAttribute="invoicerem">
+		<c:forEach var="io" items="${io}">
+			<table>
+				<tr>
+					<td>Send</td>
+					<td>PlantName</td>
+					<td>Status</td>
+					<td>Customer</td>
+					<td>Due date</td>
+
+				</tr>
+				<tr>
+					<td><input type="radio" name="invoiceId" value="${io.id}" /></td>
+					<td>${io.plantName}</td>
+					<td>${io.status}</td>
+					<td>${io.clientName}</td>
+					<td>${io.dueDate}</td>
+				</tr>
+			</table>
+
+		</c:forEach>
+		<td colspan="4"><input type="submit" value="Send" /></td>
+	</form:form>
+
+
+</div>

@@ -24,6 +24,7 @@
                 <menu:item id="i_controller__purchaseorders_reviewindex_id" messageCode="global_generic" url="/purchaseorders/review/index" z="BOj0sHxnDor0b5q2WvRvUdrhRhI="/>
                 <menu:item id="i_controller__sendinvoiceindex_id" messageCode="global_generic" url="/sendinvoice/index" z="GhFOsCXeOrIocalYs2FNgVfHhHY="/>
                 <menu:item id="i_controller__deliveryindex_id" messageCode="global_generic" url="/delivery/index" z="k0W9F8eA08CwqErlPiu2wVHT1vY="/>
+                <menu:item id="i_controller__sendreminderindex_id" messageCode="global_generic" url="/sendReminder/index" z="azM/IQcmJrwM0ZzA/PRuljCfFmo="/>
             </menu:category>
         </sec:authorize>
         <sec:authorize ifAllGranted="ROLE_ADMIN">

@@ -35,7 +35,7 @@
 		<tr colspan="4">
 			<form:form method="POST" modelAttribute="querydate">
 
-				<td><field:datetime dateTimePattern = "${plantDelivery_date_format}" field="date" label="Date" id="c_renit_dto_OneDate_Date" /> </td>
+				<td><field:datetime dateTimePattern = "${plantDelivery_date_format}" field="date" label="Date" id="c_renit_dto_OneDate_date" /> </td>
 
 				<td><input type="submit" value="Submit" /></td>
 

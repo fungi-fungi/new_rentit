@@ -10,11 +10,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.roo.addon.javabean.RooJavaBean;
 
+import com.rentit.InvoiceStatuses;
+
 @RooJavaBean
 @XmlRootElement(name = "invoice")
 public class WebInvoiceResource {
 	
 	private long id;
+	
+	private InvoiceStatuses status;
 	
     private float price;
     
