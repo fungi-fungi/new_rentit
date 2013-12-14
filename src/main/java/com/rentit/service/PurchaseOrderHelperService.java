@@ -75,12 +75,9 @@ public class PurchaseOrderHelperService {
 			throw new ResourceNotFoundException("Resource not found");
 		}
 
-		// Get next day after End Date
-		DateTime DayAfterEndDate = new DateTime(po.getEndDate()).plusDays(1);
-
 		// Check if plant is available for requested period
-		if (plantRepository.findIfPlantAvaliable(poResource.getPlantId(),
-				DayAfterEndDate.toDate(), poResource.getEndDate()) != null) {
+		if (plantRepository.findIfPlantAvaliable(poResource.getPlantId(), 
+				po.getEndDate(), poResource.getEndDate()) != null) {
 			throw new PlantUnavailableException(
 					"Plant is unavalible for given period");
 		}

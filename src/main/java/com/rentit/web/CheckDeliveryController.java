@@ -55,7 +55,7 @@ public class CheckDeliveryController {
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
 		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
 
-		
+		addDateTimeFormatPatterns(map);
 
 		OneDate date = new OneDate();
 		
@@ -63,14 +63,14 @@ public class CheckDeliveryController {
 		map.put("po", po);
 		map.put("querydate", date);
 		
-		addDateTimeFormatPatterns(map);
+		
 
 		return "delivery/show";
 	}
 
 	// TODO: fix POST
 	@RequestMapping(method = RequestMethod.POST)
-	public String handlePost(@Valid OneDate date, ModelMap map, HttpServletRequest request) {
+	public String handlePost(@Valid OneDate date, ModelMap map, HttpServletRequest request, HttpServletResponse response) {
 		
 		List<PurchaseOrder> purchaseOrders = poRepository.findPOSByDate(new Date(date.getDate().getTime()), PurchaseOrderStatuses.ACCEPTED);
 		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
