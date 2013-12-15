@@ -9,40 +9,26 @@
 	<jsp:output omit-xml-declaration="yes" />
 	<h3>Purchase order to deliver</h3>
 
-	<h3>Delivery for: ${today}</h3>
-
 	<table>
-		<c:forEach var="po" items="${po}">
+		
 			<tr>
 				<td>Name</td>
 				<td>Customer</td>
 				<td>Destination</td>
 				<td>Start date</td>
 				<td>End date</td>
-				<td>Status</td>
-
 			</tr>
+			
+		<c:forEach var="po" items="${po}">
 			<tr>
 				<td>${po.planName}</td>
 				<td>${po.destination}</td>
 				<td>${po.customer}</td>
 				<td>${po.startDate}</td>
 				<td>${po.endDate}</td>
-				<td>${po.currentStatus}</td>
 			</tr>
 
 		</c:forEach>
-		<tr colspan="4">
-			<form:form method="POST" modelAttribute="querydate">
-
-				<td><field:datetime dateTimePattern = "${plantDelivery_date_format}" field="date" label="Date" id="c_renit_dto_OneDate_date" /> </td>
-
-				<td><input type="submit" value="Submit" /></td>
-
-
-			</form:form>
-
-		</tr>
-
+		
 	</table>
 </div>

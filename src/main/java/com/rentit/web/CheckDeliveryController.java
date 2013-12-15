@@ -1,5 +1,6 @@
 package com.rentit.web;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.rentit.PurchaseOrder;
 import com.rentit.PurchaseOrderStatuses;
 import com.rentit.assembler.WebPurchaseOrderAssembler;
-import com.rentit.dto.OneDate;
 import com.rentit.repository.PurchaseOrderRepository;
 import com.rentit.rest.WebPurchaseOrderResource;
 
@@ -57,33 +57,9 @@ public class CheckDeliveryController {
 
 		addDateTimeFormatPatterns(map);
 
-		OneDate date = new OneDate();
-		
-		map.put("today", new DateTime().toString("dd-MM-yyyy"));
 		map.put("po", po);
-		map.put("querydate", date);
 		
-		
-
 		return "delivery/show";
-	}
-
-	// TODO: fix POST
-	@RequestMapping(method = RequestMethod.POST)
-	public String handlePost(@Valid OneDate date, ModelMap map, HttpServletRequest request, HttpServletResponse response) {
-		
-		List<PurchaseOrder> purchaseOrders = poRepository.findPOSByDate(new Date(date.getDate().getTime()), PurchaseOrderStatuses.ACCEPTED);
-		WebPurchaseOrderAssembler assembler = new WebPurchaseOrderAssembler();
-		List<WebPurchaseOrderResource> po = assembler.toListResource(purchaseOrders);
-
-		addDateTimeFormatPatterns(map);
-
-		map.put("today", new DateTime(date).toString("dd-MM-yyyy"));
-		map.put("po", po);
-		map.put("querydate", new OneDate());
-
-		return "delivery/show"; 
-		
 	}
 
 }
